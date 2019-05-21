@@ -10,8 +10,9 @@ export default createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    color: #666;
-    background: white;
+    color: #efefef;
+    background: #111;
+    font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.8rem;
     line-height: 1.5;
     min-height: 100vh;
