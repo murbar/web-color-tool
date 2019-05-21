@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import colorConvert from '../colorConvert';
+import { animated, interpolate } from 'react-spring';
 
 const Styles = styled.div`
   display: flex;
@@ -15,13 +16,32 @@ const Styles = styled.div`
 `;
 
 export default function ColorValues({ values }) {
-  const rgbString = colorConvert.rgb.toCSS(values.rgb);
-  const hslString = colorConvert.hsl.toCSS(values.hsl);
   return (
     <Styles>
-      <div>{rgbString}</div>
-      <div>{hslString}</div>
-      <div>#{values.hex}</div>
+      <div>
+        RGB
+        <animated.span>
+          {values.rgb.interpolate((...rgb) => {
+            const [r, g, b] = rgb.map(v => Math.round(v));
+            return ` ${r}, ${g}, ${b}`;
+          })}
+        </animated.span>
+      </div>
+      <div>
+        HSL
+        <animated.span>
+          {values.hsl.interpolate((...hsl) => {
+            const [h, s, l] = hsl.map(v => Math.round(v));
+            return ` ${h}, ${s}%, ${l}%`;
+          })}
+        </animated.span>
+      </div>
+      <div>
+        HEX #
+        <animated.span>
+          {values.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
+        </animated.span>
+      </div>
     </Styles>
   );
 }

@@ -6,8 +6,7 @@ import { useSpring, animated } from 'react-spring';
 
 const ColorDisplay = styled(animated.div)`
   height: 45vh;
-  /* background: ${p => p.rgbCSS}; */
-  `;
+`;
 
 export default function Preview({ colorValues }) {
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
@@ -15,9 +14,11 @@ export default function Preview({ colorValues }) {
     background: rgbCSS,
     boxShadow: `0px 0 2rem 0px ${rgbCSS}`
   });
+  const values = useSpring({ rgb: colorValues.rgb, hsl: colorValues.hsl });
+
   return (
     <ColorDisplay style={color}>
-      <ColorValues values={colorValues} />
+      <ColorValues values={values} />
     </ColorDisplay>
   );
 }
