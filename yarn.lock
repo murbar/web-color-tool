@@ -3661,13 +3661,6 @@ dom-converter@~0.2:
   dependencies:
     utila "~0.4"
 
-dom-helpers@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.4.0.tgz#e9b369700f959f62ecde5a6babde4bccd9169af8"
-  integrity sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==
-  dependencies:
-    "@babel/runtime" "^7.1.2"
-
 dom-serializer@0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.1.0.tgz#073c697546ce0780ce23be4a28e293e40bc30c82"
@@ -8545,15 +8538,6 @@ react-spring@^8.0.20:
   dependencies:
     "@babel/runtime" "^7.3.1"
     prop-types "^15.5.8"
-
-react-transition-group@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.0.1.tgz#8cb8d58763e259da465385bb83b3b41b3ecba629"
-  integrity sha512-SsLcBYhO4afXJC9esL8XMxi/y0ZvEc7To0TvtrBELqzpjXQHPZOTxvuPh2/4EhYc0uSMfp2SExIxsyJ0pBdNzg==
-  dependencies:
-    dom-helpers "^3.4.0"
-    loose-envify "^1.4.0"
-    prop-types "^15.6.2"
 
 react@^16.8.6:
   version "16.8.6"
