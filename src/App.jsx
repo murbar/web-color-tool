@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Preview from './components/Preview';
 import Input from './components/Input';
-import convert from './convert';
+import colorConvert from './colorConvert';
 
 const Styles = styled.div``;
 
@@ -30,45 +30,50 @@ const HexInputs = ({ handleChange, colorValues }) => {
   };
   return (
     <>
-      <h2>Hexadecimal</h2>
-      <Input type="text" placeholder="000000" value={value} onChange={onChange} maxLength="6" />
+      Hex <Input type="text" placeholder="000000" value={value} onChange={onChange} maxLength="6" />
       {!inputValid && <p>Invalid hex</p>}
     </>
   );
 };
 
+const deriveColorState = rgbValues => {
+  return {
+    rgb: rgbValues,
+    hsl: colorConvert.rgb.toHsl(rgbValues),
+    hex: colorConvert.rgb.toHex(rgbValues)
+  };
+};
+
+const random8Bit = () => Math.floor(Math.random() * 256);
+
+const randomColorValues = () => deriveColorState([random8Bit(), random8Bit(), random8Bit()]);
+
 function App() {
-  const [colorValues, setColorValues] = useState({
-    hex: '000000',
-    hsl: {
-      H: 0,
-      S: 0,
-      L: 0
-    },
-    rgb: {
-      R: 0,
-      G: 0,
-      B: 0
-    }
-  });
+  const [colorValues, setColorValues] = useState(randomColorValues());
 
-  useEffect(() => {
-    const rgbString = `${colorValues.rgb.R}, ${colorValues.rgb.G}, ${colorValues.rgb.B}`;
-    const hslString = convert.rgb.toHsl(rgbString);
-    const [H, S, L] = convert.hsl.stringToValues(hslString);
-    const hex = convert.rgb.toHex(rgbString);
-    setColorValues(prev => ({ ...prev, hex, hsl: { H, S, L } }));
-  }, [colorValues.rgb]);
+  const setColor = rgbValues => {
+    setColorValues(deriveColorState(rgbValues));
+  };
 
-  const setHex = value => {
-    const [R, G, B] = convert.hex.toRgb(value).split(', ');
-    setColorValues(prev => ({ ...prev, rgb: { R, G, B } }));
+  const randomizeColor = () => {
+    setColorValues(randomColorValues());
+  };
+
+  // useEffect(() => {
+  //   setColorValues(calcValues([R, G, B]));
+  // }, [colorValues.rgb]);
+
+  const setHex = hexValue => {
+    const rgbValues = colorConvert.hex.toRgb(hexValue);
+    setColor(rgbValues);
   };
 
   return (
     <Styles>
-      <h1>Color tool</h1>
-      <Preview rgb={colorValues.rgb} />
+      <h1>Color Multi-tool</h1>
+      <button onClick={randomizeColor}>Randomize</button>
+      <Preview colorValues={colorValues} />
+      <h2>Inputs</h2>
       <HexInputs handleChange={setHex} colorValues={colorValues} />
     </Styles>
   );
