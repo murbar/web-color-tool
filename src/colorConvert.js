@@ -40,7 +40,7 @@ const rgbToHsl = rgbValues => {
 
   const [R, G, B] = rgb;
   const hueMaxChannel = {
-    '0': ((G - B) / chroma) % 6,
+    '0': (G - B) / chroma + (G < B ? 6 : 0),
     '1': (B - R) / chroma + 2,
     '2': (R - G) / chroma + 4
   };
