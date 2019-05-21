@@ -1,32 +1,38 @@
 // 'FFF'/'FFFFFF' -> ['FF', 'FF', 'FF']
-const splitHex = hexString => {
-  if (hexString.length === 3) return [...hexString].map(v => v + v);
+const splitHex = hexValue => {
+  const length = hexValue.length;
 
-  return [hexString.slice(0, 2), hexString.slice(2, 4), hexString.slice(4, 6)];
+  if (length === 3) return [...hexValue].map(v => v + v);
+  if (length === 6) return [hexValue.slice(0, 2), hexValue.slice(2, 4), hexValue.slice(4, 6)];
+
+  throw new Error('Invalid hex value: ', hexValue);
 };
 
-// '255, 255, 255' -> 'FFFFFF'
-const rgbToHex = rgbString => {
-  return rgbString
-    .split(',')
-    .map(n => parseInt(n).toString(16))
+// [255, 255, 255] -> 'FFFFFF'
+const rgbToHex = rgbValues => {
+  return rgbValues
+    .map(n =>
+      parseInt(n)
+        .toString(16)
+        .padStart(2, '0')
+    )
     .join('')
     .toUpperCase();
 };
 
-// '255, 255, 255' -> '0, 0%, 100%'
+// [255, 255, 255] -> [0, 0, 100]
 // https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB
 // https://stackoverflow.com/questions/39118528/rgb-to-hsl-conversion
 // https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
-const rgbToHsl = rgbString => {
+const rgbToHsl = rgbValues => {
   // convert to value between 0 and 1
-  const rgb = rgbString.split(',').map(n => parseInt(n) / 255);
+  const rgb = rgbValues.map(n => parseInt(n) / 255);
   const [min, max] = [Math.min(...rgb), Math.max(...rgb)];
   const L = (min + max) / 2;
   const lum = Math.round(L * 100);
 
   // no sat, so no hue, we have a shade of gray
-  if (max === min) return `0, 0%, ${lum}%`;
+  if (max === min) return [0, 0, lum];
 
   const chroma = max - min;
   const S = chroma / (1 - Math.abs(2 * L - 1));
@@ -41,32 +47,30 @@ const rgbToHsl = rgbString => {
   const H = hueMaxChannel[rgb.indexOf(max)];
   const hue = Math.round(H * 60);
 
-  return `${hue}, ${sat}%, ${lum}%`;
+  return [hue, sat, lum];
 };
 
-// 'FFF'/'FFFFFF' -> '255, 255, 255'
-const hexToRgb = hexString => {
-  return splitHex(hexString)
-    .map(n => parseInt(n, 16))
-    .join(', ');
+// 'FFF'/'FFFFFF' -> [255, 255, 255]
+const hexToRgb = hexValue => {
+  return splitHex(hexValue).map(h => parseInt(h, 16));
 };
 
-// 'FFF'/'FFFFFF' -> '0, 0%, 100%'
-const hexToHsl = hexString => {
-  const rgb = hexToRgb(hexString);
-  return rgbToHsl(rgb);
+// 'FFF'/'FFFFFF' -> [0, 0, 100]
+const hexToHsl = hexValue => {
+  const rgbValues = hexToRgb(hexValue);
+  return rgbToHsl(rgbValues);
 };
 
-const hslStringToValues = hslString => {
-  const re = /(\d+),\s*([\d.]+)%,\s*([\d.]+)%/g;
-  const [, H, S, L] = re.exec(hslString);
-  return [H, S, L];
-};
+// const hslStringToValues = hslString => {
+//   const re = /(\d+),\s*([\d.]+)%,\s*([\d.]+)%/g;
+//   const [, H, S, L] = re.exec(hslString);
+//   return [H, S, L];
+// };
 
 // '0, 0%, 100%' -> '255, 255, 255'
 // https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
-const hslToRgb = hslString => {
-  let [H, S, L] = hslStringToValues(hslString);
+const hslToRgb = hslValues => {
+  let [H, S, L] = hslValues;
 
   const sat = S / 100;
   const lum = L / 100;
@@ -75,7 +79,7 @@ const hslToRgb = hslString => {
   // no sat, so no hue, we have a shade of gray
   if (sat === 0) {
     const v = 255 * lum;
-    return `${v}, ${v}, ${v}`;
+    return [v, v, v];
   }
 
   // intermediate calculations
@@ -94,30 +98,43 @@ const hslToRgb = hslString => {
     return y;
   };
 
-  return protoRBG
-    .map(calcValue)
-    .map(v => Math.round(v * 255))
-    .join(', ');
+  return protoRBG.map(calcValue).map(v => Math.round(v * 255));
 };
 
-// '0, 0%, 100%' -> 'ffffff'
-const hslToHex = hslString => {
-  const rgb = hslToRgb(hslString);
-  return rgbToHex(rgb);
+// [0, 0, 100] -> 'ffffff'
+const hslToHex = hslValues => {
+  const rgbValues = hslToRgb(hslValues);
+  return rgbToHex(rgbValues);
+};
+
+const hslValuesToCSS = hslValues => {
+  const [H, S, L] = hslValues;
+  return `hsl(${H}, ${S}%, ${L}%)`;
+};
+
+const rgbValuesToCSS = rgbValues => {
+  const [R, G, B] = rgbValues;
+  return `rgb(${R}, ${G}, ${B})`;
+};
+
+const hexValuesToCSS = hexValue => {
+  return `#${hexValue}`;
 };
 
 export default {
   rgb: {
     toHex: rgbToHex,
-    toHsl: rgbToHsl
+    toHsl: rgbToHsl,
+    toCSS: rgbValuesToCSS
   },
   hsl: {
     toRgb: hslToRgb,
     toHex: hslToHex,
-    stringToValues: hslStringToValues
+    toCSS: hslValuesToCSS
   },
   hex: {
     toRgb: hexToRgb,
-    toHsl: hexToHsl
+    toHsl: hexToHsl,
+    toCSS: hexValuesToCSS
   }
 };
