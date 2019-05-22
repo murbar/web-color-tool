@@ -9,8 +9,14 @@ const Styles = styled.div`
 const Footer = () => {
   return (
     <Styles>
-      Made with ❤️ and React by <a href="http://joelb.dev">Joel Bartlett</a>
-      <br /> <a href="#github">Check out the code</a>
+      Made with ❤️ and React by{' '}
+      <a href="https://joelb.dev" title="Joel Bartlett's portfolio">
+        Joel Bartlett
+      </a>
+      <br />{' '}
+      <a href="https://github.com/murbar/color-converter" title="See the code on GitHub">
+        Check out the code
+      </a>
     </Styles>
   );
 };
