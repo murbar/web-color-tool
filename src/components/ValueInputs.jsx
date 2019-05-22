@@ -19,6 +19,7 @@ const Styles = styled.div`
 const Inputs = ({ setColor, colorValues }) => {
   return (
     <Styles>
+      <h2>Inputs</h2>
       <RgbForm setColor={setColor} colorValues={colorValues} />
       <HslForm setColor={setColor} colorValues={colorValues} />
       <HexForm setColor={setColor} colorValues={colorValues} />

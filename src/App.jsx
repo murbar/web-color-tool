@@ -4,27 +4,20 @@ import styled from 'styled-components';
 import media from './styles/media';
 import Preview from './components/Preview';
 import colorConvert from './colorConvert';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import ThemeSwitch from './components/ThemeSwitch';
-import Inputs from './components/ValueInputs';
+import ValueInputs from './components/ValueInputs';
 import Button from './components/common/Button';
 import useDocumentTitle from './hooks/useDocumentTitle';
 
-const AppWrapper = styled.div`
+const Wrapper = styled.div`
   padding: 0 2rem 3rem;
   max-width: 100rem;
   margin: 0 auto;
   ${media.tablet`
       padding: 0 4rem 3rem;
     `}
-`;
-
-const AppHeader = () => {
-  return <h1>Color Converter RGB/HSL/HEX</h1>;
-};
-
-const Footer = styled.div`
-  padding: 2rem 0;
-  text-align: center;
 `;
 
 const Controls = styled.div`
@@ -79,20 +72,16 @@ function App({ location, toggleTheme, darkMode }) {
   };
 
   return (
-    <AppWrapper>
-      <AppHeader />
+    <Wrapper>
+      <Header />
       <Controls>
         <ThemeSwitch onToggle={toggleTheme} toggled={darkMode} />
         <Button onClick={randomizeColor}>Randomize</Button>
       </Controls>
       <Preview colorValues={colorValues} />
-      <h2>Inputs</h2>
-      <Inputs setColor={setColor} colorValues={colorValues} />
-      <Footer>
-        Made with ❤️ and React by <a href="http://joelb.dev">Joel Bartlett</a>
-        <br /> <a href="#github">Check out the code</a>
-      </Footer>
-    </AppWrapper>
+      <ValueInputs setColor={setColor} colorValues={colorValues} />
+      <Footer />
+    </Wrapper>
   );
 }
 
