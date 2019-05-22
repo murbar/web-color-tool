@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Input from './Input';
 
 const Styles = styled(Input)`
-  width: calc(6ch + 1em);
+  width: calc(3ch + 1em);
 `;
 
 // 0..100 with leading zeros
@@ -14,9 +14,9 @@ const HectoInput = props => {
   const { name, value, onChange } = props;
 
   const handleChange = e => {
-    const { value } = e.target;
+    const { value, name } = e.target;
     if (hectoMatch.test(value) || value === '') {
-      onChange(e, parseInt(value) || 0);
+      onChange(e, parseInt(value) || 0, name);
     }
   };
 
