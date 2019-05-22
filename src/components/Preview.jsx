@@ -5,7 +5,7 @@ import ColorValues from './ColorValues';
 import { useSpring, animated } from 'react-spring';
 
 const ColorDisplay = styled(animated.div)`
-  height: 45vh;
+  height: 40vh;
   border-radius: 0.5em;
 `;
 
