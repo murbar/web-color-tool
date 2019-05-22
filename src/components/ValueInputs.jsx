@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import styled from 'styled-components';
-import Input from './common/Input';
 import ByteInput from './common/ByteInput';
 import colorConvert from '../colorConvert';
 import DegreeInput from './common/DegreeInput';
 import HectoInput from './common/HectoInput';
+import HexInput from './common/HexInput';
 
 const RgbInputs = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator
@@ -66,59 +66,43 @@ const HslInputs = ({ setColor, colorValues }) => {
   );
 };
 
-const HexInputs = ({ setColor, colorValues }) => {
-  // validate 3 or 6 chars, all 0-F
-  const [inputValid, setInputValid] = useState(true);
-  const [value, setValue] = useState('');
+const HexForm = ({ setColor, colorValues }) => {
+  const [hexValue, setHexValue] = useState('');
+  const [inputError, setInputError] = useState(false);
 
   useEffect(() => {
-    setValue(colorValues.hex);
+    setHexValue(colorValues.hex);
   }, [colorValues.hex]);
 
-  const re = /^([0-9a-f]{3}|[0-9a-f]{6})$/i;
-
-  const onChange = e => {
-    const v = e.target.value.replace(/#/, '');
-    console.log(e.persist());
-    setInputValid(true);
-    const validValue = re.test(v);
-    if (!validValue) {
-      // setInputValid(false);
-    } else {
-      setValue(prev => {
-        // const rgbValues = colorConvert.hex.toRgb(value);
-        // if (v.length === 6) setColor(rgbValues);
-        return v;
-      });
-    }
-  };
-
-  const listenForEnterKey = e => {
-    if (e.key === 'Enter') console.log('fire enter!');
+  const onChange = (e, value, name) => {
+    setHexValue(() => {
+      if (value.length === 6) {
+        setInputError(false);
+        const rgbValues = colorConvert.hex.toRgb(value);
+        setColor(rgbValues);
+      } else {
+        setInputError(true);
+      }
+      return value;
+    });
   };
 
   return (
     <div>
       <label>HEX</label>
-      <Input
-        type="text"
-        placeholder="FFFFFF"
-        value={value}
-        onChange={onChange}
-        onKeyPress={listenForEnterKey}
-        maxLength="6"
-      />
-      {!inputValid && <p>Invalid hex</p>}
+      <HexInput name="hex" value={hexValue} onChange={onChange} error={inputError} />
     </div>
   );
 };
 
-export default function Inputs({ setColor, colorValues }) {
+const Inputs = ({ setColor, colorValues }) => {
   return (
     <div>
-      <HexInputs setColor={setColor} colorValues={colorValues} />
+      <HexForm setColor={setColor} colorValues={colorValues} />
       <RgbInputs setColor={setColor} colorValues={colorValues} />
       <HslInputs setColor={setColor} colorValues={colorValues} />
     </div>
   );
-}
+};
+
+export default Inputs;
