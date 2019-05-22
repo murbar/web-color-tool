@@ -61,12 +61,6 @@ const hexToHsl = hexValue => {
   return rgbToHsl(rgbValues);
 };
 
-// const hslStringToValues = hslString => {
-//   const re = /(\d+),\s*([\d.]+)%,\s*([\d.]+)%/g;
-//   const [, H, S, L] = re.exec(hslString);
-//   return [H, S, L];
-// };
-
 // '0, 0%, 100%' -> '255, 255, 255'
 // https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 const hslToRgb = hslValues => {
@@ -98,7 +92,7 @@ const hslToRgb = hslValues => {
     return y;
   };
 
-  return protoRBG.map(calcValue).map(v => Math.round(v * 255));
+  return protoRBG.map(calcValue).map(v => Math.round(255 * v));
 };
 
 // [0, 0, 100] -> 'ffffff'
