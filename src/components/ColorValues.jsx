@@ -12,6 +12,7 @@ const Styles = styled.div`
     line-height: 1;
     font-family: 'Source Code Pro', monospace;
     background: ${p => p.theme.overlayColor};
+    color: ${p => p.theme.backgroundColor};
     border-radius: 0.5em;
   }
 `;
