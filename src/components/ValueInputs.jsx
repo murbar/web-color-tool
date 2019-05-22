@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import Input from './common/Input';
 import ByteInput from './common/ByteInput';
 import colorConvert from '../colorConvert';
@@ -30,6 +30,35 @@ const RgbInputs = ({ setColor, colorValues }) => {
       <ByteInput name="g" value={rgbValues.g} onChange={onChange} />
       <label>B</label>
       <ByteInput name="b" value={rgbValues.b} onChange={onChange} />
+    </div>
+  );
+};
+
+const HslInputs = ({ setColor, colorValues }) => {
+  const [hslValues, setHslValues] = useState({ h: 0, s: 0, s: 0 });
+
+  useEffect(() => {
+    const [h, s, l] = colorValues.hsl;
+    setHslValues({ h, s, l });
+  }, [colorValues.hsl]);
+
+  const onChange = (e, value, name) => {
+    setHslValues(prev => {
+      const newValues = { ...prev, [name]: value };
+      const rgbValues = colorConvert.hsl.toRgb(newValues);
+      setColor(rgbValues);
+      return newValues;
+    });
+  };
+
+  return (
+    <div>
+      <label>H</label>
+      <ByteInput name="h" value={hslValues.h} onChange={onChange} />
+      <label>S</label>
+      <ByteInput name="s" value={hslValues.s} onChange={onChange} />
+      <label>L</label>
+      <ByteInput name="l" value={hslValues.l} onChange={onChange} />
     </div>
   );
 };
@@ -86,7 +115,7 @@ export default function Inputs({ setColor, colorValues }) {
     <div>
       <HexInputs setColor={setColor} colorValues={colorValues} />
       <RgbInputs setColor={setColor} colorValues={colorValues} />
-      {/* <HslInputs setColor={setColor} colorValues={colorValues} /> */}
+      <HslInputs setColor={setColor} colorValues={colorValues} />
     </div>
   );
 }
