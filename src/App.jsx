@@ -57,7 +57,7 @@ function App({ location, toggleTheme, darkMode }) {
   const initialState = parseLocation(location);
   const [colorValues, setColorValues] = useState(initialState);
 
-  useDocumentTitle(`Color Multi-tool - #${colorValues.hex}`);
+  useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
 
   const setColor = rgbValues => {
     const [r, g, b] = rgbValues;
@@ -70,7 +70,7 @@ function App({ location, toggleTheme, darkMode }) {
 
   return (
     <AppWrapper>
-      <h1>Color Multi-tool</h1>
+      <h1>Color Converter - RGB/HSL/HEX</h1>
       <Controls>
         <ThemeSwitch onToggle={toggleTheme} toggled={darkMode} />
         <Button onClick={randomizeColor}>Randomize</Button>
