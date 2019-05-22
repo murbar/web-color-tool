@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const errorState = css`
-  box-shadow: 0 0 0 0.1em inset rgba(200, 20, 60, 0.8);
+  box-shadow: 0 0 0 0.2rem inset rgba(200, 20, 60, 0.8), 0 0 0 0.2rem ${p => p.theme.highlightColor};
 `;
 
 export default styled.input`
@@ -13,5 +13,9 @@ export default styled.input`
   padding: 0.25em 0.5em;
   text-align: right;
   border-radius: 0.5em;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
+  }
   ${p => p.error && errorState}
 `;
