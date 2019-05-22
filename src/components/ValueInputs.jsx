@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from './common/Input';
+import ByteInput from './common/ByteInput';
 import colorConvert from '../colorConvert';
 
 const RgbInputs = ({ setColor, colorValues }) => {
@@ -12,61 +13,23 @@ const RgbInputs = ({ setColor, colorValues }) => {
     setRgbValues({ r, g, b });
   }, [colorValues.rgb]);
 
-  // useEffect(() => {
-  //   console.log(rgbValues);
-  // }, [rgbValues]);
-
-  const byteRe = /^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/;
-
-  const onChange = e => {
-    const { value, name } = e.target;
-    if (byteRe.test(value)) {
-      setRgbValues(prev => {
-        const newValues = { ...prev, [name]: parseInt(value) };
-        const { r, g, b } = newValues;
-        setColor([r, g, b]);
-        return newValues;
-      });
-    } else if (value === '') {
-      // TODO consolidate this with above function
-      setRgbValues(prev => {
-        const newValues = { ...prev, [name]: 0 };
-        const { r, g, b } = newValues;
-        setColor([r, g, b]);
-        return newValues;
-      });
-    }
+  const onChange = (e, value, name) => {
+    setRgbValues(prev => {
+      const newValues = { ...prev, [name]: value };
+      const { r, g, b } = newValues;
+      setColor([r, g, b]);
+      return newValues;
+    });
   };
 
   return (
     <div>
       <label>R</label>
-      <Input
-        type="text"
-        placeholder="255"
-        name="r"
-        value={rgbValues.r}
-        onChange={onChange}
-        maxLength="3"
-      />
+      <ByteInput name="r" value={rgbValues.r} onChange={onChange} />
       <label>G</label>
-      <Input
-        type="text"
-        placeholder="255"
-        name="g"
-        value={rgbValues.g}
-        onChange={onChange}
-        maxLength="3"
-      />
+      <ByteInput name="g" value={rgbValues.g} onChange={onChange} />
       <label>B</label>
-      <Input
-        type="text"
-        placeholder="255"
-        name="b"
-        value={rgbValues.b}
-        onChange={onChange}
-        maxLength="3"
-      />
+      <ByteInput name="b" value={rgbValues.b} onChange={onChange} />
     </div>
   );
 };
