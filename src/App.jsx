@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Preview from './components/Preview';
 import colorConvert from './colorConvert';
+import ThemeSwitch from './components/ThemeSwitch';
 import Inputs from './components/ValueInputs';
 import Button from './components/common/Button';
-import { withRouter } from 'react-router-dom';
+import useDocumentTitle from './hooks/useDocumentTitle';
 
 const AppWrapper = styled.div`
   padding: 0 2rem 3rem;
 `;
 
-const Randomizer = styled(Button)`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+const Controls = styled.div`
+  margin: 1rem 0;
+  button {
+    font-size: 0.8em;
+  }
 `;
 
 const deriveColorState = rgbValues => {
@@ -45,14 +48,15 @@ const parseLocation = location => {
   }
 };
 
-function App({ location }) {
+function App({ location, toggleTheme, darkMode }) {
   const initialState = parseLocation(location);
   const [colorValues, setColorValues] = useState(initialState);
 
-  useEffect(() => console.log(colorValues), [colorValues]);
+  useDocumentTitle(`Color Multi-tool - #${colorValues.hex}`);
 
   const setColor = rgbValues => {
-    setColorValues(deriveColorState(rgbValues));
+    const [r, g, b] = rgbValues;
+    setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
   };
 
   const randomizeColor = () => {
@@ -62,7 +66,10 @@ function App({ location }) {
   return (
     <AppWrapper>
       <h1>Color Multi-tool</h1>
-      <Randomizer onClick={randomizeColor}>Randomize</Randomizer>
+      <Controls>
+        <ThemeSwitch onToggle={toggleTheme} toggled={darkMode} />
+        <Button onClick={randomizeColor}>Randomize</Button>
+      </Controls>
       <Preview colorValues={colorValues} />
       <h2>Inputs</h2>
       <Inputs setColor={setColor} colorValues={colorValues} />

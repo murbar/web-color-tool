@@ -1,23 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import Button from './common/Button';
 
-const Styles = styled.div`
-  position: absolute;
-  z-index: 100;
-  top: 1rem;
-  left: 1rem;
-  input {
-    margin: 0;
-    display: block;
-  }
-`;
+// const Styles = styled.div``;
 
-const ThemeSwitch = ({ onToggle }) => {
-  return (
-    <Styles>
-      <input type="checkbox" onChange={onToggle} />
-    </Styles>
-  );
+const ThemeSwitch = ({ onToggle, toggled }) => {
+  return <Button onClick={onToggle}>{toggled ? 'Light' : 'Dark'} mode</Button>;
 };
 
 export default ThemeSwitch;
