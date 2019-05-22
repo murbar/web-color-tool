@@ -14,9 +14,9 @@ const DegreeInput = props => {
   const { name, value, onChange } = props;
 
   const handleChange = e => {
-    const { value } = e.target;
+    const { value, name } = e.target;
     if (degreeMatch.test(value) || value === '') {
-      onChange(e, parseInt(value) || 0);
+      onChange(e, parseInt(value) || 0, name);
     }
   };
 
