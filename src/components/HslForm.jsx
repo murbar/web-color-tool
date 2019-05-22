@@ -23,11 +23,9 @@ const HslForm = ({ setColor, colorValues }) => {
 
   return (
     <div>
-      <label>H</label>
+      <label>HSL</label>
       <DegreeInput name="h" value={hslValues.h} onChange={onChange} />
-      <label>S</label>
       <HectoInput name="s" value={hslValues.s} onChange={onChange} />
-      <label>L</label>
       <HectoInput name="l" value={hslValues.l} onChange={onChange} />
     </div>
   );

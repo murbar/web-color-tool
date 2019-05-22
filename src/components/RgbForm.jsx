@@ -21,11 +21,9 @@ const RgbForm = ({ setColor, colorValues }) => {
 
   return (
     <div>
-      <label>R</label>
+      <label>RGB</label>
       <ByteInput name="r" value={rgbValues.r} onChange={onChange} />
-      <label>G</label>
       <ByteInput name="g" value={rgbValues.g} onChange={onChange} />
-      <label>B</label>
       <ByteInput name="b" value={rgbValues.b} onChange={onChange} />
     </div>
   );
