@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Input from './common/Input';
 import ByteInput from './common/ByteInput';
 import colorConvert from '../colorConvert';
+import DegreeInput from './common/DegreeInput';
+import HectoInput from './common/HectoInput';
 
 const RgbInputs = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator
@@ -35,7 +37,7 @@ const RgbInputs = ({ setColor, colorValues }) => {
 };
 
 const HslInputs = ({ setColor, colorValues }) => {
-  const [hslValues, setHslValues] = useState({ h: 0, s: 0, s: 0 });
+  const [hslValues, setHslValues] = useState({ h: 0, s: 0, l: 0 });
 
   useEffect(() => {
     const [h, s, l] = colorValues.hsl;
@@ -45,7 +47,8 @@ const HslInputs = ({ setColor, colorValues }) => {
   const onChange = (e, value, name) => {
     setHslValues(prev => {
       const newValues = { ...prev, [name]: value };
-      const rgbValues = colorConvert.hsl.toRgb(newValues);
+      const { h, s, l } = newValues;
+      const rgbValues = colorConvert.hsl.toRgb([h, s, l]);
       setColor(rgbValues);
       return newValues;
     });
@@ -54,11 +57,11 @@ const HslInputs = ({ setColor, colorValues }) => {
   return (
     <div>
       <label>H</label>
-      <ByteInput name="h" value={hslValues.h} onChange={onChange} />
+      <DegreeInput name="h" value={hslValues.h} onChange={onChange} />
       <label>S</label>
-      <ByteInput name="s" value={hslValues.s} onChange={onChange} />
+      <HectoInput name="s" value={hslValues.s} onChange={onChange} />
       <label>L</label>
-      <ByteInput name="l" value={hslValues.l} onChange={onChange} />
+      <HectoInput name="l" value={hslValues.l} onChange={onChange} />
     </div>
   );
 };
