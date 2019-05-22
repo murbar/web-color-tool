@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 `;
 
 const Controls = styled.div`
-  margin: 1rem 0;
+  margin: -1rem 0 2rem;
   button {
     font-size: 0.8em;
   }
