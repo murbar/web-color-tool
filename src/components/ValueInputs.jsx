@@ -6,7 +6,7 @@ import DegreeInput from './common/DegreeInput';
 import HectoInput from './common/HectoInput';
 import HexInput from './common/HexInput';
 
-const RgbInputs = ({ setColor, colorValues }) => {
+const RgbForm = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator
   const [rgbValues, setRgbValues] = useState({ r: 0, g: 0, b: 0 });
 
@@ -36,7 +36,7 @@ const RgbInputs = ({ setColor, colorValues }) => {
   );
 };
 
-const HslInputs = ({ setColor, colorValues }) => {
+const HslForm = ({ setColor, colorValues }) => {
   const [hslValues, setHslValues] = useState({ h: 0, s: 0, l: 0 });
 
   useEffect(() => {
@@ -99,8 +99,8 @@ const Inputs = ({ setColor, colorValues }) => {
   return (
     <div>
       <HexForm setColor={setColor} colorValues={colorValues} />
-      <RgbInputs setColor={setColor} colorValues={colorValues} />
-      <HslInputs setColor={setColor} colorValues={colorValues} />
+      <RgbForm setColor={setColor} colorValues={colorValues} />
+      <HslForm setColor={setColor} colorValues={colorValues} />
     </div>
   );
 };
