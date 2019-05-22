@@ -5,8 +5,8 @@ const errorState = css`
 `;
 
 export default styled.input`
-  background: #333;
-  color: #efefef;
+  background: ${p => p.theme.inputColor};
+  color: ${p => p.theme.textColor};
   font-family: 'Source Code Pro', monospace;
   border: 0;
   font-size: 2rem;
