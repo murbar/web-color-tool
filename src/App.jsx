@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import media from './styles/media';
 import Preview from './components/Preview';
 import colorConvert from './colorConvert';
 import ThemeSwitch from './components/ThemeSwitch';
@@ -10,6 +11,11 @@ import useDocumentTitle from './hooks/useDocumentTitle';
 
 const AppWrapper = styled.div`
   padding: 0 2rem 3rem;
+  max-width: 100rem;
+  margin: 0 auto;
+  ${media.tablet`
+      padding: 0 4rem 3rem;
+    `}
 `;
 
 const AppHeader = () => {
@@ -17,7 +23,7 @@ const AppHeader = () => {
 };
 
 const Footer = styled.div`
-  padding: 2rem;
+  padding: 2rem 0;
   text-align: center;
 `;
 

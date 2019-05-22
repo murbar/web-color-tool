@@ -7,7 +7,7 @@ const sizes = {
 };
 
 // Iterate through the sizes and create a media template
-export default Object.keys(sizes).reduce((acc, label) => {
+const breakpoints = Object.keys(sizes).reduce((acc, label) => {
   acc[label] = (...args) => css`
     @media (min-width: ${sizes[label] / 16}rem) {
       ${css(...args)}
@@ -15,3 +15,11 @@ export default Object.keys(sizes).reduce((acc, label) => {
   `;
   return acc;
 }, {});
+
+breakpoints.tall = (...args) => css`
+  @media (min-height: 44rem) {
+    ${css(...args)}
+  }
+`;
+
+export default breakpoints;

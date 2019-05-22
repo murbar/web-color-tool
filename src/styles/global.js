@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import media from './media';
 
 export default createGlobalStyle`
   * { 
@@ -13,9 +14,12 @@ export default createGlobalStyle`
     color: ${p => p.theme.textColor};
     background: ${p => p.theme.backgroundColor};;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     line-height: 1.5;
     min-height: 100vh;
+    ${media.tablet`
+      font-size: 1.8rem;
+    `}
   }
   a {
     color: inherit;
