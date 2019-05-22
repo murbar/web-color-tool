@@ -78,7 +78,7 @@ const hslToRgb = hslValues => {
 
   // no sat, so no hue, we have a shade of gray
   if (sat === 0) {
-    const v = 255 * lum;
+    const v = Math.round(255 * lum);
     return [v, v, v];
   }
 
