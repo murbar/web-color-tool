@@ -17,4 +17,9 @@ export default createGlobalStyle`
     line-height: 1.5;
     min-height: 100vh;
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+    box-shadow: inset 0 -0.1em 0 0 ${p => p.theme.textColor};
+  }
 `;

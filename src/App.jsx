@@ -12,6 +12,11 @@ const AppWrapper = styled.div`
   padding: 0 2rem 3rem;
 `;
 
+const Footer = styled.div`
+  padding: 2rem;
+  text-align: center;
+`;
+
 const Controls = styled.div`
   margin: 1rem 0;
   button {
@@ -73,6 +78,10 @@ function App({ location, toggleTheme, darkMode }) {
       <Preview colorValues={colorValues} />
       <h2>Inputs</h2>
       <Inputs setColor={setColor} colorValues={colorValues} />
+      <Footer>
+        Made with ❤️ and React by <a href="http://joelb.dev">Joel Bartlett</a>
+        <br /> <a href="#github">Check out the code</a>
+      </Footer>
     </AppWrapper>
   );
 }
