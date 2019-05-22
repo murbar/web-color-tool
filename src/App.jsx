@@ -12,6 +12,10 @@ const AppWrapper = styled.div`
   padding: 0 2rem 3rem;
 `;
 
+const AppHeader = () => {
+  return <h1>Color Converter RGB/HSL/HEX</h1>;
+};
+
 const Footer = styled.div`
   padding: 2rem;
   text-align: center;
@@ -70,7 +74,7 @@ function App({ location, toggleTheme, darkMode }) {
 
   return (
     <AppWrapper>
-      <h1>Color Converter - RGB/HSL/HEX</h1>
+      <AppHeader />
       <Controls>
         <ThemeSwitch onToggle={toggleTheme} toggled={darkMode} />
         <Button onClick={randomizeColor}>Randomize</Button>
