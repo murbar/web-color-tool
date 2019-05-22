@@ -1,11 +1,12 @@
-// 'FFF'/'FFFFFF' -> ['FF', 'FF', 'FF']
+// 'fff'/'FFFFFF' -> ['FF', 'FF', 'FF']
 const splitHex = hexValue => {
-  const length = hexValue.length;
+  const val = hexValue.toUpperCase();
+  const length = val.length;
 
-  if (length === 3) return [...hexValue].map(v => v + v);
-  if (length === 6) return [hexValue.slice(0, 2), hexValue.slice(2, 4), hexValue.slice(4, 6)];
+  if (length === 3) return [...val].map(v => v + v);
+  if (length === 6) return [val.slice(0, 2), val.slice(2, 4), val.slice(4, 6)];
 
-  throw new Error('Invalid hex value: ', hexValue);
+  throw new Error(`Invalid hex value "${hexValue}"`);
 };
 
 // [255, 255, 255] -> 'FFFFFF'
@@ -129,6 +130,7 @@ export default {
   hex: {
     toRgb: hexToRgb,
     toHsl: hexToHsl,
-    toCSS: hexValuesToCSS
+    toCSS: hexValuesToCSS,
+    normalize: hex => splitHex(hex).join('')
   }
 };
