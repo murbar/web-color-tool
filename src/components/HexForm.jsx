@@ -10,7 +10,7 @@ const HexForm = ({ setColor, colorValues }) => {
     setHexValue(colorValues.hex);
   }, [colorValues.hex]);
 
-  const onChange = (e, value, name) => {
+  const handleChange = (e, value, name) => {
     setHexValue(() => {
       if (value.length === 6) {
         setInputError(false);
@@ -23,10 +23,18 @@ const HexForm = ({ setColor, colorValues }) => {
     });
   };
 
+  const handleFocus = e => e.target.select();
+
   return (
     <div>
       <label>HEX</label>
-      <HexInput name="hex" value={hexValue} onChange={onChange} error={inputError} />
+      <HexInput
+        name="hex"
+        value={hexValue}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        error={inputError}
+      />
     </div>
   );
 };

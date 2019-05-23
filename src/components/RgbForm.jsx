@@ -10,7 +10,7 @@ const RgbForm = ({ setColor, colorValues }) => {
     setRgbValues({ r, g, b });
   }, [colorValues.rgb]);
 
-  const onChange = (e, value, name) => {
+  const handleChange = (e, value, name) => {
     setRgbValues(prev => {
       const newValues = { ...prev, [name]: value };
       const { r, g, b } = newValues;
@@ -19,12 +19,14 @@ const RgbForm = ({ setColor, colorValues }) => {
     });
   };
 
+  const handleFocus = e => e.target.select();
+
   return (
     <div>
       <label>RGB</label>
-      <ByteInput name="r" value={rgbValues.r} onChange={onChange} />
-      <ByteInput name="g" value={rgbValues.g} onChange={onChange} />
-      <ByteInput name="b" value={rgbValues.b} onChange={onChange} />
+      <ByteInput name="r" value={rgbValues.r} onFocus={handleFocus} onChange={handleChange} />
+      <ByteInput name="g" value={rgbValues.g} onFocus={handleFocus} onChange={handleChange} />
+      <ByteInput name="b" value={rgbValues.b} onFocus={handleFocus} onChange={handleChange} />
     </div>
   );
 };

@@ -11,7 +11,7 @@ const HslForm = ({ setColor, colorValues }) => {
     setHslValues({ h, s, l });
   }, [colorValues.hsl]);
 
-  const onChange = (e, value, name) => {
+  const handleChange = (e, value, name) => {
     setHslValues(prev => {
       const newValues = { ...prev, [name]: value };
       const { h, s, l } = newValues;
@@ -21,12 +21,14 @@ const HslForm = ({ setColor, colorValues }) => {
     });
   };
 
+  const handleFocus = e => e.target.select();
+
   return (
     <div>
       <label>HSL</label>
-      <DegreeInput name="h" value={hslValues.h} onChange={onChange} />
-      <HectoInput name="s" value={hslValues.s} onChange={onChange} />
-      <HectoInput name="l" value={hslValues.l} onChange={onChange} />
+      <DegreeInput name="h" value={hslValues.h} onFocus={handleFocus} onChange={handleChange} />
+      <HectoInput name="s" value={hslValues.s} onFocus={handleFocus} onChange={handleChange} />
+      <HectoInput name="l" value={hslValues.l} onFocus={handleFocus} onChange={handleChange} />
     </div>
   );
 };
