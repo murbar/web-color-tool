@@ -58,6 +58,9 @@ const parseLocation = location => {
   }
 };
 
+ReactGA.initialize('UA-140727716-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 function App({ location, toggleTheme, darkMode }) {
   const initialState = parseLocation(location);
   const [colorValues, setColorValues] = useState(initialState);

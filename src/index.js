@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import ReactGA from 'react-ga';
 import GlobalStyles from './styles/global';
 import { dark, light } from './styles/themes';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
-
-ReactGA.initialize('UA-140727716-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 const Root = () => {
   const [darkThemeToggle, setDarkThemeToggle] = useState(true);
