@@ -26,4 +26,17 @@ export default createGlobalStyle`
     text-decoration: none;
     box-shadow: inset 0 -0.1em 0 0 ${p => p.theme.textColor};
   }
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0; 
+  }
+  input[type='number'] {
+      -moz-appearance:textfield;
+  }
+  input::selection {
+    background: ${p => p.theme.highlightColor}
+  }
 `;
