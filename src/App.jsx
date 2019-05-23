@@ -59,7 +59,6 @@ const parseLocation = location => {
 };
 
 ReactGA.initialize('UA-140727716-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App({ location, toggleTheme, darkMode }) {
   const initialState = parseLocation(location);
@@ -86,6 +85,10 @@ function App({ location, toggleTheme, darkMode }) {
   React.useEffect(() => {
     if (rKeyPress) randomizeColor();
   }, [rKeyPress]);
+
+  React.useEffect(() => {
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
 
   return (
     <Wrapper>
