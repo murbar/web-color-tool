@@ -26,7 +26,8 @@ const HectoInput = props => {
       name={name}
       value={value}
       onChange={handleChange}
-      type="text"
+      type="number"
+      pattern="\d*"
       placeholder="100"
       maxLength="3"
     />

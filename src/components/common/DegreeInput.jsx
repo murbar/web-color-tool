@@ -26,7 +26,8 @@ const DegreeInput = props => {
       name={name}
       value={value}
       onChange={handleChange}
-      type="text"
+      type="number"
+      pattern="\d*"
       placeholder="360"
       maxLength="3"
     />

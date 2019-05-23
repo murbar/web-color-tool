@@ -30,6 +30,7 @@ const HexInput = props => {
       value={value}
       onChange={handleChange}
       type="text"
+      pattern="[a-fA-F\d]+"
       placeholder="FFFFFF"
       maxLength="6"
     />
