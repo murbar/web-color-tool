@@ -9,7 +9,11 @@ const Styles = styled.div`
 const Footer = () => {
   return (
     <Styles>
-      Made with ❤️ and React by{' '}
+      Made with{' '}
+      <span role="img" aria-label="love">
+        ❤️
+      </span>{' '}
+      and React by{' '}
       <a href="https://joelb.dev" title="Joel Bartlett's portfolio">
         Joel Bartlett
       </a>
