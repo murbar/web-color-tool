@@ -7,13 +7,14 @@ import { useSpring, animated } from 'react-spring';
 
 const ColorDisplay = styled(animated.div)`
   height: 30vh;
-  border-radius: 0.5em;
-  margin: 0 -3rem;
+  min-height: 25rem;
+  margin: 0 -2rem;
   padding: 1rem 1.5rem;
   ${media.tall`
     height: 40vh;
   `}
   ${media.tablet`
+  border-radius: 0.5em;
     margin: 0;
     padding: 1rem 1.5rem;
   `}
