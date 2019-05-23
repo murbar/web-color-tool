@@ -10,7 +10,7 @@ const Styles = styled.div`
     margin: 1rem 1rem 0 auto;
     padding: 0.5em;
     line-height: 1;
-    font-family: 'Source Code Pro', monospace;
+    font-family: ${p => p.theme.fontFixed};
     background: ${p => p.theme.overlayColor};
     color: ${p => p.theme.backgroundColor};
     border-radius: 0.5em;

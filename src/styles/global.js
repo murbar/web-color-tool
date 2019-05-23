@@ -12,8 +12,8 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     color: ${p => p.theme.textColor};
-    background: ${p => p.theme.backgroundColor};;
-    font-family: 'Source Sans Pro', sans-serif;
+    background: ${p => p.theme.backgroundColor};
+    font-family: ${p => p.theme.font};
     font-size: 1.6rem;
     line-height: 1.5;
     min-height: 100vh;
