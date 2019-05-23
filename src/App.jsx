@@ -10,6 +10,7 @@ import ThemeSwitch from './components/ThemeSwitch';
 import ValueInputs from './components/ValueInputs';
 import Button from './components/common/Button';
 import useDocumentTitle from './hooks/useDocumentTitle';
+import useKeyPress from './hooks/useKeyPress';
 
 const Wrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -60,8 +61,6 @@ function App({ location, toggleTheme, darkMode }) {
   const initialState = parseLocation(location);
   const [colorValues, setColorValues] = useState(initialState);
 
-  useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
-
   const setColor = rgbValues => {
     const [r, g, b] = rgbValues;
     setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
@@ -70,6 +69,15 @@ function App({ location, toggleTheme, darkMode }) {
   const randomizeColor = () => {
     setColorValues(randomColorValues());
   };
+
+  useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
+
+  const rKeyPress = useKeyPress('r');
+
+  // extract to useKeyboardShortcuts given array of objects {key: , callback: }
+  React.useEffect(() => {
+    if (rKeyPress) randomizeColor();
+  }, [rKeyPress]);
 
   return (
     <Wrapper>
