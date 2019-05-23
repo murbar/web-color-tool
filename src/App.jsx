@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
 import media from './styles/media';
 import Preview from './components/Preview';
 import colorConvert from './colorConvert';
@@ -68,6 +69,10 @@ function App({ location, toggleTheme, darkMode }) {
 
   const randomizeColor = () => {
     setColorValues(randomColorValues());
+    ReactGA.event({
+      category: 'User',
+      action: 'Randomized color'
+    });
   };
 
   useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
