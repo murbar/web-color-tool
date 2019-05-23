@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ThemeSwitch from './components/ThemeSwitch';
 import ValueInputs from './components/ValueInputs';
+import Swatch from './components/Swatch';
 import Button from './components/common/Button';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import useKeyPress from './hooks/useKeyPress';
@@ -98,6 +99,7 @@ function App({ location, toggleTheme, darkMode }) {
         <Button onClick={randomizeColor}>Randomize</Button>
       </Controls>
       <Preview colorValues={colorValues} />
+      <Swatch rgbValues={colorValues.rgb} />
       <ValueInputs setColor={setColor} colorValues={colorValues} />
       <Footer />
     </Wrapper>
