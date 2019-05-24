@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactGA from 'react-ga';
@@ -43,7 +43,7 @@ const randomColor = () => deriveColorState(randomRgbValues());
 
 ReactGA.initialize('UA-140727716-1');
 
-function App({ initialColor, toggleTheme, darkMode, location }) {
+function App({ initialColor, toggleTheme, darkMode, location, history }) {
   const [colorValues, setColorValues] = useState(
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
@@ -66,13 +66,17 @@ function App({ initialColor, toggleTheme, darkMode, location }) {
   const rKeyPress = useKeyPress('r');
 
   // extract to useKeyboardShortcuts given array of objects {key: , callback: }
-  React.useEffect(() => {
+  useEffect(() => {
     if (rKeyPress) randomizeColor();
   }, [rKeyPress]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     ReactGA.pageview(location.pathname + location.search);
   }, [location]);
+
+  useEffect(() => {
+    if (initialColor) setColor(initialColor);
+  }, [initialColor]);
 
   return (
     <Wrapper>
