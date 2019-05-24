@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { hexMatch } from '../../regexDefs';
+import { hexCharsMatch } from '../../regexDefs';
 import Input from './Input';
 
 const Styles = styled(Input)`
   width: calc(6ch + 1em);
 `;
 
-const validHex = value => hexMatch.test(value) || value === '';
+const validHex = value => hexCharsMatch.test(value) || value === '';
 
 const HexInput = props => {
   const { name, value, onChange } = props;
