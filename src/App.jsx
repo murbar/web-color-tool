@@ -42,28 +42,12 @@ const random8Bit = () => Math.floor(Math.random() * 256);
 
 const randomColorValues = () => deriveColorState([random8Bit(), random8Bit(), random8Bit()]);
 
-// matches "?hsl=0,0,0", "?rgb=0,0,0", or "?hex=000000"
-const parseLocation = location => {
-  const { search } = location;
-  // const hslRe = /g/;
-  // const rgbRe = /g/;
-  // const hexRe = /g/;
-
-  if (search) {
-    // if hsl re
-    // if rgb re
-    // if hex re
-    return randomColorValues();
-  } else {
-    return randomColorValues();
-  }
-};
-
 ReactGA.initialize('UA-140727716-1');
 
-function App({ location, toggleTheme, darkMode }) {
-  const initialState = parseLocation(location);
-  const [colorValues, setColorValues] = useState(initialState);
+function App({ initialColor, toggleTheme, darkMode, location }) {
+  const [colorValues, setColorValues] = useState(
+    initialColor ? deriveColorState(initialColor) : randomColorValues()
+  );
 
   const setColor = rgbValues => {
     const [r, g, b] = rgbValues;
