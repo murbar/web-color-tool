@@ -62,10 +62,10 @@ const hexToHsl = hexValue => {
   return rgbToHsl(rgbValues);
 };
 
-// '0, 0%, 100%' -> '255, 255, 255'
+// [0, 0, 100] -> '255, 255, 255'
 // https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 const hslToRgb = hslValues => {
-  let [H, S, L] = hslValues;
+  let [H, S, L] = hslValues.map(v => parseInt(v));
 
   const sat = S / 100;
   const lum = L / 100;
@@ -98,7 +98,7 @@ const hslToRgb = hslValues => {
 
 // [0, 0, 100] -> 'ffffff'
 const hslToHex = hslValues => {
-  const rgbValues = hslToRgb(hslValues);
+  const rgbValues = hslToRgb(hslValues.map(v => parseInt(v)));
   return rgbToHex(rgbValues);
 };
 
