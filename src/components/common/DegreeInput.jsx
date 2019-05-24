@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { degreeMatch } from '../../regexDefs';
 import Input from './Input';
 
 const Styles = styled(Input)`
   width: calc(3ch + 1em);
 `;
-
-// 0..360 with leading zeros
-const degreeMatch = /^(0?[0-9]?[0-9]|[1-2][0-9][0-9]|3[0-5][0-9]|360)$/;
 
 const DegreeInput = props => {
   const { name, value, onChange } = props;

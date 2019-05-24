@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { hectoMatch } from '../../regexDefs';
 import Input from './Input';
 
 const Styles = styled(Input)`
   width: calc(3ch + 1em);
 `;
-
-// 0..100 with leading zeros
-const hectoMatch = /^0*(?:[0-9][0-9]?|100)$/;
 
 const HectoInput = props => {
   const { name, value, onChange } = props;

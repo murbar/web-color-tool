@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { byteMatch } from '../../regexDefs';
 import Input from './Input';
 
 const Styles = styled(Input)`
   width: calc(3ch + 1em);
 `;
-
-// 000..255
-const byteMatch = /^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/;
 
 const ByteInput = props => {
   const { name, value, onChange } = props;

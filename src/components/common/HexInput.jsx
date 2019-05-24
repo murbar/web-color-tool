@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { hexMatch } from '../../regexDefs';
 import Input from './Input';
 
 const Styles = styled(Input)`
   width: calc(6ch + 1em);
 `;
-
-// 000..FFF or 000000..FFFFFF
-// const hexMatch = /^([0-9a-f]{3}|[0-9a-f]{6})$/i;
-// 0..FFFFFF
-const hexMatch = /^[0-9a-f]{1,6}$/i;
 
 const validHex = value => hexMatch.test(value) || value === '';
 
