@@ -12,7 +12,7 @@ export default styled.input`
   font-size: 2rem;
   padding: 0.25em 0.5em;
   text-align: right;
-  border-radius: 0.5em;
+  border-radius: 0.3em;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};

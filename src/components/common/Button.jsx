@@ -8,14 +8,13 @@ export default styled.button`
   border: 0;
   font-size: 1em;
   padding: 0.5em 0.85em;
-  border-radius: 0.5em;
+  border-radius: 0.3em;
   &:focus {
     outline: none;
     box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
   }
   &:hover {
-    transform: scale(1.05);
-    /* background: white; */
+    box-shadow: 0 0 1em ${p => p.theme.textColor};
     cursor: pointer;
   }
   &:last-child {

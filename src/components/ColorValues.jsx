@@ -13,7 +13,7 @@ const Styles = styled.div`
     font-family: ${p => p.theme.fontFixed};
     background: ${p => p.theme.overlayColor};
     color: ${p => p.theme.backgroundColor};
-    border-radius: 0.5em;
+    border-radius: 0.3em;
   }
 `;
 
