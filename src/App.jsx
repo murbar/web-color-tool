@@ -13,6 +13,7 @@ import Swatch from './components/Swatch';
 import Button from './components/common/Button';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import useKeyPress from './hooks/useKeyPress';
+import { randomRgbValues } from './helpers';
 
 const Wrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -30,7 +31,7 @@ const Controls = styled.div`
   }
 `;
 
-const deriveColorState = rgbValues => {
+const deriveColorState = (rgbValues = [0, 0, 0]) => {
   return {
     rgb: rgbValues,
     hsl: colorConvert.rgb.toHsl(rgbValues),
@@ -38,15 +39,13 @@ const deriveColorState = rgbValues => {
   };
 };
 
-const random8Bit = () => Math.floor(Math.random() * 256);
-
-const randomColorValues = () => deriveColorState([random8Bit(), random8Bit(), random8Bit()]);
+const randomColor = () => deriveColorState(randomRgbValues());
 
 ReactGA.initialize('UA-140727716-1');
 
 function App({ initialColor, toggleTheme, darkMode, location }) {
   const [colorValues, setColorValues] = useState(
-    initialColor ? deriveColorState(initialColor) : randomColorValues()
+    initialColor ? deriveColorState(initialColor) : randomColor()
   );
 
   const setColor = rgbValues => {
@@ -55,7 +54,7 @@ function App({ initialColor, toggleTheme, darkMode, location }) {
   };
 
   const randomizeColor = () => {
-    setColorValues(randomColorValues());
+    setColorValues(randomColor());
     ReactGA.event({
       category: 'User',
       action: 'Randomized color'
