@@ -86,7 +86,7 @@ function App({ initialColor, toggleTheme, darkMode, location, history }) {
         <Button onClick={randomizeColor}>Randomize</Button>
       </Controls>
       <Preview colorValues={colorValues} />
-      <Swatch rgbValues={colorValues.rgb} />
+      {/* <Swatch rgbValues={colorValues.rgb} /> */}
       <ValueInputs setColor={setColor} colorValues={colorValues} />
       <Footer />
     </Wrapper>
