@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { hexCharsMatch } from '../../regexDefs';
 import Input from './Input';
+import { hexCharsMatch } from '../../regexDefs';
+import colorConvert from 'colorConvert';
 
 const Styles = styled(Input)`
   width: calc(6ch + 1em);
@@ -19,12 +20,22 @@ const HexInput = props => {
     if (valid) onChange(e, value || '000000', name);
   };
 
+  const handlePaste = e => {
+    const { name } = e.target;
+    const pasted = e.clipboardData.getData('Text/plain') || null;
+    if (pasted.length === 3 && validHex(pasted)) {
+      const sixDigitHex = colorConvert.hex.normalize(pasted);
+      onChange(e, sixDigitHex, name);
+    }
+  };
+
   return (
     <Styles
       {...props}
       name={name}
       value={value}
       onChange={handleChange}
+      onPaste={handlePaste}
       type="text"
       pattern="[a-fA-F\d]+"
       placeholder="FFFFFF"
