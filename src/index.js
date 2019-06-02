@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import GlobalStyles from './styles/global';
-import { dark, light } from './styles/themes';
+import GlobalStyles from 'styles/global';
+import { dark, light } from 'styles/themes';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
-import { validHsl, validRgb, validHex } from './helpers';
-import colorConvert from './colorConvert';
+import { validHsl, validRgb, validHex } from 'helpers';
+import colorConvert from 'colorConvert';
+import useLocalStorageState from 'hooks/useLocalStorageState';
 
 const Root = () => {
-  const [darkThemeToggle, setDarkThemeToggle] = useState(true);
+  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-preference', true);
 
   const toggleTheme = () => setDarkThemeToggle(prev => !prev);
 
