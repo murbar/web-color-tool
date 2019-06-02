@@ -7,15 +7,14 @@ import Preview from 'components/Preview';
 import colorConvert from 'colorConvert';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import ThemeSwitch from 'components/ThemeSwitch';
+import ThemeControl from 'components/ThemeControl';
+import RandomizeControl from 'components/RandomizeControl';
 import ValueInputs from 'components/ValueInputs';
 import Swatch from 'components/Swatch';
-import Button from 'components/common/Button';
+import IconButton from 'components/common/IconButton';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyPress from 'hooks/useKeyPress';
 import { randomRgbValues } from 'helpers';
-import Modal from 'components/common/Modal';
-import useModal from 'hooks/useModal';
 
 const Wrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -84,8 +83,8 @@ function App({ initialColor, toggleTheme, darkMode, location, history }) {
     <Wrapper>
       <Header />
       <Controls>
-        <ThemeSwitch onToggle={toggleTheme} toggled={darkMode} />
-        <Button onClick={randomizeColor}>Randomize</Button>
+        <ThemeControl onToggle={toggleTheme} toggled={darkMode} />
+        <RandomizeControl onClick={randomizeColor} />
       </Controls>
       <Preview colorValues={colorValues} />
       {/* <Swatch rgbValues={colorValues.rgb} /> */}
