@@ -25,7 +25,7 @@ const Footer = () => {
       </a>
       <br />{' '}
       <a href="https://github.com/murbar/color-converter" title="See the code on GitHub">
-        Check out the code
+        Have a look at the code
       </a>
     </Styles>
   );
