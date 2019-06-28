@@ -15,6 +15,7 @@ import IconButton from 'components/common/IconButton';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyPress from 'hooks/useKeyPress';
 import { randomRgbValues } from 'helpers';
+import useKeyboardQuery from 'hooks/useKeyboardQuery';
 
 const Wrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -45,6 +46,8 @@ const randomColor = () => deriveColorState(randomRgbValues());
 ReactGA.initialize('UA-140727716-1');
 
 function App({ initialColor, toggleTheme, darkMode, location, history }) {
+  useKeyboardQuery('using-keyboard');
+
   const [colorValues, setColorValues] = useState(
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
