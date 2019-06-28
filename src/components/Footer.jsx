@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Heart } from 'icons/heart.svg';
 
-const Styles = styled.div`
+const StyledContainer = styled.div`
   padding: 2rem 0;
   text-align: center;
   svg {
@@ -14,7 +14,7 @@ const Styles = styled.div`
 
 const Footer = () => {
   return (
-    <Styles>
+    <StyledContainer>
       Made with{' '}
       <span role="img" aria-label="love">
         <Heart />
@@ -27,7 +27,7 @@ const Footer = () => {
       <a href="https://github.com/murbar/color-converter" title="See the code on GitHub">
         Have a look at the code
       </a>
-    </Styles>
+    </StyledContainer>
   );
 };
 
