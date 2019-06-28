@@ -11,6 +11,9 @@ export default styled.button`
   border-radius: 0.3em;
   &:focus {
     outline: none;
+  }
+  body.using-keyboard &:focus {
+    outline: none;
     box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
   }
   &:hover {
