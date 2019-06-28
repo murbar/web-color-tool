@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import ReactGA from 'react-ga';
 import media from 'styles/media';
+import ReactGA from 'react-ga';
 import Preview from 'components/Preview';
 import colorConvert from 'colorConvert';
 import Header from 'components/Header';
@@ -14,6 +14,7 @@ import Swatch from 'components/Swatch';
 import IconButton from 'components/common/IconButton';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyPress from 'hooks/useKeyPress';
+import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import { randomRgbValues } from 'helpers';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 
@@ -46,8 +47,6 @@ const randomColor = () => deriveColorState(randomRgbValues());
 ReactGA.initialize('UA-140727716-1');
 
 function App({ initialColor, toggleTheme, darkMode, location, history }) {
-  useKeyboardQuery('using-keyboard');
-
   const [colorValues, setColorValues] = useState(
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
@@ -66,6 +65,8 @@ function App({ initialColor, toggleTheme, darkMode, location, history }) {
   };
 
   useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
+  useKeyboardQuery('using-keyboard');
+  useAnalyticsPageView(location);
 
   const rKeyPress = useKeyPress('r');
 
@@ -73,10 +74,6 @@ function App({ initialColor, toggleTheme, darkMode, location, history }) {
   useEffect(() => {
     if (rKeyPress) randomizeColor();
   }, [rKeyPress]);
-
-  useEffect(() => {
-    ReactGA.pageview(location.pathname + location.search);
-  }, [location]);
 
   useEffect(() => {
     if (initialColor) setColor(initialColor);
