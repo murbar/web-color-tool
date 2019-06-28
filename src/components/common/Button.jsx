@@ -17,7 +17,7 @@ export default styled.button`
     box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
   }
   &:hover {
-    box-shadow: 0 0 1em ${p => p.theme.textColor};
+    background: ${p => p.theme.buttonHighlightColor};
     cursor: pointer;
   }
   &:last-child {
