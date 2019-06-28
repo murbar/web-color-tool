@@ -5,7 +5,7 @@ import { ReactComponent as Dark } from 'icons/moon.svg';
 import { ReactComponent as Light } from 'icons/sun.svg';
 
 const ThemeControl = ({ onToggle, toggled }) => {
-  const title = `Turn on ${toggled ? 'light' : 'dark'} mode`;
+  const title = `Toggle ${toggled ? 'light' : 'dark'} mode`;
   return (
     <IconButton onClick={onToggle} title={title}>
       {toggled ? <Light /> : <Dark />}
