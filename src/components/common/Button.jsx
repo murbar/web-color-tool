@@ -18,6 +18,7 @@ export default styled.button`
   }
   &:hover {
     background: ${p => p.theme.buttonHighlightColor};
+    color: ${p => p.theme.textColor};
     cursor: pointer;
   }
   &:last-child {
