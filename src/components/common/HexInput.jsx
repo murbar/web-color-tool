@@ -5,7 +5,7 @@ import Input from './Input';
 import { hexCharsMatch } from '../../regexDefs';
 import colorConvert from 'colorConvert';
 
-const Styles = styled(Input)`
+const StyledInput = styled(Input)`
   width: calc(6ch + 1em);
 `;
 
@@ -29,13 +29,20 @@ const HexInput = props => {
     }
   };
 
+  const handlePressEnter = e => {
+    if (e.key === 'Enter') {
+      e.target.blur();
+    }
+  };
+
   return (
-    <Styles
+    <StyledInput
       {...props}
       name={name}
       value={value}
       onChange={handleChange}
       onPaste={handlePaste}
+      onKeyPress={handlePressEnter}
       type="text"
       pattern="[a-fA-F\d]+"
       placeholder="FFFFFF"

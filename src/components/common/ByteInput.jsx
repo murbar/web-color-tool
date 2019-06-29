@@ -18,12 +18,19 @@ const ByteInput = props => {
     }
   };
 
+  const handlePressEnter = e => {
+    if (e.key === 'Enter') {
+      e.target.blur();
+    }
+  };
+
   return (
     <Styles
       {...props}
       name={name}
       value={value}
       onChange={handleChange}
+      onKeyPress={handlePressEnter}
       type="number"
       pattern="\d*"
       placeholder="255"
