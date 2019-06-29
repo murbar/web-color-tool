@@ -5,13 +5,15 @@ const IconButton = styled(Button)`
   border: none;
   background: transparent;
   color: ${p => p.theme.textColor};
-  padding: 1rem;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   svg {
-    width: 3rem;
-  }
-  &:hover {
-    box-shadow: none;
+    width: 60%;
+    position: absolute;
+    top: 26%;
+    left: 20%;
   }
 `;
 
