@@ -11,23 +11,23 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
     setColor(rgbValues);
   };
 
-  const lighten = e => {
+  const lighten = () => {
     l = l >= 90 ? 100 : l + 10;
     // maybe just return early if lightness over 90
     convertAndSet([h, s, l]);
   };
 
-  const darken = e => {
+  const darken = () => {
     l = l <= 10 ? 0 : l - 10;
     convertAndSet([h, s, l]);
   };
 
-  const saturate = e => {
+  const saturate = () => {
     s = s >= 90 ? 100 : s + 10;
     convertAndSet([h, s, l]);
   };
 
-  const desaturate = e => {
+  const desaturate = () => {
     s = s <= 10 ? 0 : s - 10;
     convertAndSet([h, s, l]);
   };
@@ -36,8 +36,8 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
     <div>
       <Button onClick={lighten}>Lighten</Button>
       <Button onClick={darken}>Darken</Button>
-      <Button onClick={saturate}>Sat</Button>
-      <Button onClick={desaturate}>Desat</Button>
+      <Button onClick={saturate}>Saturate</Button>
+      <Button onClick={desaturate}>Desaturate</Button>
     </div>
   );
 };
