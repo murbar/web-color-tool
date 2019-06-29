@@ -18,6 +18,7 @@ import useKeyPress from 'hooks/useKeyPress';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import ColorAdjustControls from 'components/ColorAdjustControls';
 
 const StyledWrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -48,6 +49,7 @@ const randomColor = () => deriveColorState(randomRgbValues());
 ReactGA.initialize('UA-140727716-1');
 
 function App({ initialColor, darkMode, location }) {
+  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-preference', true);
   const [colorValues, setColorValues] = useState(
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
@@ -64,8 +66,6 @@ function App({ initialColor, darkMode, location }) {
       action: 'Randomized color'
     });
   };
-
-  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-preference', true);
 
   const toggleTheme = () => setDarkThemeToggle(prev => !prev);
 
@@ -92,6 +92,7 @@ function App({ initialColor, darkMode, location }) {
         <Controls>
           <ThemeControl onToggle={toggleTheme} toggled={darkMode} />
           <RandomizeControl onClick={randomizeColor} />
+          <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         </Controls>
         <Preview colorValues={colorValues} />
         {/* <Swatch rgbValues={colorValues.rgb} /> */}
