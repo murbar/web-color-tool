@@ -18,7 +18,7 @@ import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import { randomRgbValues } from 'helpers';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 
-const Wrapper = styled.div`
+const StyledWrapper = styled.div`
   padding: 0 2rem 3rem;
   max-width: 100rem;
   margin: 0 auto;
@@ -80,7 +80,7 @@ function App({ initialColor, toggleTheme, darkMode, location, history }) {
   }, [initialColor]);
 
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Header />
       <Controls>
         <ThemeControl onToggle={toggleTheme} toggled={darkMode} />
@@ -90,7 +90,7 @@ function App({ initialColor, toggleTheme, darkMode, location, history }) {
       {/* <Swatch rgbValues={colorValues.rgb} /> */}
       <ValueInputs setColor={setColor} colorValues={colorValues} />
       <Footer />
-    </Wrapper>
+    </StyledWrapper>
   );
 }
 
