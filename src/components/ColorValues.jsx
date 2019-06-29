@@ -21,11 +21,7 @@ const Styles = styled.div`
 const CopyOnClick = ({ string, children }) => {
   return (
     <CopyToClipboard text={string} onCopy={() => console.log(`copied ${string}!`)}>
-      <div
-        className="values"
-        title={`Copy CSS to clipboard: "${string}"`}
-        style={{ cursor: 'pointer' }}
-      >
+      <div className="values" title={`Copy CSS: "${string}"`} style={{ cursor: 'pointer' }}>
         {children}
       </div>
     </CopyToClipboard>
