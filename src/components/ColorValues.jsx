@@ -4,7 +4,7 @@ import colorConvert from 'colorConvert';
 import { animated, useSpring } from 'react-spring';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const Styles = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   .values {
@@ -42,7 +42,7 @@ export default function ColorValues({ colorValues }) {
   };
 
   return (
-    <Styles>
+    <StyledDiv>
       <CopyOnClick string={cssStrings.rgb}>
         RGB
         <animated.span>
@@ -67,6 +67,6 @@ export default function ColorValues({ colorValues }) {
           {values.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
         </animated.span>
       </CopyOnClick>
-    </Styles>
+    </StyledDiv>
   );
 }
