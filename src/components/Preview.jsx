@@ -4,6 +4,7 @@ import media from '../styles/media';
 import colorConvert from '../colorConvert';
 import ColorValues from './ColorValues';
 import { useSpring, animated } from 'react-spring';
+import Complement from './Complement';
 
 const ColorDisplay = styled(animated.div)`
   height: 30vh;
@@ -31,6 +32,7 @@ export default function Preview({ colorValues }) {
   return (
     <ColorDisplay style={color}>
       <ColorValues colorValues={colorValues} />
+      <Complement colorValues={colorValues} />
     </ColorDisplay>
   );
 }
