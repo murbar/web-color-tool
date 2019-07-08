@@ -4,7 +4,7 @@ import HexForm from './HexForm';
 import RgbForm from './RgbForm';
 import HslForm from './HslForm';
 
-const Styles = styled.div`
+const StyledDiv = styled.div`
   & > div {
     margin-bottom: 1.5rem;
   }
@@ -17,15 +17,15 @@ const Styles = styled.div`
   }
 `;
 
-const Inputs = ({ setColor, colorValues }) => {
+const ValueInputs = ({ setColor, colorValues }) => {
   return (
-    <Styles>
+    <StyledDiv>
       <h2>Adjust values</h2>
       <RgbForm setColor={setColor} colorValues={colorValues} />
       <HslForm setColor={setColor} colorValues={colorValues} />
       <HexForm setColor={setColor} colorValues={colorValues} />
-    </Styles>
+    </StyledDiv>
   );
 };
 
-export default Inputs;
+export default ValueInputs;
