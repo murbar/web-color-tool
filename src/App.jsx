@@ -13,6 +13,7 @@ import Footer from 'components/Footer';
 import ThemeControl from 'components/ThemeControl';
 import RandomizeControl from 'components/RandomizeControl';
 import ValueInputs from 'components/ValueInputs';
+import ValuePicker from 'components/ValuePicker';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyPress from 'hooks/useKeyPress';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
@@ -97,6 +98,8 @@ function App({ initialColor, darkMode, location }) {
         <Preview colorValues={colorValues} />
         {/* <Swatch rgbValues={colorValues.rgb} /> */}
         <ValueInputs setColor={setColor} colorValues={colorValues} />
+        <ValuePicker setColor={setColor} colorValues={colorValues} />
+        {/* <Link to="/hsl/168/81/56">Green color</Link> */}
         <Footer />
       </StyledWrapper>
     </ThemeProvider>
