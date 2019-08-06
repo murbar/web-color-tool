@@ -14,7 +14,8 @@ const HslForm = ({ setColor, colorValues }) => {
   const handleChange = (e, value, name) => {
     setHslValues(prev => {
       const newValues = { ...prev, [name]: value };
-      const { h, s, l } = newValues;
+      let { h, s, l } = newValues;
+      if (prev.h === 0 && h > 0 && prev.s === 0) s = 50;
       const rgbValues = colorConvert.hsl.toRgb([h, s, l]);
       setColor(rgbValues);
       return newValues;
