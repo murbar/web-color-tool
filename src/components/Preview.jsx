@@ -32,8 +32,8 @@ export default function Preview({ colorValues }) {
   // const shadow = `rgba(${r}, ${g}, ${b}, 0.3)`;
   const color = useSpring({
     config: { duration: 400 },
-    background: rgbCSS,
-    boxShadow: `0 0 1rem ${rgbCSS}`
+    background: rgbCSS
+    // boxShadow: `0 0 1rem ${rgbCSS}`
     // boxShadow: `0 0 0 0.5rem ${shadow}, 0 0 0 0.9rem ${shadow}, 0 0 0 1.2rem ${shadow}`
   });
 
