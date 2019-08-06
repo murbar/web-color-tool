@@ -5,6 +5,20 @@ import colorConvert from 'colorConvert';
 
 const StyledDiv = styled.div``;
 
+const Value = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  label {
+    font-family: 'Source Code Pro', monospace;
+    margin-right: 1rem;
+    text-transform: uppercase;
+  }
+  > div {
+    flex-grow: 1;
+  }
+`;
+
 const SatScale = styled(ColorInputRange)`
   .input-range__track--background {
     background: linear-gradient(
@@ -72,6 +86,11 @@ const ValuePicker = ({ setColor, colorValues }) => {
   const [h, s, l] = colorValues.hsl;
   const [values, setValues] = useState({ h, s, l });
 
+  React.useEffect(() => {
+    const [h, s, l] = colorValues.hsl;
+    setValues({ h, s, l });
+  }, [colorValues]);
+
   const set = ({ h, s, l }) => {
     setColor(colorConvert.hsl.toRgb([h, s, l]));
   };
@@ -79,6 +98,8 @@ const ValuePicker = ({ setColor, colorValues }) => {
   const handleSetHue = h => {
     setValues(prev => {
       const values = { ...prev, h };
+      if (s === 0) values.s = 50;
+      if (l === 0) values.l = 50;
       set(values);
       return values;
     });
@@ -102,10 +123,18 @@ const ValuePicker = ({ setColor, colorValues }) => {
 
   return (
     <StyledDiv>
-      <h2>Picker</h2>
-      <SatScale hue={values.h} maxValue={100} value={values.s} onChange={handleSetSat} />
-      <LumScale hue={values.h} maxValue={100} value={values.l} onChange={handleSetLum} />
-      <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />
+      <Value>
+        <label>Sat</label>
+        <SatScale hue={values.h} maxValue={100} value={values.s} onChange={handleSetSat} />
+      </Value>
+      <Value>
+        <label>Lum</label>
+        <LumScale hue={values.h} maxValue={100} value={values.l} onChange={handleSetLum} />
+      </Value>
+      <Value>
+        <label>Hue</label>
+        <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />
+      </Value>
     </StyledDiv>
   );
 };
