@@ -19,7 +19,7 @@ const Footer = () => {
       <span role="img" aria-label="love">
         <Heart />
       </span>{' '}
-      and React by{' '}
+      by{' '}
       <a href="https://joelb.dev" title="Joel Bartlett's portfolio">
         Joel Bartlett
       </a>

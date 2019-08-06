@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import ReactGA from 'react-ga';
 import colorConvert from 'colorConvert';
@@ -12,13 +12,13 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import ThemeControl from 'components/ThemeControl';
 import RandomizeControl from 'components/RandomizeControl';
+import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyPress from 'hooks/useKeyPress';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
-import ColorAdjustControls from 'components/ColorAdjustControls';
 
 const StyledWrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -48,7 +48,7 @@ const randomColor = () => deriveColorState(randomRgbValues());
 
 ReactGA.initialize('UA-140727716-1');
 
-function App({ initialColor, darkMode, location }) {
+function App({ initialColor, darkMode, location, history }) {
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-preference', true);
   const [colorValues, setColorValues] = useState(
     initialColor ? deriveColorState(initialColor) : randomColor()
@@ -56,6 +56,10 @@ function App({ initialColor, darkMode, location }) {
 
   const setColor = rgbValues => {
     const [r, g, b] = rgbValues;
+    // const [prevR, prevG, prevB] = colorValues.rgb;
+    // if (r !== prevR || g !== prevG || b !== prevB) {
+    //   history.location.pathname = 'sadf';
+    // }
     setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
   };
 
