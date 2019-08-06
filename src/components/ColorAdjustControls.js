@@ -1,7 +1,14 @@
 import React from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import colorConvert from 'colorConvert';
 import Button from 'components/common/Button';
+
+const Styles = styled.div`
+  margin-bottom: 1.5rem;
+  button {
+    font-size: 0.8em;
+  }
+`;
 
 const ColorAdjustControls = ({ setColor, colorValues }) => {
   let [h, s, l] = colorValues.hsl;
@@ -33,12 +40,12 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
   };
 
   return (
-    <div>
+    <Styles>
       <Button onClick={lighten}>Lighten</Button>
       <Button onClick={darken}>Darken</Button>
       <Button onClick={saturate}>Saturate</Button>
       <Button onClick={desaturate}>Desaturate</Button>
-    </div>
+    </Styles>
   );
 };
 

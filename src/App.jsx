@@ -32,9 +32,6 @@ const StyledWrapper = styled.div`
 
 const Controls = styled.div`
   margin: -1rem 0 2rem;
-  button {
-    font-size: 0.8em;
-  }
 `;
 
 const deriveColorState = (rgbValues = [0, 0, 0]) => {
@@ -97,10 +94,11 @@ function App({ initialColor, darkMode, location, history }) {
         <Controls>
           <ThemeControl onToggle={toggleTheme} toggled={darkMode} />
           <RandomizeControl onClick={randomizeColor} />
-          <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         </Controls>
         <Preview colorValues={colorValues} />
         {/* <Swatch rgbValues={colorValues.rgb} /> */}
+        <h2>Adjust values</h2>
+        <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
         <ValuePicker setColor={setColor} colorValues={colorValues} />
         {/* <Link to="/hsl/168/81/56">Green color</Link> */}
