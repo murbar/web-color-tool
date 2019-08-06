@@ -3,8 +3,6 @@ import { default as Range } from 'react-input-range';
 import styled from 'styled-components';
 
 const RangeStyles = styled.div`
-  margin-bottom: 1.5rem;
-
   .input-range {
     height: 4rem;
     position: relative;
