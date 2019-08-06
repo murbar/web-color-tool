@@ -108,6 +108,7 @@ const ValuePicker = ({ setColor, colorValues }) => {
   const handleSetSat = s => {
     setValues(prev => {
       const values = { ...prev, s };
+      if (l === 0) values.l = 50;
       set(values);
       return values;
     });
