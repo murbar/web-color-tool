@@ -47,8 +47,9 @@ const randomColor = () => deriveColorState(randomRgbValues());
 ReactGA.initialize('UA-140727716-1');
 
 function App({ initialColor, darkMode, location }) {
-  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-preference', true);
-  const [colorValues, setColorValues] = useState(
+  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-pref', true);
+  const [colorValues, setColorValues] = useLocalStorageState(
+    'last-color-val',
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
 
