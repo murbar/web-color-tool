@@ -16,7 +16,7 @@ import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
 import ValuePicker from 'components/ValuePicker';
 import useDocumentTitle from 'hooks/useDocumentTitle';
-import useKeyPress from 'hooks/useKeyPress';
+import useHotKeys from 'hooks/useHotKeys';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -46,7 +46,7 @@ const randomColor = () => deriveColorState(randomRgbValues());
 
 ReactGA.initialize('UA-140727716-1');
 
-function App({ initialColor, darkMode, location, history }) {
+function App({ initialColor, darkMode, location }) {
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-preference', true);
   const [colorValues, setColorValues] = useState(
     initialColor ? deriveColorState(initialColor) : randomColor()
@@ -54,10 +54,6 @@ function App({ initialColor, darkMode, location, history }) {
 
   const setColor = rgbValues => {
     const [r, g, b] = rgbValues;
-    // const [prevR, prevG, prevB] = colorValues.rgb;
-    // if (r !== prevR || g !== prevG || b !== prevB) {
-    //   history.location.pathname = 'sadf';
-    // }
     setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
   };
 
@@ -74,13 +70,12 @@ function App({ initialColor, darkMode, location, history }) {
   useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
   useKeyboardQuery('using-keyboard');
   useAnalyticsPageView(location);
+  console.log(location);
 
-  const rKeyPress = useKeyPress('r');
-
-  // extract to useKeyboardShortcuts given array of objects {key: , callback: }
-  useEffect(() => {
-    if (rKeyPress) randomizeColor();
-  }, [rKeyPress]);
+  useHotKeys({
+    r: randomizeColor,
+    t: toggleTheme
+  });
 
   useEffect(() => {
     if (initialColor) setColor(initialColor);
@@ -96,11 +91,11 @@ function App({ initialColor, darkMode, location, history }) {
           <RandomizeControl onClick={randomizeColor} />
         </Controls>
         <Preview colorValues={colorValues} />
-        {/* <Swatch rgbValues={colorValues.rgb} /> */}
         <h2>Adjust values</h2>
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
         <ValuePicker setColor={setColor} colorValues={colorValues} />
+        {/* <Swatch rgbValues={colorValues.rgb} /> */}
         {/* <Link to="/hsl/168/81/56">Green color</Link> */}
         <Footer />
       </StyledWrapper>
