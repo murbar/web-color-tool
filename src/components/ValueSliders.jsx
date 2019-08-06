@@ -125,16 +125,16 @@ const ValuePicker = ({ setColor, colorValues }) => {
   return (
     <StyledDiv>
       <Value>
+        <label>Hue</label>
+        <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />
+      </Value>
+      <Value>
         <label>Sat</label>
         <SatScale hue={values.h} maxValue={100} value={values.s} onChange={handleSetSat} />
       </Value>
       <Value>
         <label>Lum</label>
         <LumScale hue={values.h} maxValue={100} value={values.l} onChange={handleSetLum} />
-      </Value>
-      <Value>
-        <label>Hue</label>
-        <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />
       </Value>
     </StyledDiv>
   );

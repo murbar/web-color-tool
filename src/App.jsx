@@ -14,7 +14,7 @@ import ThemeControl from 'components/ThemeControl';
 import RandomizeControl from 'components/RandomizeControl';
 import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
-import ValuePicker from 'components/ValuePicker';
+import ValueSlider from 'components/ValueSliders';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useHotKeys from 'hooks/useHotKeys';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
@@ -95,7 +95,7 @@ function App({ initialColor, darkMode, location }) {
         <h2>Adjust values</h2>
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
-        <ValuePicker setColor={setColor} colorValues={colorValues} />
+        <ValueSlider setColor={setColor} colorValues={colorValues} />
         {/* <Swatch rgbValues={colorValues.rgb} /> */}
         {/* <Link to="/hsl/168/81/56">Green color</Link> */}
         <Footer />
