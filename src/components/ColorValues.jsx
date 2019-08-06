@@ -36,8 +36,8 @@ export default function ColorValues({ colorValues }) {
   });
 
   const cssStrings = {
-    rgb: `rgb (${colorValues.rgb[0]}, ${colorValues.rgb[1]}, ${colorValues.rgb[2]})`,
-    hsl: `hsl (${colorValues.hsl[0]}, ${colorValues.hsl[1]}%, ${colorValues.hsl[2]}%)`,
+    rgb: `rgb(${colorValues.rgb[0]}, ${colorValues.rgb[1]}, ${colorValues.rgb[2]})`,
+    hsl: `hsl(${colorValues.hsl[0]}, ${colorValues.hsl[1]}%, ${colorValues.hsl[2]}%)`,
     hex: `#${colorValues.hex}`
   };
 
