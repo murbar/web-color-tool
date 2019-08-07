@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { ReactComponent as Heart } from 'icons/heart.svg';
 
 const StyledContainer = styled.div`
-  padding: 2rem 0;
+  padding: 4rem 0 2rem;
   text-align: center;
+  font-size: 0.9em;
   svg {
     height: 1em;
     color: crimson;
