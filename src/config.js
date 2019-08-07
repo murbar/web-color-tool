@@ -6,3 +6,5 @@ export const harmonyConstants = {
   TR: 'Triadic',
   TE: 'Tetradic'
 };
+
+export const publicURL = 'https://color.joelb.dev';
