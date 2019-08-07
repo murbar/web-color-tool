@@ -10,7 +10,6 @@ const ColorDisplay = styled(animated.div)`
   height: 30vh;
   min-height: 25rem;
   margin: 0 -2rem 2rem;
-  padding: 1rem 1.5rem;
   position: relative;
   overflow: hidden;
   ${breakpoints.tall`
@@ -19,7 +18,6 @@ const ColorDisplay = styled(animated.div)`
   ${breakpoints.tablet`
     border-radius: 0.5em;
     margin: 0 0 2rem;
-    padding: 1rem 1.5rem;
   `}
 `;
 
@@ -33,7 +31,7 @@ export default function Preview({ colorValues }) {
   return (
     <ColorDisplay style={color}>
       <ColorValues colorValues={colorValues} />
-      <Harmonies hsl={colorValues.hsl} />
+      <Harmonies colorValues={colorValues} />
     </ColorDisplay>
   );
 }
