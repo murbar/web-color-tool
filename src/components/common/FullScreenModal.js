@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
+import OverlayBox from 'components/common/OverlayBox';
+import { useTransition, animated } from 'react-spring';
 
-const Styles = styled.div`
+const Styles = styled(animated.div)`
   position: fixed;
   top: 0;
   left: 0;
@@ -16,17 +18,43 @@ const Styles = styled.div`
   background: ${p => p.theme.fullScreenModalBgColor};
   pointer-events: auto;
   overflow: scroll;
+  transform: scale(1);
+  will-change: transform, opacity;
 `;
 
-export default function FullScreenModal({ children, onClickOff }) {
-  return ReactDOM.createPortal(
-    <Styles
-      onClick={e => {
-        if (e.target.parentNode.id === 'modal') onClickOff(e);
-      }}
-    >
-      {children}
-    </Styles>,
-    document.querySelector('#modal')
+export default function FullScreenModal({ children, onClickOff, isShowing }) {
+  const overlayTransition = useTransition(isShowing, null, {
+    config: { duration: 300 },
+    from: {
+      opacity: 0,
+      transform: 'scale(1.15)'
+    },
+    enter: {
+      opacity: 1,
+      transform: 'scale(1)'
+    },
+    leave: {
+      opacity: 0,
+      transform: 'scale(1.15)'
+    }
+  });
+
+  return overlayTransition.map(
+    ({ item, key, props }) =>
+      item &&
+      ReactDOM.createPortal(
+        <Styles
+          style={props}
+          key={key}
+          onClick={e => {
+            if (e.target.parentNode.id === 'modal') onClickOff(e);
+          }}
+        >
+          <OverlayBox style={props} key={key}>
+            {children}
+          </OverlayBox>
+        </Styles>,
+        document.querySelector('#modal')
+      )
   );
 }

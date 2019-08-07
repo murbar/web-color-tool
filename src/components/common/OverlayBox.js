@@ -19,9 +19,6 @@ const Styles = styled.div`
   h2 {
     margin: 0;
   }
-  ${breakpoints.phone(css`
-    width: 80%;
-  `)}
   ${breakpoints.tablet(css`
     width: 50rem;
   `)}
