@@ -7,14 +7,7 @@ import FullScreenModal from 'components/common/FullScreenModal';
 // import ButtonRow from './common/ButtonRow';
 import { ReactComponent as InfoIcon } from 'icons/info.svg';
 
-const Styles = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
 const ModalStyles = styled.div`
-  ${'' /* width: 50rem; */}
   padding: 1rem;
 `;
 
@@ -26,7 +19,7 @@ export default function AboutModal({ isShowing = false }) {
   }, [isShowing]);
 
   return (
-    <Styles>
+    <>
       <IconButton onClick={() => setShowModal(true)} title="About this app" className="control">
         <InfoIcon />
       </IconButton>
@@ -55,6 +48,6 @@ export default function AboutModal({ isShowing = false }) {
           </ButtonRow>
         </ModalStyles>
       </FullScreenModal>
-    </Styles>
+    </>
   );
 }
