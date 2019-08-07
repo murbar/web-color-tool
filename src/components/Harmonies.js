@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import IconButton from 'components/common/IconButton';
-import colorConvert from '../colorConvert';
-import breakpoints from '../styles/media';
+import colorConvert from 'colorConvert';
+import breakpoints from 'styles/media';
 import { useSpring, animated } from 'react-spring';
 import { trueMod } from 'helpers';
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import colorConvert from '../colorConvert';
-import DegreeInput from './common/DegreeInput';
-import HectoInput from './common/HectoInput';
+import colorConvert from 'colorConvert';
+import DegreeInput from 'components/common/DegreeInput';
+import HectoInput from 'components/common/HectoInput';
 
 const HslForm = ({ setColor, colorValues }) => {
   const [hslValues, setHslValues] = useState({ h: 0, s: 0, l: 0 });

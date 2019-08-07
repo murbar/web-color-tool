@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ByteInput from './common/ByteInput';
+import ByteInput from 'components/common/ByteInput';
 
 const RgbForm = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator

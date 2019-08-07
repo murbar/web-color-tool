@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import breakpoints from '../styles/media';
-import colorConvert from '../colorConvert';
-import ColorValues from './ColorValues';
+import breakpoints from 'styles/media';
+import colorConvert from 'colorConvert';
+import ColorValues from 'components/ColorValues';
 import { useSpring, animated } from 'react-spring';
 import Harmonies from 'components/Harmonies';
 

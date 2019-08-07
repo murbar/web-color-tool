@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import colorConvert from '../colorConvert';
-import HexInput from './common/HexInput';
+import colorConvert from 'colorConvert';
+import HexInput from 'components/common/HexInput';
 
 const HexForm = ({ setColor, colorValues }) => {
   const [hexValue, setHexValue] = useState('');

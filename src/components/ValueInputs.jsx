@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import HexForm from './HexForm';
-import RgbForm from './RgbForm';
-import HslForm from './HslForm';
-import breakpoints from '../styles/media';
+import HexForm from 'components/HexForm';
+import RgbForm from 'components/RgbForm';
+import HslForm from 'components/HslForm';
+import breakpoints from 'styles/media';
 
 const StyledDiv = styled.div`
   margin: 3.5rem 0;
