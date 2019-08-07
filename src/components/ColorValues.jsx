@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
     padding: 0.5em;
     line-height: 1;
     font-family: ${p => p.theme.fontFixed};
-    background: ${p => p.theme.overlayColor};
+    background: ${p => p.theme.previewOverlayColor};
     color: ${p => p.theme.backgroundColor};
     border-radius: 0.3em;
   }
