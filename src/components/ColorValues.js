@@ -23,10 +23,10 @@ const StyledDiv = styled.div`
   }
 `;
 
-const CopyOnClick = ({ string, children, setCopyMessage }) => {
+const CopyOnClick = ({ string, children }) => {
   return (
     <CopyToClipboard text={string} onCopy={() => {}}>
-      <div className="values" title={`Copy "${string}"`}>
+      <div className="values" title={`Copy CSS value "${string}"`}>
         {children}
       </div>
     </CopyToClipboard>
