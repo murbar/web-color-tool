@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import ReactGA from 'react-ga';
@@ -71,7 +71,6 @@ function App({ initialColor, darkMode, location }) {
   useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
   useKeyboardQuery('using-keyboard');
   useAnalyticsPageView(location);
-  console.log(location);
 
   useHotKeys({
     r: randomizeColor,

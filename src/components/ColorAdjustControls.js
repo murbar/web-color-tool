@@ -4,8 +4,9 @@ import colorConvert from 'colorConvert';
 import Button from 'components/common/Button';
 
 const Styles = styled.div`
-  margin-bottom: 1.5rem;
   button {
+    margin-bottom: 1.5rem;
+    margin-right: 1rem;
     font-size: 0.8em;
   }
 `;
