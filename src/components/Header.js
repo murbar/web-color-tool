@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import AboutModal from 'components/AboutModal';
+import Menu from 'components/Menu';
 
-const StyledDiv = styled.div`
+const Styles = styled.header`
   margin: 2rem 0;
   position: relative;
   h1 {
@@ -10,20 +10,20 @@ const StyledDiv = styled.div`
   }
   h1 span {
     display: block;
-    font-size: 0.8em;
+    font-size: 0.7em;
     font-weight: normal;
     line-height: 1;
   }
 `;
 
-const Header = () => {
+const Header = ({ state, callbacks }) => {
   return (
-    <StyledDiv>
+    <Styles>
       <h1>
         Web color tool <span>RGB &nbsp;+&nbsp; HSL &nbsp;+&nbsp; HEX</span>
       </h1>
-      <AboutModal />
-    </StyledDiv>
+      <Menu state={state} callbacks={callbacks} />
+    </Styles>
   );
 };
 

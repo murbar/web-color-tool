@@ -6,12 +6,10 @@ import colorConvert from 'colorConvert';
 import { randomRgbValues } from 'helpers';
 import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
-import media from 'styles/media';
+import media from 'styles/breakpoints';
 import Preview from 'components/Preview';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import ThemeControl from 'components/ThemeControl';
-import RandomizeControl from 'components/RandomizeControl';
 import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
 import ValueSlider from 'components/ValueSliders';
@@ -28,10 +26,6 @@ const StyledWrapper = styled.div`
   ${media.tablet`
       padding: 0 4rem 3rem;
     `}
-`;
-
-const Controls = styled.div`
-  margin: -1rem 0 2rem;
 `;
 
 const deriveColorState = (rgbValues = [0, 0, 0]) => {
@@ -101,11 +95,7 @@ function App({ initialColor, darkMode, location }) {
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
       <StyledWrapper>
         <GlobalStyles />
-        <Header />
-        <Controls>
-          <ThemeControl onToggle={toggleTheme} toggled={darkMode} />
-          <RandomizeControl onClick={randomizeColor} />
-        </Controls>
+        <Header state={{ darkMode }} callbacks={{ toggleTheme, randomizeColor }} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
         <Preview colorValues={colorValues} setColor={setColor} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />

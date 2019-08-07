@@ -18,6 +18,11 @@ const dark = {
   buttonHighlightColor: 'rgba(255, 255, 255, 0.1)',
   fullScreenModalBgColor: 'rgba(255,255,255, 0.9)',
   inputColor: colors.darkGrey,
+  menu: {
+    bgColor: colors.offWhite,
+    textColor: colors.offBlack,
+    buttonHoverColor: 'rgba(0, 0, 0, 0.1)'
+  },
   colors: {
     ...colors
   },
@@ -31,6 +36,11 @@ const light = {
   buttonHighlightColor: 'rgba(0, 0, 0, 0.1)',
   fullScreenModalBgColor: 'rgba(0, 0, 0, 0.85)',
   inputColor: colors.lightGrey,
+  menu: {
+    bgColor: colors.offBlack,
+    textColor: colors.offWhite,
+    buttonHoverColor: 'rgba(255, 255, 255, 0.1)'
+  },
   colors: {
     ...colors
   },
