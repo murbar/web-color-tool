@@ -24,12 +24,13 @@ const RangeStyles = styled.div`
   .input-range__slider {
     top: 0;
     position: absolute;
-    width: 1.5rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 4.6rem;
     background: transparent;
     border: 0.3rem solid ${p => p.theme.textColor};
     border-radius: 0.5rem;
-    transform: translateX(-0.75rem) translateY(-4rem);
+    transform: translateX(-50%) translateY(-4.3rem);
+    box-shadow: 0 0 1rem ${p => p.theme.backgroundColor};
     &:hover {
       cursor: pointer;
     }
