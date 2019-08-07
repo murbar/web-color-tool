@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import IconButton from 'components/common/IconButton';
 import colorConvert from '../colorConvert';
+import breakpoints from '../styles/media';
 import { useSpring, animated } from 'react-spring';
 import { trueMod } from 'helpers';
 
@@ -15,25 +16,28 @@ const harmonies = {
 };
 
 const Styles = styled.div``;
+
 const Toggle = styled.div`
   text-align: center;
   position: absolute;
+  right: 2rem;
+  top: 14rem;
 `;
+
 const Display = styled.div`
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 25%;
   flex: 1;
   position: absolute;
-  ${'' /* width: 100%; */}
-  ${'' /* height: 8rem; */}
-  right: 0;
+  left: 0;
   bottom: 0;
-  h3 {
-    position: absolute;
-    top: -3em;
-  }
+  width: 100%;
+  height: 8rem;
+  ${breakpoints.tablet(css`
+    width: 25%;
+    height: 100%;
+    flex-direction: column;
+    border-radius: 0.5em;
+  `)}
 `;
 const SwatchStyles = styled.div`
   flex: 1;
@@ -49,6 +53,12 @@ const SwatchStyles = styled.div`
   }
 `;
 
+// const SwatchValue = styled(animated.span)`
+//   &:before {
+//     content: '#';
+//   }
+// `;
+
 const AnimatedSwatch = animated(SwatchStyles);
 
 const Swatch = ({ hex }) => {
@@ -56,17 +66,15 @@ const Swatch = ({ hex }) => {
   console.log(hex, r, g, b);
 
   const valuesSpring = useSpring({
-    // config: { duration: 400 },
+    config: { duration: 400 },
     rgb: [r, g, b]
   });
   const backgroundSpring = useSpring({
     config: { duration: 2000 },
     background: `#${hex}`
   });
-  console.dir(backgroundSpring);
   return (
     <AnimatedSwatch style={backgroundSpring}>
-      {/* <span>#{hex}</span> */}
       <animated.span>
         {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
       </animated.span>
@@ -88,7 +96,7 @@ const getMonochromaticHexValues = ([h, s, l]) => {
 
 const getAnalogousValues = ([h, s, l]) => {
   const hex1 = colorConvert.hsl.toHex([trueMod(h - 30, 360), s, l]);
-  const hex2 = colorConvert.hsl.toHex([trueMod(h + 30), s, l]);
+  const hex2 = colorConvert.hsl.toHex([trueMod(h + 30, 360), s, l]);
   return [hex1, hex2];
 };
 
@@ -130,7 +138,6 @@ export default function Harmonies({ colorValues }) {
       </Toggle>
       {showing !== null && (
         <Display>
-          <h3>{showing}</h3>
           {showing === harmonies.CO && <Swatch hex={getComplimentHex(hsl)} />}
           {showing === harmonies.MO && (
             <>
