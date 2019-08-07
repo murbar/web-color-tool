@@ -7,6 +7,9 @@ import { trueMod } from 'helpers';
 import { harmonyConstants } from 'config';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as MaxIcon } from 'icons/maximize.svg';
+import { ReactComponent as LinkIcon } from 'icons/link.svg';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { publicURL } from 'config';
 
 const Styles = styled.div``;
 
@@ -38,17 +41,25 @@ const SwatchStyles = styled.div`
     color: ${p => p.theme.backgroundColor};
     font-family: ${p => p.theme.fontFixed};
     font-size: 0.7em;
+    cursor: copy;
   }
 `;
 
 const AnimatedSwatch = animated(SwatchStyles);
 
-const MaxButton = styled(IconButton)`
+const Buttons = styled.div`
   position: absolute;
   bottom: 1rem;
   left: 1rem;
-  transform: scale(0.8);
+  transform: scale(0.7);
   transform-origin: left bottom;
+  ${IconButton} {
+    margin: 0;
+  }
+  ${breakpoints.tablet(css`
+    display: flex;
+    flex-direction: column-reverse;
+  `)}
 `;
 
 const Swatch = ({ hex, setColor }) => {
@@ -61,18 +72,28 @@ const Swatch = ({ hex, setColor }) => {
     config: { duration: 400 },
     background: `#${hex}`
   });
+  const link = `${publicURL}/hex/${hex}`;
 
   return (
     <AnimatedSwatch style={backgroundSpring}>
-      <span>
-        #
-        <animated.span>
-          {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
-        </animated.span>
-      </span>
-      <MaxButton title="Set to focus color" onClick={() => setColor([r, g, b])}>
-        <MaxIcon />
-      </MaxButton>
+      <CopyToClipboard text={`#${hex}`}>
+        <span title={`Copy CSS value "#${hex}"`}>
+          #
+          <animated.span>
+            {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
+          </animated.span>
+        </span>
+      </CopyToClipboard>
+      <Buttons>
+        <IconButton title="Set to focus color" onClick={() => setColor([r, g, b])}>
+          <MaxIcon />
+        </IconButton>
+        <CopyToClipboard text={link}>
+          <IconButton title={`Copy link to #${hex}`}>
+            <LinkIcon />
+          </IconButton>
+        </CopyToClipboard>
+      </Buttons>
     </AnimatedSwatch>
   );
 };
