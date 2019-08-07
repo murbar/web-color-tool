@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>comp</title>
     <g id="comp" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <circle id="Oval" stroke="currentColor" stroke-width="1.5" cx="18" cy="8" r="4"></circle>
         <circle id="Oval-Copy" stroke="currentColor" stroke-width="1.5" cx="18" cy="28" r="4"></circle>
