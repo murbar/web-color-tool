@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import IconButton from 'components/common/IconButton';
 import colorConvert from '../colorConvert';
 import { useSpring, animated } from 'react-spring';
+import { trueMod } from 'helpers';
 
 const harmonies = {
   CO: 'Complementary',
@@ -16,40 +17,66 @@ const harmonies = {
 const Styles = styled.div``;
 const Toggle = styled.div`
   text-align: center;
+  position: absolute;
 `;
 const Display = styled.div`
   display: flex;
-  background: white;
+  flex-direction: column;
+  height: 100%;
+  width: 25%;
+  flex: 1;
   position: absolute;
-  width: 100%;
-  height: 8rem;
-  left: 0;
+  ${'' /* width: 100%; */}
+  ${'' /* height: 8rem; */}
+  right: 0;
   bottom: 0;
   h3 {
     position: absolute;
     top: -3em;
   }
 `;
-const SwatchStyles = styled(animated.div)`
-  background: #${p => p.hex};
+const SwatchStyles = styled.div`
   flex: 1;
+  padding: 1rem 2rem 0 0;
+  text-align: right;
+  span {
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    background: ${p => p.theme.previewOverlayColor};
+    color: ${p => p.theme.backgroundColor};
+    font-family: ${p => p.theme.fontFixed};
+    font-size: 0.8em;
+  }
 `;
 
+const AnimatedSwatch = animated(SwatchStyles);
+
 const Swatch = ({ hex }) => {
-  const transition = useSpring({
-    config: { duration: 400 },
+  const [r, g, b] = colorConvert.hex.toRgb(hex);
+  console.log(hex, r, g, b);
+
+  const valuesSpring = useSpring({
+    // config: { duration: 400 },
+    rgb: [r, g, b]
+  });
+  const backgroundSpring = useSpring({
+    config: { duration: 2000 },
     background: `#${hex}`
   });
+  console.dir(backgroundSpring);
   return (
-    <SwatchStyles style={transition} hex={hex}>
-      #{hex}
-    </SwatchStyles>
+    <AnimatedSwatch style={backgroundSpring}>
+      {/* <span>#{hex}</span> */}
+      <animated.span>
+        {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
+      </animated.span>
+    </AnimatedSwatch>
   );
 };
 
 const getComplimentHex = ([h, s, l]) => {
-  const complementHue = (h - 180) % 360;
-  return colorConvert.hsl.toHex([complementHue, s, l]);
+  const complementHue = h - 180;
+  return colorConvert.hsl.toHex([trueMod(complementHue, 360), s, l]);
 };
 
 const getMonochromaticHexValues = ([h, s, l]) => {
@@ -60,35 +87,35 @@ const getMonochromaticHexValues = ([h, s, l]) => {
 };
 
 const getAnalogousValues = ([h, s, l]) => {
-  const hex1 = colorConvert.hsl.toHex([h - 30, s, l]);
-  const hex2 = colorConvert.hsl.toHex([h + 30, s, l]);
+  const hex1 = colorConvert.hsl.toHex([trueMod(h - 30, 360), s, l]);
+  const hex2 = colorConvert.hsl.toHex([trueMod(h + 30), s, l]);
   return [hex1, hex2];
 };
 
 const getSplitComplementValues = ([h, s, l]) => {
-  const complementHue = (h - 180) % 360;
-  const hex1 = colorConvert.hsl.toHex([complementHue - 30, s, l]);
-  const hex2 = colorConvert.hsl.toHex([complementHue + 30, s, l]);
+  const complementHue = h - 180;
+  const hex1 = colorConvert.hsl.toHex([trueMod(complementHue - 30, 360), s, l]);
+  const hex2 = colorConvert.hsl.toHex([trueMod(complementHue + 30, 360), s, l]);
   return [hex1, hex2];
 };
 
 const getTriadicValues = ([h, s, l]) => {
-  const complementHue = (h - 180) % 360;
-  const hex1 = colorConvert.hsl.toHex([complementHue - 60, s, l]);
-  const hex2 = colorConvert.hsl.toHex([complementHue + 60, s, l]);
+  const complementHue = h - 180;
+  const hex1 = colorConvert.hsl.toHex([trueMod(complementHue - 60, 360), s, l]);
+  const hex2 = colorConvert.hsl.toHex([trueMod(complementHue + 60, 360), s, l]);
   return [hex1, hex2];
 };
 
 const getTetradicValues = ([h, s, l]) => {
-  const complementHue = (h - 180) % 360;
-  const hex1 = colorConvert.hsl.toHex([complementHue, s, l]);
-  const hex2 = colorConvert.hsl.toHex([complementHue + 60, s, l]);
-  const hex3 = colorConvert.hsl.toHex([complementHue - 120, s, l]);
+  const hex1 = colorConvert.hsl.toHex([trueMod(h - 180, 360), s, l]);
+  const hex2 = colorConvert.hsl.toHex([trueMod(h - 120, 360), s, l]);
+  const hex3 = colorConvert.hsl.toHex([trueMod(h - 300, 360), s, l]);
   return [hex1, hex2, hex3];
 };
 
-export default function Harmonies({ hsl }) {
-  const [showing, setShowing] = useState(null);
+export default function Harmonies({ colorValues }) {
+  const [showing, setShowing] = useState(harmonies.TE);
+  const { hsl } = colorValues;
 
   return (
     <Styles>
