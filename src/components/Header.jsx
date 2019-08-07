@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import InfoModal from 'components/InfoModal';
+import AboutModal from 'components/AboutModal';
 
 const StyledDiv = styled.div`
   margin: 2rem 0;
@@ -22,7 +22,7 @@ const Header = () => {
       <h1>
         Web color tool <span>RGB &nbsp;+&nbsp; HSL &nbsp;+&nbsp; HEX</span>
       </h1>
-      <InfoModal />
+      <AboutModal />
     </StyledDiv>
   );
 };

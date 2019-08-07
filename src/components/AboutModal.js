@@ -20,7 +20,7 @@ const ModalStyles = styled.div`
   padding: 1rem;
 `;
 
-export default function SettingsModal({ isShowing = false }) {
+export default function AboutModal({ isShowing = false }) {
   const [showModal, setShowModal] = useState(isShowing);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ export default function SettingsModal({ isShowing = false }) {
                 Click the RGB/HSL/HEX data values in the color preview to copy the CSS to your
                 clipboard.
               </p>
+              <h3>Harmonies</h3>
               <h3>Hotkeys</h3>
               <h3>Other useful resources</h3>
               <ButtonRow>
