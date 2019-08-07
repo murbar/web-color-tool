@@ -1,3 +1,5 @@
+import { trueMod } from 'helpers';
+
 // 'fff'/'FFFFFF' -> ['FF', 'FF', 'FF']
 const splitHex = hexValue => {
   const val = hexValue.toUpperCase();
@@ -92,8 +94,8 @@ const hslToRgb = hslValues => {
     if (3 * val < 2) return y + (x - y) * (2 / 3 - val) * 6;
     return y;
   };
-
-  return protoRBG.map(calcValue).map(v => Math.round(255 * v));
+  return protoRBG.map(calcValue).map(v => trueMod(Math.round(255 * v), 255));
+  // return protoRBG.map(calcValue).map(v => Math.round(255 * v));
 };
 
 // [0, 0, 100] -> 'ffffff'

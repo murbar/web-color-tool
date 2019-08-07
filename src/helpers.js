@@ -10,3 +10,5 @@ export const validHex = hex => hexColorMatch.test(hex);
 export const random8Bit = () => Math.floor(Math.random() * 256);
 
 export const randomRgbValues = () => [random8Bit(), random8Bit(), random8Bit()];
+
+export const trueMod = (n, m) => ((n % m) + m) % m;
