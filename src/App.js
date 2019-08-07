@@ -106,9 +106,9 @@ function App({ initialColor, darkMode, location }) {
           <ThemeControl onToggle={toggleTheme} toggled={darkMode} />
           <RandomizeControl onClick={randomizeColor} />
         </Controls>
+        <ValueInputs setColor={setColor} colorValues={colorValues} />
         <Preview colorValues={colorValues} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
-        <ValueInputs setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
         {/* <Swatch rgbValues={colorValues.rgb} /> */}
         {/* <Link to="/hsl/168/81/56">Green color</Link> */}
