@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import breakpoints from 'styles/media';
+import breakpoints from 'styles/breakpoints';
 
 const Styles = styled.div`
   background: ${p => p.theme.backgroundColor};

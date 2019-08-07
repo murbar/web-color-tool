@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import colorConvert from 'colorConvert';
-import breakpoints from 'styles/media';
+import breakpoints from 'styles/breakpoints';
 
 const Styles = styled.div`
   margin: 0 -2rem 0;

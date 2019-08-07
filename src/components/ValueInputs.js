@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import HexForm from 'components/HexForm';
 import RgbForm from 'components/RgbForm';
 import HslForm from 'components/HslForm';
-import breakpoints from 'styles/media';
+import breakpoints from 'styles/breakpoints';
 
 const StyledDiv = styled.div`
   margin: 3.5rem 0;
