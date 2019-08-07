@@ -1,28 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import IconButton from 'components/common/IconButton';
 import colorConvert from 'colorConvert';
 import breakpoints from 'styles/media';
 import { useSpring, animated } from 'react-spring';
 import { trueMod } from 'helpers';
-
-const harmonies = {
-  CO: 'Complementary',
-  MO: 'Monochromatic',
-  AN: 'Analogous',
-  SP: 'Split Complementary',
-  TR: 'Triadic',
-  TE: 'Tetradic'
-};
+import { ReactComponent as CloseIcon } from 'icons/x.svg';
+import { harmonyConstants } from 'config';
 
 const Styles = styled.div``;
-
-const Toggle = styled.div`
-  text-align: center;
-  position: absolute;
-  right: 2rem;
-  top: 14rem;
-`;
 
 const Display = styled.div`
   display: flex;
@@ -39,6 +25,7 @@ const Display = styled.div`
     border-radius: 0.5em;
   `)}
 `;
+
 const SwatchStyles = styled.div`
   flex: 1;
   padding: 1rem 2rem 0 0;
@@ -49,7 +36,7 @@ const SwatchStyles = styled.div`
     background: ${p => p.theme.previewOverlayColor};
     color: ${p => p.theme.backgroundColor};
     font-family: ${p => p.theme.fontFixed};
-    font-size: 0.8em;
+    font-size: 0.7em;
   }
 `;
 
@@ -63,8 +50,6 @@ const AnimatedSwatch = animated(SwatchStyles);
 
 const Swatch = ({ hex }) => {
   const [r, g, b] = colorConvert.hex.toRgb(hex);
-  console.log(hex, r, g, b);
-
   const valuesSpring = useSpring({
     config: { duration: 400 },
     rgb: [r, g, b]
@@ -73,6 +58,7 @@ const Swatch = ({ hex }) => {
     config: { duration: 2000 },
     background: `#${hex}`
   });
+
   return (
     <AnimatedSwatch style={backgroundSpring}>
       <animated.span>
@@ -121,53 +107,43 @@ const getTetradicValues = ([h, s, l]) => {
   return [hex1, hex2, hex3];
 };
 
-export default function Harmonies({ colorValues }) {
-  const [showing, setShowing] = useState(harmonies.TE);
+export default function HarmonyDisplay({ colorValues, showing, setShowing }) {
   const { hsl } = colorValues;
 
   return (
     <Styles>
-      <Toggle>
-        {showing !== null && <IconButton onClick={() => setShowing(null)}>X</IconButton>}
-        <IconButton onClick={() => setShowing(harmonies.CO)}>Comp</IconButton>
-        <IconButton onClick={() => setShowing(harmonies.MO)}>Mono</IconButton>
-        <IconButton onClick={() => setShowing(harmonies.AN)}>Anal</IconButton>
-        <IconButton onClick={() => setShowing(harmonies.SP)}>Splt</IconButton>
-        <IconButton onClick={() => setShowing(harmonies.TR)}>Tri</IconButton>
-        <IconButton onClick={() => setShowing(harmonies.TE)}>Te</IconButton>
-      </Toggle>
       {showing !== null && (
         <Display>
-          {showing === harmonies.CO && <Swatch hex={getComplimentHex(hsl)} />}
-          {showing === harmonies.MO && (
+          {showing === harmonyConstants.CO && <Swatch hex={getComplimentHex(hsl)} />}
+          {showing === harmonyConstants.MO && (
             <>
               {getMonochromaticHexValues(hsl).map(hex => (
                 <Swatch key={hex} hex={hex} />
               ))}
             </>
           )}
-          {showing === harmonies.AN && (
+          {showing === harmonyConstants.AN && (
             <>
               {getAnalogousValues(hsl).map(hex => (
                 <Swatch key={hex} hex={hex} />
               ))}
             </>
           )}
-          {showing === harmonies.SP && (
+          {showing === harmonyConstants.SP && (
             <>
               {getSplitComplementValues(hsl).map(hex => (
                 <Swatch key={hex} hex={hex} />
               ))}
             </>
           )}
-          {showing === harmonies.TR && (
+          {showing === harmonyConstants.TR && (
             <>
               {getTriadicValues(hsl).map(hex => (
                 <Swatch key={hex} hex={hex} />
               ))}
             </>
           )}
-          {showing === harmonies.TE && (
+          {showing === harmonyConstants.TE && (
             <>
               {getTetradicValues(hsl).map(hex => (
                 <Swatch key={hex} hex={hex} />
