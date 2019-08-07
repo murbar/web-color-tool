@@ -107,7 +107,7 @@ function App({ initialColor, darkMode, location }) {
           <RandomizeControl onClick={randomizeColor} />
         </Controls>
         <ValueInputs setColor={setColor} colorValues={colorValues} />
-        <Preview colorValues={colorValues} />
+        <Preview colorValues={colorValues} setColor={setColor} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
         {/* <Swatch rgbValues={colorValues.rgb} /> */}

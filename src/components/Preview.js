@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import breakpoints from 'styles/media';
+import breakpoints from 'styles/breakpoints';
 import colorConvert from 'colorConvert';
 import ColorValues from 'components/ColorValues';
 import { useSpring, animated } from 'react-spring';
@@ -26,7 +26,7 @@ const Container = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-export default function Preview({ colorValues }) {
+export default function Preview({ colorValues, setColor }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
   const color = useSpring({
@@ -38,11 +38,7 @@ export default function Preview({ colorValues }) {
     <Container>
       <ColorDisplay style={color}>
         <ColorValues colorValues={colorValues} />
-        <HarmonyDisplay
-          colorValues={colorValues}
-          showing={showingHarmony}
-          setShowing={setShowingHarmony}
-        />
+        <HarmonyDisplay colorValues={colorValues} showing={showingHarmony} setColor={setColor} />
       </ColorDisplay>
       <HarmonyToggle showing={showingHarmony} setShowing={setShowingHarmony} />
     </Container>
