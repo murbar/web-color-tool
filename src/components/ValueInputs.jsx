@@ -5,6 +5,7 @@ import RgbForm from './RgbForm';
 import HslForm from './HslForm';
 
 const StyledDiv = styled.div`
+  margin: 3.5rem 0;
   & > div {
     margin-bottom: 1.5rem;
   }
