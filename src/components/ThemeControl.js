@@ -1,5 +1,4 @@
 import React from 'react';
-// import styled from 'styled-components';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as Dark } from 'icons/moon.svg';
 import { ReactComponent as Light } from 'icons/sun.svg';
