@@ -31,47 +31,51 @@ export default function HarmonyToggle({ showing, setShowing }) {
     }
   };
 
+  const getTitle = harmony => {
+    return `${showing ? 'Hide' : 'Show'} ${harmony} harmony`;
+  };
+
   return (
     <Styles>
       <Toggle>
         <IconButton
           onClick={() => toggle(harmonyConstants.CO)}
-          title="Show complementary harmonies"
+          title={getTitle(harmonyConstants.CO)}
           className={showing === harmonyConstants.CO ? 'active' : null}
         >
           <CompIcon />
         </IconButton>
         <IconButton
           onClick={() => toggle(harmonyConstants.MO)}
-          title="Show monochromatic harmonies"
+          title={getTitle(harmonyConstants.MO)}
           className={showing === harmonyConstants.MO ? 'active' : null}
         >
           <MonoIcon />
         </IconButton>
         <IconButton
           onClick={() => toggle(harmonyConstants.AN)}
-          title="Show analogous harmonies"
+          title={getTitle(harmonyConstants.AN)}
           className={showing === harmonyConstants.AN ? 'active' : null}
         >
           <AnaloIcon />
         </IconButton>
         <IconButton
           onClick={() => toggle(harmonyConstants.SP)}
-          title="Show split complementary harmonies"
+          title={getTitle(harmonyConstants.SP)}
           className={showing === harmonyConstants.SP ? 'active' : null}
         >
           <SplitIcon />
         </IconButton>
         <IconButton
           onClick={() => toggle(harmonyConstants.TR)}
-          title="Show triadic harmonies"
+          title={getTitle(harmonyConstants.TR)}
           className={showing === harmonyConstants.TR ? 'active' : null}
         >
           <TriIcon />
         </IconButton>
         <IconButton
           onClick={() => toggle(harmonyConstants.TE)}
-          title="Show tetradic harmonies"
+          title={getTitle(harmonyConstants.TE)}
           className={showing === harmonyConstants.TE ? 'active' : null}
         >
           <TetIcon />
