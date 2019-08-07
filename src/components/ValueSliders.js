@@ -3,19 +3,14 @@ import styled from 'styled-components';
 import ColorInputRange from 'components/common/ColorInputRange';
 import colorConvert from 'colorConvert';
 
-const StyledDiv = styled.div``;
+const StyledDiv = styled.div`
+  margin-top: 3.5rem;
+`;
 
-const Value = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
+const SliderContainer = styled.div`
+  margin-bottom: 0.5rem;
   label {
-    font-family: 'Source Code Pro', monospace;
-    margin-right: 1rem;
-    text-transform: uppercase;
-  }
-  > div {
-    flex-grow: 1;
+    font-family: ${p => p.theme.fontFixed};
   }
 `;
 
@@ -124,18 +119,18 @@ const ValuePicker = ({ setColor, colorValues }) => {
 
   return (
     <StyledDiv>
-      <Value>
+      <SliderContainer>
         <label>Hue</label>
         <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />
-      </Value>
-      <Value>
-        <label>Sat</label>
+      </SliderContainer>
+      <SliderContainer>
+        <label>Saturation</label>
         <SatScale hue={values.h} maxValue={100} value={values.s} onChange={handleSetSat} />
-      </Value>
-      <Value>
-        <label>Lum</label>
+      </SliderContainer>
+      <SliderContainer>
+        <label>Luminance</label>
         <LumScale hue={values.h} maxValue={100} value={values.l} onChange={handleSetLum} />
-      </Value>
+      </SliderContainer>
     </StyledDiv>
   );
 };
