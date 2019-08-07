@@ -47,13 +47,6 @@ const DisplayButton = styled.button`
     box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
   }
 `;
-const SatButton = styled(DisplayButton)`
-  background: ${p => `hsl(${p.h}, ${p.s}%, 50%)`};
-`;
-
-const LumButton = styled(DisplayButton)`
-  background: ${p => `hsl(${p.h}, ${p.s}%, ${p.l}%)`};
-`;
 
 const Labels = styled.div`
   margin: 0 2rem;
@@ -86,13 +79,16 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
         <Display>
           {lumValues.map(lum => {
             return (
-              <LumButton
+              <DisplayButton
                 key={lum}
                 h={h}
                 l={lum}
                 s={s}
                 onClick={() => convertAndSet([h, s, lum])}
                 title={`Set lightness to %`}
+                style={{
+                  background: `hsl(${h}, ${s}%, ${lum}%)`
+                }}
               />
             );
           })}
@@ -106,13 +102,16 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
         <Display>
           {satValues.map(sat => {
             return (
-              <SatButton
+              <DisplayButton
                 key={sat}
                 h={h}
                 l={l}
                 s={sat}
                 onClick={() => convertAndSet([h, sat, l])}
                 title={`Set saturation to %`}
+                style={{
+                  background: `hsl(${h}, ${sat}%, 50%)`
+                }}
               />
             );
           })}
