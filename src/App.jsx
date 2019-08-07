@@ -75,6 +75,22 @@ function App({ initialColor, darkMode, location }) {
   useHotKeys({
     r: randomizeColor,
     t: toggleTheme
+    // ArrowUp: e => {
+    //   e.preventDefault();
+    //   // tint
+    // },
+    // ArrowDown: e => {
+    //   e.preventDefault();
+    //   // shade
+    // },
+    // ArrowRight: e => {
+    //   e.preventDefault();
+    //   // sat
+    // },
+    // ArrowLeft: e => {
+    //   e.preventDefault();
+    //   //  de-sat
+    // }
   });
 
   useEffect(() => {
@@ -91,7 +107,6 @@ function App({ initialColor, darkMode, location }) {
           <RandomizeControl onClick={randomizeColor} />
         </Controls>
         <Preview colorValues={colorValues} />
-        <h2>Adjust values</h2>
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
