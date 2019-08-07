@@ -1,11 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import IconButton from 'components/common/IconButton';
 import colorConvert from 'colorConvert';
 import breakpoints from 'styles/media';
 import { useSpring, animated } from 'react-spring';
 import { trueMod } from 'helpers';
-import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import { harmonyConstants } from 'config';
 
 const Styles = styled.div``;
@@ -30,7 +28,7 @@ const SwatchStyles = styled.div`
   flex: 1;
   padding: 1rem 2rem 0 0;
   text-align: right;
-  span {
+  > span {
     padding: 0.25em 0.5em;
     border-radius: 0.3em;
     background: ${p => p.theme.previewOverlayColor};
@@ -39,12 +37,6 @@ const SwatchStyles = styled.div`
     font-size: 0.7em;
   }
 `;
-
-// const SwatchValue = styled(animated.span)`
-//   &:before {
-//     content: '#';
-//   }
-// `;
 
 const AnimatedSwatch = animated(SwatchStyles);
 
@@ -55,15 +47,18 @@ const Swatch = ({ hex }) => {
     rgb: [r, g, b]
   });
   const backgroundSpring = useSpring({
-    config: { duration: 2000 },
+    config: { duration: 400 },
     background: `#${hex}`
   });
 
   return (
     <AnimatedSwatch style={backgroundSpring}>
-      <animated.span>
-        {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
-      </animated.span>
+      <span>
+        #
+        <animated.span>
+          {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
+        </animated.span>
+      </span>
     </AnimatedSwatch>
   );
 };
@@ -110,46 +105,27 @@ const getTetradicValues = ([h, s, l]) => {
 export default function HarmonyDisplay({ colorValues, showing, setShowing }) {
   const { hsl } = colorValues;
 
+  // key must be index for spring animations to work
   return (
     <Styles>
       {showing !== null && (
         <Display>
           {showing === harmonyConstants.CO && <Swatch hex={getComplimentHex(hsl)} />}
-          {showing === harmonyConstants.MO && (
-            <>
-              {getMonochromaticHexValues(hsl).map(hex => (
-                <Swatch key={hex} hex={hex} />
-              ))}
-            </>
-          )}
-          {showing === harmonyConstants.AN && (
-            <>
-              {getAnalogousValues(hsl).map(hex => (
-                <Swatch key={hex} hex={hex} />
-              ))}
-            </>
-          )}
-          {showing === harmonyConstants.SP && (
-            <>
-              {getSplitComplementValues(hsl).map(hex => (
-                <Swatch key={hex} hex={hex} />
-              ))}
-            </>
-          )}
-          {showing === harmonyConstants.TR && (
-            <>
-              {getTriadicValues(hsl).map(hex => (
-                <Swatch key={hex} hex={hex} />
-              ))}
-            </>
-          )}
-          {showing === harmonyConstants.TE && (
-            <>
-              {getTetradicValues(hsl).map(hex => (
-                <Swatch key={hex} hex={hex} />
-              ))}
-            </>
-          )}
+
+          {showing === harmonyConstants.MO &&
+            getMonochromaticHexValues(hsl).map((hex, i) => <Swatch key={i} hex={hex} />)}
+
+          {showing === harmonyConstants.AN &&
+            getAnalogousValues(hsl).map((hex, i) => <Swatch key={i} hex={hex} />)}
+
+          {showing === harmonyConstants.SP &&
+            getSplitComplementValues(hsl).map((hex, i) => <Swatch key={i} hex={hex} />)}
+
+          {showing === harmonyConstants.TR &&
+            getTriadicValues(hsl).map((hex, i) => <Swatch key={i} hex={hex} />)}
+
+          {showing === harmonyConstants.TE &&
+            getTetradicValues(hsl).map((hex, i) => <Swatch key={i} hex={hex} />)}
         </Display>
       )}
     </Styles>
