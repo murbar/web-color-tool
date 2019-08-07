@@ -1,14 +1,68 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import colorConvert from 'colorConvert';
-import Button from 'components/common/Button';
+import breakpoints from 'styles/media';
 
 const Styles = styled.div`
-  button {
-    margin-bottom: 1.5rem;
-    margin-right: 1rem;
-    font-size: 0.8em;
+  margin: 0 -2rem 0;
+  ${breakpoints.tablet(css`
+    display: flex;
+    margin: 0;
+    .lum,
+    .sat {
+      width: 50%;
+    }
+    .lum {
+      margin-right: 1.5rem;
+    }
+    .sat {
+      margin-left: 1.5rem;
+    }
+  `)};
+`;
+
+const Display = styled.div`
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  ${breakpoints.tablet(css`
+    border-radius: 0.5rem;
+    margin-bottom: 0;
+  `)};
+`;
+
+const DisplayButton = styled.button`
+  margin: 0;
+  border: none;
+  display: block;
+  height: 4rem;
+  flex-grow: 1;
+  cursor: pointer;
+  &:focus {
+    outline: none;
   }
+  body.using-keyboard &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
+  }
+`;
+const SatButton = styled(DisplayButton)`
+  background: ${p => `hsl(${p.h}, ${p.s}%, 50%)`};
+`;
+
+const LumButton = styled(DisplayButton)`
+  background: ${p => `hsl(${p.h}, ${p.s}%, ${p.l}%)`};
+`;
+
+const Labels = styled.div`
+  margin: 0 2rem;
+  font-family: ${p => p.theme.fontFixed};
+  display: flex;
+  justify-content: space-between;
+  ${breakpoints.tablet(css`
+    margin: 0;
+  `)};
 `;
 
 const ColorAdjustControls = ({ setColor, colorValues }) => {
@@ -19,33 +73,51 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
     setColor(rgbValues);
   };
 
-  const lighten = () => {
-    l = l >= 90 ? 100 : l + 10;
-    // maybe just return early if lightness over 90
-    convertAndSet([h, s, l]);
-  };
-
-  const darken = () => {
-    l = l <= 10 ? 0 : l - 10;
-    convertAndSet([h, s, l]);
-  };
-
-  const saturate = () => {
-    s = s >= 90 ? 100 : s + 10;
-    convertAndSet([h, s, l]);
-  };
-
-  const desaturate = () => {
-    s = s <= 10 ? 0 : s - 10;
-    convertAndSet([h, s, l]);
-  };
+  const lumValues = [12, 24, 36, 50, 62, 74, 86];
+  const satValues = [10, 25, 50, 75, 90];
 
   return (
     <Styles>
-      <Button onClick={lighten}>Lighten</Button>
-      <Button onClick={darken}>Darken</Button>
-      <Button onClick={saturate}>Saturate</Button>
-      <Button onClick={desaturate}>Desaturate</Button>
+      <div className="lum">
+        <Labels>
+          <div>Shade</div>
+          <div>Tint</div>
+        </Labels>
+        <Display>
+          {lumValues.map(lum => {
+            return (
+              <LumButton
+                key={lum}
+                h={h}
+                l={lum}
+                s={s}
+                onClick={() => convertAndSet([h, s, lum])}
+                title={`Set lightness to %`}
+              />
+            );
+          })}
+        </Display>
+      </div>
+      <div className="sat">
+        <Labels>
+          <div>Desaturate</div>
+          <div>Saturate</div>
+        </Labels>
+        <Display>
+          {satValues.map(sat => {
+            return (
+              <SatButton
+                key={sat}
+                h={h}
+                l={l}
+                s={sat}
+                onClick={() => convertAndSet([h, sat, l])}
+                title={`Set saturation to %`}
+              />
+            );
+          })}
+        </Display>
+      </div>
     </Styles>
   );
 };
