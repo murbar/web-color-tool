@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
+import GlobalStyles from 'styles/global';
 import ReactGA from 'react-ga';
+import { GAPropertyId } from 'config';
 import colorConvert from 'colorConvert';
 import { randomRgbValues, trueMod } from 'helpers';
-import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
 import media from 'styles/breakpoints';
 import Preview from 'components/Preview';
@@ -13,12 +14,11 @@ import Footer from 'components/Footer';
 import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
 import ValueSlider from 'components/ValueSliders';
+import HotKeys from 'components/HotKeys';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
-import { GAPropertyId } from 'config';
-import HotKeys from 'components/HotKeys';
 
 const AppStyles = styled.div`
   padding: 0 2rem 3rem;
