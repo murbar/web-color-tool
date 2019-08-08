@@ -7,7 +7,7 @@ import { GAPropertyId } from 'config';
 import colorConvert from 'colorConvert';
 import { randomRgbValues, trueMod } from 'helpers';
 import { dark, light } from 'styles/themes';
-import media from 'styles/breakpoints';
+import breakpoints from 'styles/breakpoints';
 import Preview from 'components/Preview';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -24,7 +24,7 @@ const AppStyles = styled.div`
   padding: 0 2rem 3rem;
   max-width: 100rem;
   margin: 0 auto;
-  ${media.tablet`
+  ${breakpoints.tablet`
       padding: 0 4rem 3rem;
     `}
 `;

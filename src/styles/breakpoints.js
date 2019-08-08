@@ -9,7 +9,7 @@ const sizes = {
 // Iterate through the sizes and create a media template
 const breakpoints = Object.keys(sizes).reduce((acc, label) => {
   acc[label] = (...args) => css`
-    @media (min-width: ${sizes[label] / 16}rem) {
+    @media (min-width: ${sizes[label]}px) {
       ${css(...args)}
     }
   `;
@@ -17,14 +17,14 @@ const breakpoints = Object.keys(sizes).reduce((acc, label) => {
 }, {});
 
 breakpoints.tall = (...args) => css`
-  @media (min-height: 44rem) {
+  @media (min-height: 700px) {
     ${css(...args)}
   }
 `;
 
 breakpoints.below = Object.keys(sizes).reduce((acc, label) => {
   acc[label] = (...args) => css`
-    @media (max-width: ${sizes[label] / 16}rem) {
+    @media (max-width: ${sizes[label]}px) {
       ${css(...args)}
     }
   `;
