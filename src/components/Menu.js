@@ -35,6 +35,14 @@ const Styles = styled.div`
     }
   }
   ${p => p.showing && expandedCss}
+  ${breakpoints.tablet`
+    ${IconButton} {
+      margin: 0 1rem 0 0;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  `}
 `;
 
 const Toggle = styled.div`
