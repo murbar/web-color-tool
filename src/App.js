@@ -41,7 +41,7 @@ const randomColor = () => deriveColorState(randomRgbValues());
 
 ReactGA.initialize(GAPropertyId);
 
-function App({ initialColor, darkMode, location }) {
+function App({ initialColor, location }) {
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-pref', true);
   const [colorValues, setColorValues] = useLocalStorageState(
     'last-color-val',
@@ -102,7 +102,7 @@ function App({ initialColor, darkMode, location }) {
           callbacks={{ randomizeColor, toggleTheme, adjustLum, adjustHue, adjustSat }}
           colorValues={colorValues}
         />
-        <Header state={{ darkMode }} callbacks={{ toggleTheme, randomizeColor }} />
+        <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
         <Preview colorValues={colorValues} setColor={setColor} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />

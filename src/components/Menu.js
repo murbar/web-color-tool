@@ -76,7 +76,7 @@ export default function Menu({ state, callbacks }) {
       </Toggle>
       <Expanded showing={showing}>
         <RandomizeControl onClick={randomizeColor} />
-        <ThemeControl onToggle={toggleTheme} toggled={state.darkMode} />
+        <ThemeControl onToggle={toggleTheme} toggled={state.darkThemeToggle} />
         <AboutModal />
       </Expanded>
     </Styles>
