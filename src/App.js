@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import ReactGA from 'react-ga';
 import colorConvert from 'colorConvert';
-import { randomRgbValues, trueMod, fireHotKey, recordGAEvent } from 'helpers';
+import { randomRgbValues, trueMod } from 'helpers';
 import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
 import media from 'styles/breakpoints';
@@ -14,12 +14,11 @@ import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
 import ValueSlider from 'components/ValueSliders';
 import useDocumentTitle from 'hooks/useDocumentTitle';
-import useHotKeys from 'hooks/useHotKeys';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { GAPropertyId } from 'config';
-import HiddenClipboardCopier from 'components/common/HiddenClipboardCopier';
+import HotKeys from 'components/HotKeys';
 
 const AppStyles = styled.div`
   padding: 0 2rem 3rem;
@@ -90,56 +89,6 @@ function App({ initialColor, darkMode, location }) {
   );
   useKeyboardQuery('using-keyboard');
   useAnalyticsPageView(location);
-  useHotKeys({
-    r: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Randomize color');
-      fireHotKey(e, () => {
-        randomizeColor();
-      });
-    },
-    t: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Toggle theme');
-      fireHotKey(e, () => {
-        toggleTheme();
-      });
-    },
-    ArrowUp: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
-      fireHotKey(e, () => {
-        adjustLum(5);
-      });
-    },
-    ArrowDown: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
-      fireHotKey(e, () => {
-        adjustLum(-5);
-      });
-    },
-    ArrowRight: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
-      fireHotKey(e, () => {
-        adjustHue(12);
-      });
-    },
-    ArrowLeft: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
-      fireHotKey(e, () => {
-        adjustHue(-12);
-      });
-    },
-    s: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
-      fireHotKey(e, () => {
-        adjustSat(5);
-      });
-    },
-    d: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
-      fireHotKey(e, () => {
-        adjustSat(-5);
-      });
-    }
-  });
 
   useEffect(() => {
     if (initialColor) setColor(initialColor);
@@ -149,13 +98,16 @@ function App({ initialColor, darkMode, location }) {
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
       <AppStyles>
         <GlobalStyles />
+        <HotKeys
+          callbacks={{ randomizeColor, toggleTheme, adjustLum, adjustHue, adjustSat }}
+          colorValues={colorValues}
+        />
         <Header state={{ darkMode }} callbacks={{ toggleTheme, randomizeColor }} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
         <Preview colorValues={colorValues} setColor={setColor} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
         <Footer />
-        <HiddenClipboardCopier hex={colorValues.hex} />
       </AppStyles>
     </ThemeProvider>
   );
