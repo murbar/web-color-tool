@@ -19,8 +19,9 @@ import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { GAPropertyId } from 'config';
+import HiddenClipboardCopier from 'components/common/HiddenClipboardCopier';
 
-const StyledWrapper = styled.div`
+const AppStyles = styled.div`
   padding: 0 2rem 3rem;
   max-width: 100rem;
   margin: 0 auto;
@@ -143,7 +144,7 @@ function App({ initialColor, darkMode, location }) {
 
   return (
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
-      <StyledWrapper>
+      <AppStyles>
         <GlobalStyles />
         <Header state={{ darkMode }} callbacks={{ toggleTheme, randomizeColor }} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
@@ -151,7 +152,8 @@ function App({ initialColor, darkMode, location }) {
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
         <Footer />
-      </StyledWrapper>
+        <HiddenClipboardCopier hex={colorValues.hex} />
+      </AppStyles>
     </ThemeProvider>
   );
 }
