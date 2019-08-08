@@ -41,8 +41,6 @@ const randomColor = () => deriveColorState(randomRgbValues());
 
 ReactGA.initialize(GAPropertyId);
 
-// GA events for randomize, toggle theme, use harmonies, use inputs, use tine, use sat, use keyboard, use sliders, copy css, copy link
-
 function App({ initialColor, darkMode, location }) {
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-pref', true);
   const [colorValues, setColorValues] = useLocalStorageState(
