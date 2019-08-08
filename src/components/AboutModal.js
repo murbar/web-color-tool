@@ -49,7 +49,7 @@ const AboutModalStyles = styled.div`
     font-size: 1.25em;
     background: ${p => p.theme.textColor};
     color: ${p => p.theme.backgroundColor};
-    padding: 0 0.35em;
+    padding: 0.15em 0.35em;
     border-radius: 0.25em;
   }
 `;
@@ -124,9 +124,9 @@ export default function AboutModal({ isShowing = false }) {
           </ul>
           <h3>Harmonies</h3>
           <p>
-            Explore color harmonies by toggling one of the six color combinations via these symbols.
-            Each harmony has its own mood. Use harmonies to brainstorm color combinations that work
-            well together.
+            Explore color combinations by toggling one of the six harmonies via these symbols. Each
+            harmony has its own mood. Use harmonies to brainstorm color combos that work well
+            together.
           </p>
           <Harmony>
             <div className="icon">
@@ -246,7 +246,8 @@ export default function AboutModal({ isShowing = false }) {
                 rel="noopener noreferrer"
               >
                 Fundamentals of Color Theory
-              </a>
+              </a>{' '}
+              on 99designs
             </li>
             <li>
               <a
@@ -266,7 +267,7 @@ export default function AboutModal({ isShowing = false }) {
               >
                 Math behind colorspace conversions
               </a>{' '}
-              at Waldman Media
+              on Waldman Media
             </li>
             <li>
               <a
