@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import ReactGA from 'react-ga';
@@ -49,10 +49,13 @@ function App({ initialColor, darkMode, location }) {
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
 
-  const setColor = rgbValues => {
-    const [r, g, b] = rgbValues;
-    setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
-  };
+  const setColor = React.useCallback(
+    rgbValues => {
+      const [r, g, b] = rgbValues;
+      setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
+    },
+    [setColorValues]
+  );
 
   const randomizeColor = () => {
     setColorValues(randomColor());
@@ -137,6 +140,10 @@ function App({ initialColor, darkMode, location }) {
       });
     }
   });
+
+  useEffect(() => {
+    if (initialColor) setColor(initialColor);
+  }, [initialColor, setColor]);
 
   return (
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
