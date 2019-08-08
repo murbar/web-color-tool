@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import ReactGA from 'react-ga';
 import colorConvert from 'colorConvert';
-import { randomRgbValues } from 'helpers';
+import { randomRgbValues, trueMod, fireHotKey } from 'helpers';
 import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
 import media from 'styles/breakpoints';
@@ -60,36 +60,77 @@ function App({ initialColor, darkMode, location }) {
     });
   };
 
+  const adjustHue = hue => {
+    const [h, s, l] = colorValues.hsl;
+    const newHue = trueMod(h + hue, 360);
+    setColor(colorConvert.hsl.toRgb([newHue, s, l]));
+  };
+
+  const adjustSat = sat => {
+    const [h, s, l] = colorValues.hsl;
+    const newSat = s + sat > 99 ? 99 : s + sat < 1 ? 1 : s + sat;
+    setColor(colorConvert.hsl.toRgb([h, newSat, l]));
+  };
+
+  const adjustLum = lum => {
+    const [h, s, l] = colorValues.hsl;
+    const newLum = l + lum > 99 ? 99 : l + lum < 1 ? 1 : l + lum;
+    setColor(colorConvert.hsl.toRgb([h, s, newLum]));
+  };
+
   const toggleTheme = () => setDarkThemeToggle(prev => !prev);
 
-  useDocumentTitle(`#${colorValues.hex} - Color Converter | RGB - HSL - HEX`);
+  useDocumentTitle(
+    `#${colorValues.hex} - Web color tool for developers | Convert RGB HSL Hex & explore harmonies`
+  );
   useKeyboardQuery('using-keyboard');
   useAnalyticsPageView(location);
-
   useHotKeys({
-    r: randomizeColor,
-    t: toggleTheme
-    // ArrowUp: e => {
-    //   e.preventDefault();
-    //   // tint
-    // },
-    // ArrowDown: e => {
-    //   e.preventDefault();
-    //   // shade
-    // },
-    // ArrowRight: e => {
-    //   e.preventDefault();
-    //   // sat
-    // },
-    // ArrowLeft: e => {
-    //   e.preventDefault();
-    //   //  de-sat
-    // }
+    r: e => {
+      fireHotKey(e, () => {
+        randomizeColor();
+      });
+    },
+    t: e => {
+      fireHotKey(e, () => {
+        toggleTheme();
+      });
+    },
+    ArrowUp: e => {
+      fireHotKey(e, () => {
+        adjustLum(5);
+      });
+    },
+    ArrowDown: e => {
+      fireHotKey(e, () => {
+        adjustLum(-5);
+      });
+    },
+    ArrowRight: e => {
+      fireHotKey(e, () => {
+        adjustHue(12);
+      });
+    },
+    ArrowLeft: e => {
+      fireHotKey(e, () => {
+        adjustHue(-12);
+      });
+    },
+    s: e => {
+      fireHotKey(e, () => {
+        adjustSat(5);
+      });
+    },
+    d: e => {
+      fireHotKey(e, () => {
+        adjustSat(-5);
+      });
+    }
   });
 
-  useEffect(() => {
-    if (initialColor) setColor(initialColor);
-  }, [initialColor]);
+  // useEffect(() => {
+  //   if (initialColor) setColor(initialColor);
+  // }, [initialColor]);
 
   return (
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
@@ -100,8 +141,6 @@ function App({ initialColor, darkMode, location }) {
         <Preview colorValues={colorValues} setColor={setColor} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
-        {/* <Swatch rgbValues={colorValues.rgb} /> */}
-        {/* <Link to="/hsl/168/81/56">Green color</Link> */}
         <Footer />
       </StyledWrapper>
     </ThemeProvider>
