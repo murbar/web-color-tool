@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import colorConvert from 'colorConvert';
 import breakpoints from 'styles/breakpoints';
 import { useSpring, animated } from 'react-spring';
-import { trueMod } from 'helpers';
+import { trueMod, recordGAEvent } from 'helpers';
 import { harmonyConstants } from 'config';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as MaxIcon } from 'icons/maximize.svg';
@@ -76,7 +76,12 @@ const Swatch = ({ hex, setColor }) => {
 
   return (
     <AnimatedSwatch style={backgroundSpring}>
-      <CopyToClipboard text={`#${hex}`}>
+      <CopyToClipboard
+        text={`#${hex}`}
+        onCopy={() => {
+          recordGAEvent('User', 'Clicked', 'Copy color');
+        }}
+      >
         <span title={`Copy CSS value "#${hex}"`}>
           #
           <animated.span>
@@ -85,10 +90,21 @@ const Swatch = ({ hex, setColor }) => {
         </span>
       </CopyToClipboard>
       <Buttons>
-        <IconButton title="Set to focus color" onClick={() => setColor([r, g, b])}>
+        <IconButton
+          title="Set to focus color"
+          onClick={() => {
+            setColor([r, g, b]);
+            recordGAEvent('User', 'Clicked', 'Set focus color');
+          }}
+        >
           <MaxIcon />
         </IconButton>
-        <CopyToClipboard text={link}>
+        <CopyToClipboard
+          text={link}
+          onCopy={() => {
+            recordGAEvent('User', 'Clicked', 'Copy link');
+          }}
+        >
           <IconButton title={`Copy link to #${hex}`}>
             <LinkIcon />
           </IconButton>

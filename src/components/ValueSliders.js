@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ColorInputRange from 'components/common/ColorInputRange';
 import colorConvert from 'colorConvert';
+import { recordGAEvent } from 'helpers';
 
 const StyledDiv = styled.div`
   margin-top: 3.5rem;
@@ -118,7 +119,7 @@ const ValuePicker = ({ setColor, colorValues }) => {
   };
 
   return (
-    <StyledDiv>
+    <StyledDiv onClick={() => recordGAEvent('User', 'Clicked', 'Slider controls')}>
       <SliderContainer>
         <label>Hue</label>
         <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />

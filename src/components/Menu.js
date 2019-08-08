@@ -7,6 +7,7 @@ import IconButton from 'components/common/IconButton';
 import { ReactComponent as MenuIcon } from 'icons/menu.svg';
 import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import breakpoints from 'styles/breakpoints';
+import { recordGAEvent } from 'helpers';
 
 const expandedCss = css`
   ${breakpoints.below.tablet`
@@ -65,7 +66,7 @@ export default function Menu({ state, callbacks }) {
 
   return (
     <Styles showing={showing}>
-      <Toggle>
+      <Toggle onClick={() => recordGAEvent('User', 'Clicked', 'Menu - toggle')}>
         <IconButton
           onClick={() => setShowing(prev => !prev)}
           title={`${showing ? 'Close' : 'Expand'} menu`}

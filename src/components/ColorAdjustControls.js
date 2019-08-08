@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import colorConvert from 'colorConvert';
 import breakpoints from 'styles/breakpoints';
+import { recordGAEvent } from 'helpers';
 
 const Styles = styled.div`
   margin: 0 -2rem 0;
@@ -76,7 +77,7 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
           <div>Shade</div>
           <div>Tint</div>
         </Labels>
-        <Display>
+        <Display onClick={() => recordGAEvent('User', 'Clicked', 'Shade/tint controls')}>
           {lumValues.map(lum => {
             return (
               <DisplayButton
@@ -99,7 +100,7 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
           <div>Desaturate</div>
           <div>Saturate</div>
         </Labels>
-        <Display>
+        <Display onClick={() => recordGAEvent('User', 'Clicked', 'Sat/desat controls')}>
           {satValues.map(sat => {
             return (
               <DisplayButton

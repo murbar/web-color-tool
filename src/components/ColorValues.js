@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import colorConvert from 'colorConvert';
 import { animated, useSpring } from 'react-spring';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { recordGAEvent } from 'helpers';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -25,7 +26,12 @@ const StyledDiv = styled.div`
 
 const CopyOnClick = ({ string, children }) => {
   return (
-    <CopyToClipboard text={string} onCopy={() => {}}>
+    <CopyToClipboard
+      text={string}
+      onCopy={() => {
+        recordGAEvent('User', 'Clicked', 'Copy color');
+      }}
+    >
       <div className="values" title={`Copy CSS value "${string}"`}>
         {children}
       </div>

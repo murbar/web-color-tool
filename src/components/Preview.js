@@ -10,6 +10,7 @@ import IconButton from 'components/common/IconButton';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { publicURL } from 'config';
+import { recordGAEvent } from 'helpers';
 
 const ColorDisplay = styled(animated.div)`
   height: 30vh;
@@ -49,7 +50,7 @@ const LinkTo = ({ hex }) => {
 
   return (
     <LinkToStyles>
-      <CopyToClipboard text={link}>
+      <CopyToClipboard text={link} onCopy={() => recordGAEvent('User', 'Clicked', 'Copy link')}>
         <IconButton title={`Copy link to #${hex}`}>
           <LinkIcon />
         </IconButton>

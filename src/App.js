@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import ReactGA from 'react-ga';
 import colorConvert from 'colorConvert';
-import { randomRgbValues, trueMod, fireHotKey } from 'helpers';
+import { randomRgbValues, trueMod, fireHotKey, recordGAEvent } from 'helpers';
 import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
 import media from 'styles/breakpoints';
@@ -18,6 +18,7 @@ import useHotKeys from 'hooks/useHotKeys';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import { GAPropertyId } from 'config';
 
 const StyledWrapper = styled.div`
   padding: 0 2rem 3rem;
@@ -38,7 +39,9 @@ const deriveColorState = (rgbValues = [0, 0, 0]) => {
 
 const randomColor = () => deriveColorState(randomRgbValues());
 
-ReactGA.initialize('UA-140727716-1');
+ReactGA.initialize(GAPropertyId);
+
+// GA events for randomize, toggle theme, use harmonies, use inputs, use tine, use sat, use keyboard, use sliders, copy css, copy link
 
 function App({ initialColor, darkMode, location }) {
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-pref', true);
@@ -87,41 +90,49 @@ function App({ initialColor, darkMode, location }) {
   useAnalyticsPageView(location);
   useHotKeys({
     r: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Randomize color');
       fireHotKey(e, () => {
         randomizeColor();
       });
     },
     t: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Toggle theme');
       fireHotKey(e, () => {
         toggleTheme();
       });
     },
     ArrowUp: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
         adjustLum(5);
       });
     },
     ArrowDown: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
         adjustLum(-5);
       });
     },
     ArrowRight: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
         adjustHue(12);
       });
     },
     ArrowLeft: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
         adjustHue(-12);
       });
     },
     s: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
         adjustSat(5);
       });
     },
     d: e => {
+      recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
         adjustSat(-5);
       });

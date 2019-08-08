@@ -6,6 +6,7 @@ import ButtonRow from 'components/common/ButtonRow';
 import FullScreenModal from 'components/common/FullScreenModal';
 // import ButtonRow from './common/ButtonRow';
 import { ReactComponent as InfoIcon } from 'icons/info.svg';
+import { recordGAEvent } from 'helpers';
 
 const ModalStyles = styled.div`
   padding: 1rem;
@@ -20,12 +21,19 @@ export default function AboutModal({ isShowing = false }) {
 
   return (
     <>
-      <IconButton onClick={() => setShowModal(true)} title="About this app" className="control">
+      <IconButton
+        onClick={() => {
+          setShowModal(true);
+          recordGAEvent('User', 'Clicked', 'Menu - about');
+        }}
+        title="About this app"
+        className="control"
+      >
         <InfoIcon />
       </IconButton>
       <FullScreenModal onClickOff={() => setShowModal(false)} isShowing={showModal}>
         <ModalStyles>
-          <h2>Welcome</h2>
+          <h2>A color tool for developers</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo hic ullam ratione
             repudiandae, alias tenetur laboriosam iusto, voluptatum quasi suscipit rem dignissimos

@@ -8,6 +8,7 @@ import { ReactComponent as SplitIcon } from 'icons/harm-spt.svg';
 import { ReactComponent as TriIcon } from 'icons/harm-tri.svg';
 import { ReactComponent as TetIcon } from 'icons/harm-tet.svg';
 import { harmonyConstants } from 'config';
+import { recordGAEvent } from 'helpers';
 
 const Styles = styled.div``;
 
@@ -37,7 +38,7 @@ export default function HarmonyToggle({ showing, setShowing }) {
 
   return (
     <Styles>
-      <Toggle>
+      <Toggle onClick={() => recordGAEvent('User', 'Clicked', 'Harmony toggle')}>
         <IconButton
           onClick={() => toggle(harmonyConstants.CO)}
           title={getTitle(harmonyConstants.CO)}

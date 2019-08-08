@@ -8,3 +8,4 @@ export const harmonyConstants = {
 };
 
 export const publicURL = 'https://color.joelb.dev';
+export const GAPropertyId = 'UA-140727716-1';
