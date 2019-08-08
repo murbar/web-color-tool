@@ -13,7 +13,7 @@ export default function HiddenClipboardCopier({ hex }) {
 
   useHotKeys({
     c: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Copy focus color');
+      recordGAEvent('User', 'Triggered hotkey', 'Copy base color');
       fireHotKey(e, () => {
         copierRef.current.click();
       });

@@ -20,7 +20,7 @@ const Header = ({ state, callbacks }) => {
   return (
     <Styles>
       <h1>
-        Web color tool <span>Convert RGB → HSL → Hex & explore harmonies</span>
+        Web color tool <span>Convert RGB / HSL / Hex & explore harmonies</span>
       </h1>
       <Menu state={state} callbacks={callbacks} />
     </Styles>

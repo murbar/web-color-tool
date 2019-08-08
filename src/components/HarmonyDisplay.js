@@ -91,10 +91,10 @@ const Swatch = ({ hex, setColor }) => {
       </CopyToClipboard>
       <Buttons>
         <IconButton
-          title="Set to focus color"
+          title="Set base color"
           onClick={() => {
             setColor([r, g, b]);
-            recordGAEvent('User', 'Clicked', 'Set focus color');
+            recordGAEvent('User', 'Clicked', 'Set base color');
           }}
         >
           <MaxIcon />
