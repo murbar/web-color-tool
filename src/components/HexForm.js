@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import colorConvert from '../colorConvert';
-import HexInput from './common/HexInput';
+import colorConvert from 'colorConvert';
+import HexInput from 'components/common/HexInput';
+import { recordGAEvent } from 'helpers';
 
 const HexForm = ({ setColor, colorValues }) => {
   const [hexValue, setHexValue] = useState('');
@@ -26,7 +27,7 @@ const HexForm = ({ setColor, colorValues }) => {
   const handleFocus = e => e.target.select();
 
   return (
-    <div>
+    <div onClick={() => recordGAEvent('User', 'Clicked', 'Hex inputs')}>
       <label>HEX</label>
       <HexInput
         name="hex"

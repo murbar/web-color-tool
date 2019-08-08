@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import media from './media';
+import media from 'styles/breakpoints';
 
 export default createGlobalStyle`
   * { 
@@ -16,7 +16,7 @@ export default createGlobalStyle`
     font-family: ${p => p.theme.font};
     font-size: 1.6rem;
     line-height: 1.5;
-    min-height: 100vh;
+    min-height: 100%;
     ${media.tablet`
       font-size: 1.8rem;
     `}

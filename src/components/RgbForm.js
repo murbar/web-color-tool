@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ByteInput from './common/ByteInput';
+import ByteInput from 'components/common/ByteInput';
+import { recordGAEvent } from 'helpers';
 
 const RgbForm = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator
@@ -22,7 +23,7 @@ const RgbForm = ({ setColor, colorValues }) => {
   const handleFocus = e => e.target.select();
 
   return (
-    <div>
+    <div onClick={() => recordGAEvent('User', 'Clicked', 'RGB inputs')}>
       <label>RGB</label>
       <ByteInput name="r" value={rgbValues.r} onFocus={handleFocus} onChange={handleChange} />
       <ByteInput name="g" value={rgbValues.g} onFocus={handleFocus} onChange={handleChange} />

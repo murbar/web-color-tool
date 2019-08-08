@@ -10,10 +10,10 @@ const IconButton = styled(Button)`
   height: 5rem;
   border-radius: 50%;
   svg {
-    width: 60%;
+    height: 3rem;
     position: absolute;
-    top: 26%;
-    left: 20%;
+    top: 1rem;
+    left: 1rem;
   }
 `;
 

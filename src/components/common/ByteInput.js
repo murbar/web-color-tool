@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { byteMatch } from '../../regexDefs';
-import Input from './Input';
+import { byteMatch } from 'regexDefs';
+import Input from 'components/common/Input';
 
 const Styles = styled(Input)`
   width: calc(3ch + 1em);

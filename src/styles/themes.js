@@ -1,3 +1,10 @@
+const colors = {
+  offWhite: '#efefef',
+  offBlack: '#111111',
+  lightGrey: '#cccccc',
+  darkGrey: '#333333'
+};
+
 const common = {
   font: `'Source Sans Pro', sans-serif;`,
   fontFixed: `'Source Code Pro', monospace;`,
@@ -5,20 +12,38 @@ const common = {
 };
 
 const dark = {
-  backgroundColor: '#111111',
-  textColor: '#efefef',
-  overlayColor: 'rgba(255, 255, 255, 0.5)',
+  backgroundColor: colors.offBlack,
+  textColor: colors.offWhite,
+  previewOverlayColor: 'rgba(255, 255, 255, 0.5)',
   buttonHighlightColor: 'rgba(255, 255, 255, 0.1)',
-  inputColor: '#333333',
+  fullScreenModalBgColor: 'rgba(255,255,255, 0.9)',
+  inputColor: colors.darkGrey,
+  menu: {
+    bgColor: colors.offWhite,
+    textColor: colors.offBlack,
+    buttonHoverColor: 'rgba(0, 0, 0, 0.1)'
+  },
+  colors: {
+    ...colors
+  },
   ...common
 };
 
 const light = {
-  backgroundColor: '#efefef',
-  textColor: '#111111',
-  overlayColor: 'rgba(0, 0, 0, 0.5)',
+  backgroundColor: colors.offWhite,
+  textColor: colors.offBlack,
+  previewOverlayColor: 'rgba(0, 0, 0, 0.5)',
   buttonHighlightColor: 'rgba(0, 0, 0, 0.1)',
-  inputColor: '#CCCCCC',
+  fullScreenModalBgColor: 'rgba(0, 0, 0, 0.85)',
+  inputColor: colors.lightGrey,
+  menu: {
+    bgColor: colors.offBlack,
+    textColor: colors.offWhite,
+    buttonHoverColor: 'rgba(255, 255, 255, 0.1)'
+  },
+  colors: {
+    ...colors
+  },
   ...common
 };
 

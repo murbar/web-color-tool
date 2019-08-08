@@ -22,4 +22,13 @@ breakpoints.tall = (...args) => css`
   }
 `;
 
+breakpoints.below = Object.keys(sizes).reduce((acc, label) => {
+  acc[label] = (...args) => css`
+    @media (max-width: ${sizes[label] / 16}rem) {
+      ${css(...args)}
+    }
+  `;
+  return acc;
+}, {});
+
 export default breakpoints;

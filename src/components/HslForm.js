@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import colorConvert from '../colorConvert';
-import DegreeInput from './common/DegreeInput';
-import HectoInput from './common/HectoInput';
+import colorConvert from 'colorConvert';
+import DegreeInput from 'components/common/DegreeInput';
+import HectoInput from 'components/common/HectoInput';
+import { recordGAEvent } from 'helpers';
 
 const HslForm = ({ setColor, colorValues }) => {
   const [hslValues, setHslValues] = useState({ h: 0, s: 0, l: 0 });
@@ -14,7 +15,8 @@ const HslForm = ({ setColor, colorValues }) => {
   const handleChange = (e, value, name) => {
     setHslValues(prev => {
       const newValues = { ...prev, [name]: value };
-      const { h, s, l } = newValues;
+      let { h, s, l } = newValues;
+      if (prev.h === 0 && h > 0 && prev.s === 0) s = 50;
       const rgbValues = colorConvert.hsl.toRgb([h, s, l]);
       setColor(rgbValues);
       return newValues;
@@ -24,7 +26,7 @@ const HslForm = ({ setColor, colorValues }) => {
   const handleFocus = e => e.target.select();
 
   return (
-    <div>
+    <div onClick={() => recordGAEvent('User', 'Clicked', 'HSL inputs')}>
       <label>HSL</label>
       <DegreeInput name="h" value={hslValues.h} onFocus={handleFocus} onChange={handleChange} />
       <HectoInput name="s" value={hslValues.s} onFocus={handleFocus} onChange={handleChange} />
