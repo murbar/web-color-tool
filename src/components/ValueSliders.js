@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
 const SliderContainer = styled.div`
   margin-bottom: 0.5rem;
   label {
-    font-family: ${p => p.theme.fontFixed};
+    font-weight: bold;
   }
 `;
 

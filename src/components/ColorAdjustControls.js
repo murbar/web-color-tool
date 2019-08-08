@@ -51,7 +51,7 @@ const DisplayButton = styled.button`
 
 const Labels = styled.div`
   margin: 0 2rem;
-  font-family: ${p => p.theme.fontFixed};
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
   ${breakpoints.tablet(css`

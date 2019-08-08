@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
     margin-bottom: 1.5rem;
   }
   label {
-    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
     margin-right: 1rem;
   }
   input {
