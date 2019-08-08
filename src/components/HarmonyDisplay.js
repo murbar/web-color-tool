@@ -105,7 +105,7 @@ const Swatch = ({ hex, setColor }) => {
             recordGAEvent('User', 'Clicked', 'Copy link');
           }}
         >
-          <IconButton title={`Copy link to #${hex}`}>
+          <IconButton title="Copy link to this color">
             <LinkIcon />
           </IconButton>
         </CopyToClipboard>

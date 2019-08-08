@@ -51,7 +51,7 @@ const LinkTo = ({ hex }) => {
   return (
     <LinkToStyles>
       <CopyToClipboard text={link} onCopy={() => recordGAEvent('User', 'Clicked', 'Copy link')}>
-        <IconButton title={`Copy link to #${hex}`}>
+        <IconButton title="Copy link to this color">
           <LinkIcon />
         </IconButton>
       </CopyToClipboard>
