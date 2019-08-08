@@ -58,10 +58,6 @@ function App({ initialColor, location }) {
 
   const randomizeColor = () => {
     setColorValues(randomColor());
-    ReactGA.event({
-      category: 'User',
-      action: 'Randomized color'
-    });
   };
 
   const adjustHue = hue => {
