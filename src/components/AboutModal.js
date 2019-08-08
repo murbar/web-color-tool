@@ -8,8 +8,31 @@ import FullScreenModal from 'components/common/FullScreenModal';
 import { ReactComponent as InfoIcon } from 'icons/info.svg';
 import { recordGAEvent } from 'helpers';
 
-const ModalStyles = styled.div`
+const AboutModalStyles = styled.div`
   padding: 1rem;
+  .shortcuts {
+    font-size: 0.9em;
+    display: flex;
+    flex-wrap: wrap;
+    dt {
+      width: 7rem;
+      display: block;
+      text-align: right;
+    }
+    dd {
+      width: calc(100% - 7rem);
+      display: block;
+      margin: 0 0 0.75rem 0;
+      padding-left: 1rem;
+    }
+  }
+  kbd {
+    font-size: 1.25em;
+    background: ${p => p.theme.textColor};
+    color: ${p => p.theme.backgroundColor};
+    padding: 0 0.35em;
+    border-radius: 0.25em;
+  }
 `;
 
 export default function AboutModal({ isShowing = false }) {
@@ -31,8 +54,9 @@ export default function AboutModal({ isShowing = false }) {
       >
         <InfoIcon />
       </IconButton>
-      <FullScreenModal onClickOff={() => setShowModal(false)} isShowing={showModal}>
-        <ModalStyles>
+      {/* <FullScreenModal onClickOff={() => setShowModal(false)} isShowing={showModal}> */}
+      <FullScreenModal onClickOff={() => setShowModal(false)} isShowing={true}>
+        <AboutModalStyles>
           <h2>A color tool for developers</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo hic ullam ratione
@@ -49,12 +73,50 @@ export default function AboutModal({ isShowing = false }) {
             clipboard.
           </p>
           <h3>Harmonies</h3>
-          <h3>Hotkeys</h3>
+          <h3>Keyboard shortcuts</h3>
+          <dl className="shortcuts">
+            <dt>
+              <kbd>R</kbd>
+            </dt>
+            <dd>randomize values for focus color</dd>
+            <dt>
+              <kbd>T</kbd>
+            </dt>
+            <dd>toggle theme light/dark</dd>
+            <dt>
+              <kbd>C</kbd>
+            </dt>
+            <dd>copy hex value of focus color</dd>
+            <dt>
+              <kbd>Up</kbd>
+            </dt>
+            <dd>tint focus color</dd>
+            <dt>
+              <kbd>Down</kbd>
+            </dt>
+            <dd>shade focus color</dd>
+            <dt>
+              <kbd>Right</kbd>
+            </dt>
+            <dd>increment hue of focus color</dd>
+            <dt>
+              <kbd>Left</kbd>
+            </dt>
+            <dd>decrement hue of focus color</dd>
+            <dt>
+              <kbd>S</kbd>
+            </dt>
+            <dd>increase saturation of focus color</dd>
+            <dt>
+              <kbd>D</kbd>
+            </dt>
+            <dd>decrease saturation of focus color</dd>
+          </dl>
           <h3>Other useful resources</h3>
           <ButtonRow>
             <Button onClick={() => setShowModal(false)}>Ok</Button>
           </ButtonRow>
-        </ModalStyles>
+        </AboutModalStyles>
       </FullScreenModal>
     </>
   );
