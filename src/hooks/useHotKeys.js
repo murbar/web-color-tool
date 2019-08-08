@@ -7,14 +7,15 @@ export default function useHotKeys(keyHandlerMap) {
   const keydown = useRef(false);
 
   useEffect(() => {
-    const downHandler = ({ key }) => {
+    const downHandler = e => {
+      const { key } = e;
       // check for long press
       if (keydown.current) return;
 
       if (targets.includes(key)) {
         keydown.current = true;
         const callback = keyHandlerMap[key];
-        callback();
+        callback(e);
       }
     };
 
