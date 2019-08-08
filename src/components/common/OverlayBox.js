@@ -20,7 +20,7 @@ const Styles = styled.div`
     margin: 0;
   }
   ${breakpoints.tablet(css`
-    width: 50rem;
+    width: 60rem;
   `)}
 `;
 
