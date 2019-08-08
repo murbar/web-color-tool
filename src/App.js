@@ -83,7 +83,7 @@ function App({ initialColor, darkMode, location }) {
   const toggleTheme = () => setDarkThemeToggle(prev => !prev);
 
   useDocumentTitle(
-    `#${colorValues.hex} - Web color tool for developers | Convert RGB HSL Hex & explore harmonies`
+    `#${colorValues.hex} - Web color tool for developers | Convert RGB/HSL/Hex & explore harmonies`
   );
   useKeyboardQuery('using-keyboard');
   useAnalyticsPageView(location);
@@ -137,10 +137,6 @@ function App({ initialColor, darkMode, location }) {
       });
     }
   });
-
-  // useEffect(() => {
-  //   if (initialColor) setColor(initialColor);
-  // }, [initialColor]);
 
   return (
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
