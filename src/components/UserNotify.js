@@ -10,6 +10,7 @@ const Styles = styled.div`
   text-align: center;
   pointer-events: none;
   font-weight: bold;
+  font-size: 1.25em;
   color: ${p => (p.isBright ? p.theme.colors.offBlack : p.theme.colors.offWhite)};
   opacity: 1;
 `;
