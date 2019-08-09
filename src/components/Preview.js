@@ -10,7 +10,8 @@ import IconButton from 'components/common/IconButton';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { publicURL } from 'config';
-import { recordGAEvent } from 'helpers';
+import { recordGAEvent, isBright } from 'helpers';
+import useExpiresArray from 'hooks/useExpiresArray';
 
 const ColorDisplay = styled(animated.div)`
   height: 30vh;
@@ -45,12 +46,18 @@ const LinkToStyles = styled.div`
   `)}
 `;
 
-const LinkTo = ({ hex }) => {
+const LinkTo = ({ hex, addMessage }) => {
   const link = `${publicURL}/hex/${hex}`;
 
   return (
     <LinkToStyles>
-      <CopyToClipboard text={link} onCopy={() => recordGAEvent('User', 'Clicked', 'Copy link')}>
+      <CopyToClipboard
+        text={link}
+        onCopy={() => {
+          recordGAEvent('User', 'Clicked', 'Copy link');
+          addMessage('Copied link!');
+        }}
+      >
         <IconButton title="Copy link to this color">
           <LinkIcon />
         </IconButton>
@@ -59,8 +66,21 @@ const LinkTo = ({ hex }) => {
   );
 };
 
+const Message = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  font-weight: bold;
+  color: ${p => (p.isBright ? 'black' : 'white')};
+`;
+
 export default function Preview({ colorValues, setColor }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
+  const userMessages = useExpiresArray();
+  const lastMessage = userMessages.count ? userMessages.items[userMessages.count - 1].data : null;
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
   const color = useSpring({
     config: { duration: 400 },
@@ -70,9 +90,15 @@ export default function Preview({ colorValues, setColor }) {
   return (
     <Container>
       <ColorDisplay style={color}>
-        <ColorValues colorValues={colorValues} />
-        <HarmonyDisplay colorValues={colorValues} showing={showingHarmony} setColor={setColor} />
-        <LinkTo hex={colorValues.hex} />
+        <ColorValues colorValues={colorValues} addMessage={userMessages.add} />
+        {lastMessage && <Message isBright={isBright(...colorValues.rgb)}>{lastMessage}</Message>}
+        <HarmonyDisplay
+          colorValues={colorValues}
+          showing={showingHarmony}
+          setColor={setColor}
+          addMessage={userMessages.add}
+        />
+        <LinkTo hex={colorValues.hex} addMessage={userMessages.add} />
       </ColorDisplay>
       <HarmonyToggle showing={showingHarmony} setShowing={setShowingHarmony} />
     </Container>

@@ -24,12 +24,13 @@ const StyledDiv = styled.div`
   }
 `;
 
-const CopyOnClick = ({ string, children }) => {
+const CopyOnClick = ({ string, children, addMessage }) => {
   return (
     <CopyToClipboard
       text={string}
       onCopy={() => {
         recordGAEvent('User', 'Clicked', 'Copy color');
+        addMessage('Copied CSS value!');
       }}
     >
       <div className="values" title={`Copy CSS value "${string}"`}>
@@ -39,7 +40,7 @@ const CopyOnClick = ({ string, children }) => {
   );
 };
 
-export default function ColorValues({ colorValues }) {
+export default function ColorValues({ colorValues, addMessage }) {
   const values = useSpring({
     config: { duration: 400 },
     rgb: colorValues.rgb,
@@ -54,7 +55,7 @@ export default function ColorValues({ colorValues }) {
 
   return (
     <StyledDiv>
-      <CopyOnClick string={cssStrings.rgb}>
+      <CopyOnClick string={cssStrings.rgb} addMessage={addMessage}>
         RGB
         <animated.span>
           {values.rgb.interpolate((...rgb) => {
@@ -63,7 +64,7 @@ export default function ColorValues({ colorValues }) {
           })}
         </animated.span>
       </CopyOnClick>
-      <CopyOnClick string={cssStrings.hsl}>
+      <CopyOnClick string={cssStrings.hsl} addMessage={addMessage}>
         HSL
         <animated.span>
           {values.hsl.interpolate((...hsl) => {
@@ -72,7 +73,7 @@ export default function ColorValues({ colorValues }) {
           })}
         </animated.span>
       </CopyOnClick>
-      <CopyOnClick string={cssStrings.hex}>
+      <CopyOnClick string={cssStrings.hex} addMessage={addMessage}>
         #
         <animated.span>
           {values.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}

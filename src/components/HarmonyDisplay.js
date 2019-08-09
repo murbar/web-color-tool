@@ -62,7 +62,7 @@ const Buttons = styled.div`
   `)}
 `;
 
-const Swatch = ({ hex, setColor }) => {
+const Swatch = ({ hex, setColor, addMessage }) => {
   const [r, g, b] = colorConvert.hex.toRgb(hex);
   const valuesSpring = useSpring({
     config: { duration: 400 },
@@ -80,6 +80,7 @@ const Swatch = ({ hex, setColor }) => {
         text={`#${hex}`}
         onCopy={() => {
           recordGAEvent('User', 'Clicked', 'Copy color');
+          addMessage('Copied CSS value!');
         }}
       >
         <span title={`Copy CSS value "#${hex}"`}>
@@ -103,6 +104,7 @@ const Swatch = ({ hex, setColor }) => {
           text={link}
           onCopy={() => {
             recordGAEvent('User', 'Clicked', 'Copy link');
+            addMessage('Copied link!');
           }}
         >
           <IconButton title="Copy link to this color">
@@ -153,7 +155,7 @@ const getTetradicValues = ([h, s, l]) => {
   return [hex1, hex2, hex3];
 };
 
-export default function HarmonyDisplay({ colorValues, showing, setColor }) {
+export default function HarmonyDisplay({ colorValues, showing, setColor, addMessage }) {
   const { hsl } = colorValues;
 
   // key must be index for spring animations to work
@@ -162,30 +164,32 @@ export default function HarmonyDisplay({ colorValues, showing, setColor }) {
       {showing !== null && (
         <Display>
           {showing === harmonyConstants.CO && (
-            <Swatch setColor={setColor} hex={getComplimentHex(hsl)} />
+            <Swatch setColor={setColor} hex={getComplimentHex(hsl)} addMessage={addMessage} />
           )}
 
           {showing === harmonyConstants.MO &&
             getMonochromaticHexValues(hsl).map((hex, i) => (
-              <Swatch setColor={setColor} key={i} hex={hex} />
+              <Swatch setColor={setColor} key={i} hex={hex} addMessage={addMessage} />
             ))}
 
           {showing === harmonyConstants.AN &&
             getAnalogousValues(hsl).map((hex, i) => (
-              <Swatch setColor={setColor} key={i} hex={hex} />
+              <Swatch setColor={setColor} key={i} hex={hex} addMessage={addMessage} />
             ))}
 
           {showing === harmonyConstants.SP &&
             getSplitComplementValues(hsl).map((hex, i) => (
-              <Swatch setColor={setColor} key={i} hex={hex} />
+              <Swatch setColor={setColor} key={i} hex={hex} addMessage={addMessage} />
             ))}
 
           {showing === harmonyConstants.TR &&
-            getTriadicValues(hsl).map((hex, i) => <Swatch setColor={setColor} key={i} hex={hex} />)}
+            getTriadicValues(hsl).map((hex, i) => (
+              <Swatch setColor={setColor} key={i} hex={hex} addMessage={addMessage} />
+            ))}
 
           {showing === harmonyConstants.TE &&
             getTetradicValues(hsl).map((hex, i) => (
-              <Swatch setColor={setColor} key={i} hex={hex} />
+              <Swatch setColor={setColor} key={i} hex={hex} addMessage={addMessage} />
             ))}
         </Display>
       )}
