@@ -45,7 +45,7 @@ const DisplayButton = styled.button`
   }
   body.using-keyboard &:focus {
     outline: none;
-    box-shadow: 0 0 0 0.2rem ${p => p.theme.highlightColor};
+    box-shadow: 0 0 0 0.2rem ${p => p.theme.textColor};
   }
 `;
 

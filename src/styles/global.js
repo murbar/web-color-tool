@@ -37,6 +37,7 @@ export default createGlobalStyle`
       -moz-appearance:textfield;
   }
   input::selection {
-    background: ${p => p.theme.highlightColor}
+    background: ${p => p.theme.textColor};
+    color: ${p => p.theme.backgroundColor};
   }
 `;

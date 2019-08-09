@@ -19,7 +19,7 @@ const Toggle = styled.div`
   justify-content: space-between;
   transform-origin: center right;
   button.active {
-    background: ${p => p.theme.buttonHighlightColor};
+    background: ${p => p.theme.buttonHoverColor};
   }
 `;
 

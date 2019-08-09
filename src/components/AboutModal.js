@@ -58,7 +58,7 @@ const Harmony = styled.div`
   display: flex;
   margin-bottom: 3rem;
   .icon {
-    background: ${p => p.theme.buttonHighlightColor};
+    background: ${p => p.theme.buttonHoverColor};
     border-radius: 50%;
     padding: 1rem;
     width: 8rem;

@@ -16,7 +16,7 @@ const Styles = styled.div`
 `;
 
 export default function CopyNotify({ messages, isBright }) {
-  // only want to display the last message in this case
+  // we only want to display the last message in this case
   const message = messages.count ? [messages.items[messages.count - 1]] : null;
   const fadeTransition = useTransition(message, m => (m ? m.id : 0), {
     from: {
