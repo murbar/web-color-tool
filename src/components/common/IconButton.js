@@ -14,6 +14,7 @@ const IconButton = styled(Button)`
     position: absolute;
     top: 1rem;
     left: 1rem;
+    pointer-events: none;
   }
 `;
 
