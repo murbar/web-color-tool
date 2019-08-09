@@ -15,6 +15,7 @@ import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
 import ValueSlider from 'components/ValueSliders';
 import HotKeys from 'components/HotKeys';
+import useExpiresArray from 'hooks/useExpiresArray';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
@@ -47,6 +48,7 @@ function App({ initialColor, location }) {
     'last-color-val',
     initialColor ? deriveColorState(initialColor) : randomColor()
   );
+  const userMessages = useExpiresArray([], 2000);
 
   const setColor = React.useCallback(
     rgbValues => {
@@ -95,12 +97,19 @@ function App({ initialColor, location }) {
       <AppStyles>
         <GlobalStyles />
         <HotKeys
-          callbacks={{ randomizeColor, toggleTheme, adjustLum, adjustHue, adjustSat }}
+          callbacks={{
+            randomizeColor,
+            toggleTheme,
+            adjustLum,
+            adjustHue,
+            adjustSat,
+            addMessage: userMessages.add
+          }}
           colorValues={colorValues}
         />
         <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
         <ValueInputs setColor={setColor} colorValues={colorValues} />
-        <Preview colorValues={colorValues} setColor={setColor} />
+        <Preview colorValues={colorValues} setColor={setColor} userMessages={userMessages} />
         <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
         <ValueSlider setColor={setColor} colorValues={colorValues} />
         <Footer />

@@ -7,6 +7,7 @@ import colorConvert from 'colorConvert';
 
 const Root = () => {
   return (
+    // <React.StrictMode>
     <Router>
       <Route path="/" exact render={() => <App initialColor={null} />} />
       <Route
@@ -39,6 +40,7 @@ const Root = () => {
         }}
       />
     </Router>
+    // </React.StrictMode>
   );
 };
 

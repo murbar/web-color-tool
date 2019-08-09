@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import breakpoints from 'styles/breakpoints';
 import colorConvert from 'colorConvert';
 import ColorValues from 'components/ColorValues';
 import { useSpring, animated } from 'react-spring';
 import HarmonyDisplay from 'components/HarmonyDisplay';
-import CopyNotify from 'components/CopyNotify';
+import UserNotify from 'components/UserNotify';
 import HarmonyToggle from 'components/HarmonyToggle';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { publicURL } from 'config';
 import { recordGAEvent, isBright } from 'helpers';
-import useExpiresArray from 'hooks/useExpiresArray';
 
 const ColorDisplay = styled(animated.div)`
   height: 30vh;
@@ -71,10 +70,8 @@ const LinkTo = ({ hex, addMessage, isBright }) => {
   );
 };
 
-export default function Preview({ colorValues, setColor }) {
+export default function Preview({ colorValues, setColor, userMessages }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
-  const userMessages = useExpiresArray([], 2000);
-  // const lastMessage = userMessages.count ? userMessages.items[userMessages.count - 1].data : null;
   const isBrightBg = isBright(...colorValues.rgb);
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
   const color = useSpring({
@@ -82,11 +79,16 @@ export default function Preview({ colorValues, setColor }) {
     background: rgbCSS
   });
 
+  const { add } = userMessages;
+  useEffect(() => {
+    if (showingHarmony) add(showingHarmony);
+  }, [add, showingHarmony]);
+
   return (
     <Container>
       <ColorDisplay style={color}>
         <ColorValues colorValues={colorValues} addMessage={userMessages.add} />
-        <CopyNotify isBright={isBrightBg} messages={userMessages} />
+        <UserNotify isBright={isBrightBg} messages={userMessages} />
         <HarmonyDisplay
           colorValues={colorValues}
           showing={showingHarmony}

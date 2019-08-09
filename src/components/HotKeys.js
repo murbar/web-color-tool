@@ -9,7 +9,7 @@ const Hidden = styled.div`
 `;
 
 export default function HotKeys({ callbacks, colorValues }) {
-  const { randomizeColor, toggleTheme, adjustLum, adjustHue, adjustSat } = callbacks;
+  const { randomizeColor, toggleTheme, adjustLum, adjustHue, adjustSat, addMessage } = callbacks;
   const copierRef = useRef();
 
   useHotKeys({
@@ -17,6 +17,7 @@ export default function HotKeys({ callbacks, colorValues }) {
       recordGAEvent('User', 'Triggered hotkey', 'Randomize color');
       fireHotKey(e, () => {
         randomizeColor();
+        addMessage('Randomized!');
       });
     },
     t: e => {
@@ -29,42 +30,49 @@ export default function HotKeys({ callbacks, colorValues }) {
       recordGAEvent('User', 'Triggered hotkey', 'Copy base color');
       fireHotKey(e, () => {
         copierRef.current.click();
+        addMessage('Copied CSS hex value!');
       });
     },
     ArrowUp: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
         adjustLum(5);
+        addMessage('Lum +5%');
       });
     },
     ArrowDown: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
         adjustLum(-5);
+        addMessage('Lum -5%');
       });
     },
     ArrowRight: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
         adjustHue(12);
+        addMessage('Hue +12deg');
       });
     },
     ArrowLeft: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
         adjustHue(-12);
+        addMessage('Hue -12deg');
       });
     },
     s: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
         adjustSat(5);
+        addMessage('Sat +5%');
       });
     },
     d: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
         adjustSat(-5);
+        addMessage('Sat -5%');
       });
     }
   });
