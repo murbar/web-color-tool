@@ -8,13 +8,16 @@ const colors = {
 const common = {
   font: `'Source Sans Pro', sans-serif;`,
   fontFixed: `'Source Code Pro', monospace;`,
-  highlightColor: 'hsl(168, 81%, 56%)'
+  highlightColor: 'hsl(168, 81%, 56%)',
+  preview: {
+    darkOverlayBg: 'rgba(0, 0, 0, 0.2)',
+    brightOverlayBg: 'rgba(255, 255, 255, 0.2)'
+  }
 };
 
 const dark = {
   backgroundColor: colors.offBlack,
   textColor: colors.offWhite,
-  previewOverlayColor: 'rgba(255, 255, 255, 0.5)',
   buttonHighlightColor: 'rgba(255, 255, 255, 0.1)',
   fullScreenModalBgColor: 'rgba(255,255,255, 0.9)',
   inputColor: colors.darkGrey,
@@ -32,7 +35,6 @@ const dark = {
 const light = {
   backgroundColor: colors.offWhite,
   textColor: colors.offBlack,
-  previewOverlayColor: 'rgba(0, 0, 0, 0.5)',
   buttonHighlightColor: 'rgba(0, 0, 0, 0.1)',
   fullScreenModalBgColor: 'rgba(0, 0, 0, 0.85)',
   inputColor: colors.lightGrey,

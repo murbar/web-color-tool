@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import colorConvert from 'colorConvert';
 import breakpoints from 'styles/breakpoints';
 import { useSpring, animated } from 'react-spring';
-import { trueMod, recordGAEvent } from 'helpers';
+import { trueMod, recordGAEvent, isBright } from 'helpers';
 import { harmonyConstants } from 'config';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as MaxIcon } from 'icons/maximize.svg';
@@ -37,8 +37,9 @@ const SwatchStyles = styled.div`
   > span {
     padding: 0.25em 0.5em;
     border-radius: 0.3em;
-    background: ${p => p.theme.previewOverlayColor};
-    color: ${p => p.theme.backgroundColor};
+    background: ${p =>
+      p.isBright ? p.theme.preview.brightOverlayBg : p.theme.preview.darkOverlayBg};
+    color: ${p => (p.isBright ? p.theme.colors.offBlack : p.theme.colors.offWhite)};
     font-family: ${p => p.theme.fontFixed};
     font-size: 0.7em;
     cursor: copy;
@@ -53,6 +54,9 @@ const Buttons = styled.div`
   left: 1rem;
   transform: scale(0.7);
   transform-origin: left bottom;
+  svg {
+    color: ${p => (p.isBright ? p.theme.colors.offBlack : p.theme.colors.offWhite)};
+  }
   ${IconButton} {
     margin: 0;
   }
@@ -64,6 +68,7 @@ const Buttons = styled.div`
 
 const Swatch = ({ hex, setColor, addMessage }) => {
   const [r, g, b] = colorConvert.hex.toRgb(hex);
+  const isBrightBg = isBright(r, g, b);
   const valuesSpring = useSpring({
     config: { duration: 400 },
     rgb: [r, g, b]
@@ -75,7 +80,7 @@ const Swatch = ({ hex, setColor, addMessage }) => {
   const link = `${publicURL}/hex/${hex}`;
 
   return (
-    <AnimatedSwatch style={backgroundSpring}>
+    <AnimatedSwatch style={backgroundSpring} isBright={isBrightBg}>
       <CopyToClipboard
         text={`#${hex}`}
         onCopy={() => {
@@ -90,7 +95,7 @@ const Swatch = ({ hex, setColor, addMessage }) => {
           </animated.span>
         </span>
       </CopyToClipboard>
-      <Buttons>
+      <Buttons isBright={isBrightBg}>
         <IconButton
           title="Set base color"
           onClick={() => {
@@ -156,7 +161,7 @@ const getTetradicValues = ([h, s, l]) => {
 };
 
 export default function HarmonyDisplay({ colorValues, showing, setColor, addMessage }) {
-  const { hsl } = colorValues;
+  const { hsl, rgb } = colorValues;
 
   // key must be index for spring animations to work
   return (

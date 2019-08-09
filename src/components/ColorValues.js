@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import colorConvert from 'colorConvert';
 import { animated, useSpring } from 'react-spring';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { recordGAEvent } from 'helpers';
+import { recordGAEvent, isBright } from 'helpers';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -17,8 +17,9 @@ const StyledDiv = styled.div`
     padding: 0.4em 0.5em;
     line-height: 1;
     font-family: ${p => p.theme.fontFixed};
-    background: ${p => p.theme.previewOverlayColor};
-    color: ${p => p.theme.backgroundColor};
+    background: ${p =>
+      p.isBright ? p.theme.preview.brightOverlayBg : p.theme.preview.darkOverlayBg};
+    color: ${p => (p.isBright ? p.theme.colors.offBlack : p.theme.colors.offWhite)};
     border-radius: 0.3em;
     cursor: copy;
   }
@@ -54,7 +55,7 @@ export default function ColorValues({ colorValues, addMessage }) {
   };
 
   return (
-    <StyledDiv>
+    <StyledDiv isBright={isBright(...colorValues.rgb)}>
       <CopyOnClick string={cssStrings.rgb} addMessage={addMessage}>
         RGB
         <animated.span>
