@@ -28,9 +28,27 @@ const HslForm = ({ setColor, colorValues }) => {
   return (
     <div onClick={() => recordGAEvent('User', 'Clicked', 'HSL inputs')}>
       <label>HSL</label>
-      <DegreeInput name="h" value={hslValues.h} onFocus={handleFocus} onChange={handleChange} />
-      <HectoInput name="s" value={hslValues.s} onFocus={handleFocus} onChange={handleChange} />
-      <HectoInput name="l" value={hslValues.l} onFocus={handleFocus} onChange={handleChange} />
+      <DegreeInput
+        name="h"
+        value={hslValues.h}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        aria-label="HSL hue"
+      />
+      <HectoInput
+        name="s"
+        value={hslValues.s}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        aria-label="HSL saturation"
+      />
+      <HectoInput
+        name="l"
+        value={hslValues.l}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        aria-label="HSL luminance"
+      />
     </div>
   );
 };

@@ -35,6 +35,7 @@ const HexForm = ({ setColor, colorValues }) => {
         onChange={handleChange}
         onFocus={handleFocus}
         error={inputError}
+        aria-label="Hexadecimal"
       />
     </div>
   );

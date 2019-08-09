@@ -25,9 +25,27 @@ const RgbForm = ({ setColor, colorValues }) => {
   return (
     <div onClick={() => recordGAEvent('User', 'Clicked', 'RGB inputs')}>
       <label>RGB</label>
-      <ByteInput name="r" value={rgbValues.r} onFocus={handleFocus} onChange={handleChange} />
-      <ByteInput name="g" value={rgbValues.g} onFocus={handleFocus} onChange={handleChange} />
-      <ByteInput name="b" value={rgbValues.b} onFocus={handleFocus} onChange={handleChange} />
+      <ByteInput
+        name="r"
+        value={rgbValues.r}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        aria-label="RGB red"
+      />
+      <ByteInput
+        name="g"
+        value={rgbValues.g}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        aria-label="RGB green"
+      />
+      <ByteInput
+        name="b"
+        value={rgbValues.b}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        aria-label="RGB blue"
+      />
     </div>
   );
 };
