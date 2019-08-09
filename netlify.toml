@@ -1,10 +1,10 @@
 [[redirects]]
-	from="/*"
-	to="index.html"
-	status=200
-
-[[redirects]]
 	from="https://jb-color-tool.netlify.com/*"
 	to="https://color.joelb.dev/:splat"
 	status=301
 	force = true
+	
+[[redirects]]
+	from="/*"
+	to="index.html"
+	status=200
