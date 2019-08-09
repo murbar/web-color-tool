@@ -5,6 +5,7 @@ import colorConvert from 'colorConvert';
 import ColorValues from 'components/ColorValues';
 import { useSpring, animated } from 'react-spring';
 import HarmonyDisplay from 'components/HarmonyDisplay';
+import CopyNotify from 'components/CopyNotify';
 import HarmonyToggle from 'components/HarmonyToggle';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
@@ -70,21 +71,10 @@ const LinkTo = ({ hex, addMessage, isBright }) => {
   );
 };
 
-const CopyMessage = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  pointer-events: none;
-  font-weight: bold;
-  color: ${p => (p.isBright ? p.theme.colors.offBlack : p.theme.colors.offWhite)};
-`;
-
 export default function Preview({ colorValues, setColor }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
   const userMessages = useExpiresArray([], 2000);
-  const lastMessage = userMessages.count ? userMessages.items[userMessages.count - 1].data : null;
+  // const lastMessage = userMessages.count ? userMessages.items[userMessages.count - 1].data : null;
   const isBrightBg = isBright(...colorValues.rgb);
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
   const color = useSpring({
@@ -96,7 +86,7 @@ export default function Preview({ colorValues, setColor }) {
     <Container>
       <ColorDisplay style={color}>
         <ColorValues colorValues={colorValues} addMessage={userMessages.add} />
-        {lastMessage && <CopyMessage isBright={isBrightBg}>{lastMessage}</CopyMessage>}
+        <CopyNotify isBright={isBrightBg} messages={userMessages} />
         <HarmonyDisplay
           colorValues={colorValues}
           showing={showingHarmony}
