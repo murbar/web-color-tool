@@ -3,7 +3,7 @@ import colorConvert from 'colorConvert';
 import HexInput from 'components/common/HexInput';
 import { recordGAEvent } from 'helpers';
 
-const HexForm = ({ setColor, colorValues }) => {
+const HexField = ({ setColor, colorValues }) => {
   const [hexValue, setHexValue] = useState('');
   const [inputError, setInputError] = useState(false);
 
@@ -40,4 +40,4 @@ const HexForm = ({ setColor, colorValues }) => {
   );
 };
 
-export default HexForm;
+export default HexField;

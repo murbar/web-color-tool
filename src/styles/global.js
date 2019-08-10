@@ -34,10 +34,10 @@ export default createGlobalStyle`
       margin: 0; 
   }
   input[type='number'] {
-      -moz-appearance:textfield;
+      -moz-appearance: textfield;
   }
   input::selection {
-    background: ${p => p.theme.textColor};
-    color: ${p => p.theme.backgroundColor};
+    background: ${p => p.theme.backgroundColor};
+    color: ${p => p.theme.textColor};
   }
 `;
