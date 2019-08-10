@@ -54,3 +54,12 @@ export const isBrighterThan = (r, g, b, x) => perceivedBrightness(r, g, b) > x;
 export const isBright = (r, g, b) => isBrighterThan(r, g, b, 123);
 
 export const hslTo4x = hslValues => hslValues.map(v => v * 4);
+
+export const getOrNull = (obj, key) => (key in obj ? obj[key] : null);
+
+export const getOrCreate = (obj, key, defaultValue) => {
+  if (key in obj) return obj[key];
+
+  obj[key] = defaultValue;
+  return defaultValue;
+};
