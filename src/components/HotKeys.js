@@ -3,6 +3,7 @@ import useHotKeys from 'hooks/useHotKeys';
 import { fireHotKey, recordGAEvent } from 'helpers';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { env } from 'config';
 
 const Hidden = styled.div`
   display: none;
@@ -74,6 +75,12 @@ export default function HotKeys({ callbacks, colorValues }) {
         adjustSat(-5);
         addMessage('Sat -5%');
       });
+    },
+    l: e => {
+      if (env !== 'production')
+        fireHotKey(e, () => {
+          console.log(colorValues);
+        });
     }
   });
   return (
