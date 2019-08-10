@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import colorConvert from 'colorConvert';
 import breakpoints from 'styles/breakpoints';
 import { recordGAEvent, hslTo4x } from 'helpers';
 
@@ -60,7 +59,7 @@ const Labels = styled.div`
 `;
 
 const ColorAdjustControls = ({ setColor, colorValues }) => {
-  let [h, s, l] = colorValues.hsl;
+  let [h, s, l] = colorValues.hslNormalized;
 
   const scaleUpAndSet = hslValues => {
     setColor(hslTo4x(hslValues));
