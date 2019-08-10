@@ -3,10 +3,11 @@ import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
 import colorConvert from 'colorConvert';
-import { randomRgbValues, trueMod, initializeGA, hslTo4x } from 'helpers';
+import { randomRgbValues, trueMod, hslTo4x } from 'helpers';
 import config from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
+import ErrorBoundary from 'components/ErrorBoundary';
 import ColorDisplay from 'components/ColorDisplay';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -49,8 +50,6 @@ const randomizeColorState = () => {
   const hsl = colorConvert.rgb.toHsl(rgb);
   return deriveColorState(hslTo4x(hsl));
 };
-
-initializeGA();
 
 function App({ initialColorHsl, location }) {
   const { localStorageStrings, pageTitle } = config;
@@ -118,32 +117,34 @@ function App({ initialColorHsl, location }) {
   }, [initialColorHsl, setColorHsl]);
 
   return (
-    <ThemeProvider theme={darkThemeToggle ? dark : light}>
-      <AppStyles>
-        <GlobalStyles />
-        <HotKeys
-          callbacks={{
-            randomizeColor,
-            toggleTheme,
-            adjustLum,
-            adjustHue,
-            adjustSat,
-            addMessage: userMessages.add
-          }}
-          colorValues={colorValues}
-        />
-        <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
-        <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
-        <ColorDisplay
-          colorValues={colorValues}
-          setColor={setColorHslPrecise}
-          userMessages={userMessages}
-        />
-        <ColorAdjustControls setColor={setColorHslPrecise} colorValues={colorValues} />
-        <ValueSlider setColor={setColorHslPrecise} colorValues={colorValues} />
-        <Footer />
-      </AppStyles>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={darkThemeToggle ? dark : light}>
+        <AppStyles>
+          <GlobalStyles />
+          <HotKeys
+            callbacks={{
+              randomizeColor,
+              toggleTheme,
+              adjustLum,
+              adjustHue,
+              adjustSat,
+              addMessage: userMessages.add
+            }}
+            colorValues={colorValues}
+          />
+          <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
+          <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
+          <ColorDisplay
+            colorValues={colorValues}
+            setColor={setColorHslPrecise}
+            userMessages={userMessages}
+          />
+          <ColorAdjustControls setColor={setColorHslPrecise} colorValues={colorValues} />
+          <ValueSlider setColor={setColorHslPrecise} colorValues={colorValues} />
+          <Footer />
+        </AppStyles>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
