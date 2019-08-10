@@ -13,7 +13,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueInputs from 'components/ValueInputs';
-import ValueSlider from 'components/ValueSliders';
+import ValueSliders from 'components/ValueSliders';
 import HotKeys from 'components/HotKeys';
 import useExpiresArray from 'hooks/useExpiresArray';
 import useDocumentTitle from 'hooks/useDocumentTitle';
@@ -140,7 +140,7 @@ function App({ initialColorHsl, location }) {
             userMessages={userMessages}
           />
           <ColorAdjustControls setColor={setColorHslPrecise} colorValues={colorValues} />
-          <ValueSlider setColor={setColorHslPrecise} colorValues={colorValues} />
+          <ValueSliders setColor={setColorHslPrecise} colorValues={colorValues} />
           <Footer />
         </AppStyles>
       </ThemeProvider>

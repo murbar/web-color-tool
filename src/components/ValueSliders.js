@@ -77,7 +77,7 @@ const HueScale = styled(ColorInputRange)`
   }
 `;
 
-const ValuePicker = ({ setColor, colorValues }) => {
+const ValueSlider = ({ setColor, colorValues }) => {
   const [h4x, s4x, l4x] = colorValues.hsl4x;
   const [normalH, normalS, normalL] = colorValues.hslNormalized;
   const normalHsl = { h: normalH, s: normalS, l: normalL };
@@ -146,4 +146,4 @@ const ValuePicker = ({ setColor, colorValues }) => {
   );
 };
 
-export default ValuePicker;
+export default ValueSlider;
