@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import colorConverter from 'colorConverter';
 import { animated, useSpring } from 'react-spring';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { recordGAEvent, isBright } from 'helpers';
+import { recordGAEvent } from 'helpers';
+import { isBright } from 'colorUtils';
 import config from 'config';
 
 const StyledDiv = styled.div`

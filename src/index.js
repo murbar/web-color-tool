@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/browser';
 import App from './App';
-import { validHsl, validRgb, validHex, initializeGA } from 'helpers';
+import { validHsl, validRgb, validHex } from 'colorUtils';
+import { initializeGA } from 'helpers';
 import colorConverter from 'colorConverter';
 
 initializeGA();

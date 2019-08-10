@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import breakpoints from 'styles/breakpoints';
-import { recordGAEvent, hslTo4x } from 'helpers';
+import { recordGAEvent } from 'helpers';
+import { hslTo4x } from 'colorUtils';
 
 const Styles = styled.div`
   margin: 0 -2rem 0;

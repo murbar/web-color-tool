@@ -11,7 +11,8 @@ import IconButton from 'components/common/IconButton';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
-import { recordGAEvent, isBright } from 'helpers';
+import { recordGAEvent } from 'helpers';
+import { isBright } from 'colorUtils';
 
 const Styles = styled(animated.div)`
   height: 30vh;
