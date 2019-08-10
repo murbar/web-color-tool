@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
 import colorConvert from 'colorConvert';
-import { randomRgbValues, trueMod, initializeGA } from 'helpers';
+import { randomRgbValues, trueMod, initializeGA, hslTo4x } from 'helpers';
+import { localStorageStrings, pageTitle } from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
 import Preview from 'components/Preview';
@@ -28,67 +29,92 @@ const AppStyles = styled.div`
     `}
 `;
 
-const deriveColorState = (rgbValues = [0, 0, 0]) => {
+// store hsl values at 4x precision - H 360x4, S 100x4, L 100x4
+const deriveColorState = (hslValues4x = [0, 0, 0]) => {
+  const hslValues = hslValues4x.map(v => v / 4);
+  const hslValuesRounded = hslValues.map(v => Math.round(v));
+  const rgb = colorConvert.hsl4x.toRgb(hslValues4x);
+  const hex = colorConvert.rgb.toHex(rgb);
   return {
-    rgb: rgbValues,
-    hsl: colorConvert.rgb.toHsl(rgbValues),
-    hex: colorConvert.rgb.toHex(rgbValues)
+    hsl4x: hslValues4x,
+    hslNormalized: hslValues,
+    hsl: hslValuesRounded,
+    rgb,
+    hex
   };
 };
 
-const randomColor = () => deriveColorState(randomRgbValues());
+const randomizeColorState = () => {
+  const rgb = randomRgbValues();
+  const hsl = colorConvert.rgb.toHsl(rgb);
+  return deriveColorState(hslTo4x(hsl));
+};
 
 initializeGA();
 
-function App({ initialColor, location }) {
-  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-pref', true);
+function App({ initialColorHsl, location }) {
+  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(
+    localStorageStrings.theme,
+    true
+  );
   const [colorValues, setColorValues] = useLocalStorageState(
-    'last-color-val',
-    initialColor ? deriveColorState(initialColor) : randomColor()
+    localStorageStrings.color,
+    initialColorHsl ? deriveColorState(hslTo4x(initialColorHsl)) : randomizeColorState()
   );
   const userMessages = useExpiresArray([], 2000);
 
-  const setColor = React.useCallback(
-    rgbValues => {
-      const [r, g, b] = rgbValues;
-      setColorValues(deriveColorState([r || 0, g || 0, b || 0]));
+  const setColorHsl = React.useCallback(
+    hslValues => {
+      const [h, s, l] = hslTo4x(hslValues);
+      setColorValues(deriveColorState([h || 0, s || 0, l || 0]));
+    },
+    [setColorValues]
+  );
+
+  const setColorHslPrecise = React.useCallback(
+    hslValues4x => {
+      const [h, s, l] = hslValues4x;
+      setColorValues(deriveColorState([h || 0, s || 0, l || 0]));
     },
     [setColorValues]
   );
 
   const randomizeColor = () => {
-    setColorValues(randomColor());
+    setColorValues(randomizeColorState());
   };
 
   const adjustHue = hue => {
-    const [h, s, l] = colorValues.hsl;
-    const newHue = trueMod(h + hue, 360);
-    setColor(colorConvert.hsl.toRgb([newHue, s, l]));
+    const [h, s, l] = colorValues.hsl4x;
+    const adjustment = hue * 4;
+    const newHue = trueMod(h + adjustment, 360 * 4);
+    setColorHslPrecise([newHue, s, l]);
   };
 
   const adjustSat = sat => {
-    const [h, s, l] = colorValues.hsl;
-    const newSat = s + sat > 99 ? 99 : s + sat < 1 ? 1 : s + sat;
-    setColor(colorConvert.hsl.toRgb([h, newSat, l]));
+    const [h, s, l] = colorValues.hsl4x;
+    const adjustment = sat * 4;
+    const newSat = s + adjustment > 399 ? 399 : s + adjustment < 1 ? 1 : s + adjustment;
+    setColorHslPrecise([h, newSat, l]);
   };
 
   const adjustLum = lum => {
-    const [h, s, l] = colorValues.hsl;
-    const newLum = l + lum > 99 ? 99 : l + lum < 1 ? 1 : l + lum;
-    setColor(colorConvert.hsl.toRgb([h, s, newLum]));
+    const [h, s, l] = colorValues.hsl4x;
+    const adjustment = lum * 4;
+    const newLum = l + adjustment > 399 ? 399 : l + adjustment < 1 ? 1 : l + adjustment;
+    setColorHslPrecise([h, s, newLum]);
   };
 
   const toggleTheme = () => setDarkThemeToggle(prev => !prev);
 
-  useDocumentTitle(
-    `#${colorValues.hex} - Web color tool for developers | Convert RGB/HSL/Hex & explore harmonies`
-  );
+  useDocumentTitle(`#${colorValues.hex} - ${pageTitle}`);
+
   useKeyboardQuery('using-keyboard');
+
   useAnalyticsPageView(location);
 
   useEffect(() => {
-    if (initialColor) setColor(initialColor);
-  }, [initialColor, setColor]);
+    if (initialColorHsl) setColorHsl(initialColorHsl);
+  }, [initialColorHsl, setColorHsl]);
 
   return (
     <ThemeProvider theme={darkThemeToggle ? dark : light}>
@@ -106,10 +132,14 @@ function App({ initialColor, location }) {
           colorValues={colorValues}
         />
         <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
-        <ValueInputs setColor={setColor} colorValues={colorValues} />
-        <Preview colorValues={colorValues} setColor={setColor} userMessages={userMessages} />
-        <ColorAdjustControls setColor={setColor} colorValues={colorValues} />
-        <ValueSlider setColor={setColor} colorValues={colorValues} />
+        <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
+        <Preview
+          colorValues={colorValues}
+          setColor={setColorHslPrecise}
+          userMessages={userMessages}
+        />
+        <ColorAdjustControls setColor={setColorHslPrecise} colorValues={colorValues} />
+        <ValueSlider setColor={setColorHslPrecise} colorValues={colorValues} />
         <Footer />
       </AppStyles>
     </ThemeProvider>
