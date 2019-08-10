@@ -99,7 +99,7 @@ const Swatch = ({ hex, setColor, addMessage }) => {
         <IconButton
           title="Set base color"
           onClick={() => {
-            setColor([r, g, b]);
+            setColor(colorConvert.rgb.toHsl4x([r, g, b]));
             recordGAEvent('User', 'Clicked', 'Set base color');
           }}
         >
