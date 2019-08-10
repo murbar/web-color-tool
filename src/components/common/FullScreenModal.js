@@ -24,7 +24,6 @@ const Styles = styled(animated.div)`
 
 export default function FullScreenModal({ children, onClickOff, isShowing }) {
   const overlayTransition = useTransition(isShowing, null, {
-    // config: { duration: 1000 },
     from: {
       opacity: 0
       // transform: 'scale(1.15)'

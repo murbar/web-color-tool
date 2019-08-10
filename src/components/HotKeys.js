@@ -3,7 +3,7 @@ import useHotKeys from 'hooks/useHotKeys';
 import { fireHotKey, recordGAEvent } from 'helpers';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { env } from 'config';
+import config from 'config';
 
 const Hidden = styled.div`
   display: none;
@@ -77,7 +77,7 @@ export default function HotKeys({ callbacks, colorValues }) {
       });
     },
     l: e => {
-      if (env !== 'production')
+      if (config.env !== 'production')
         fireHotKey(e, () => {
           console.log(colorValues);
         });

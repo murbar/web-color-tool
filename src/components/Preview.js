@@ -10,7 +10,7 @@ import HarmonyToggle from 'components/HarmonyToggle';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { publicURL } from 'config';
+import config from 'config';
 import { recordGAEvent, isBright } from 'helpers';
 
 const ColorDisplay = styled(animated.div)`
@@ -51,7 +51,7 @@ const LinkToStyles = styled.div`
 `;
 
 const LinkTo = ({ hex, addMessage, isBright }) => {
-  const link = `${publicURL}/hex/${hex}`;
+  const link = `${config.publicURL}/hex/${hex}`;
 
   return (
     <LinkToStyles isBright={isBright}>
@@ -75,7 +75,7 @@ export default function Preview({ colorValues, setColor, userMessages }) {
   const isBrightBg = isBright(...colorValues.rgb);
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
   const colorTransition = useSpring({
-    config: { duration: 400 },
+    config: { duration: config.transitionDurationMs },
     background: rgbCSS
   });
 

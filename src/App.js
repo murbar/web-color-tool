@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
 import colorConvert from 'colorConvert';
 import { randomRgbValues, trueMod, initializeGA, hslTo4x } from 'helpers';
-import { localStorageStrings, pageTitle } from 'config';
+import config from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
 import Preview from 'components/Preview';
@@ -53,6 +53,7 @@ const randomizeColorState = () => {
 initializeGA();
 
 function App({ initialColorHsl, location }) {
+  const { localStorageStrings, pageTitle } = config;
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(
     localStorageStrings.theme,
     true

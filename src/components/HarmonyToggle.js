@@ -7,7 +7,7 @@ import { ReactComponent as AnaloIcon } from 'icons/harm-anl.svg';
 import { ReactComponent as SplitIcon } from 'icons/harm-spt.svg';
 import { ReactComponent as TriIcon } from 'icons/harm-tri.svg';
 import { ReactComponent as TetIcon } from 'icons/harm-tet.svg';
-import { harmonyConstants } from 'config';
+import config from 'config';
 import { recordGAEvent } from 'helpers';
 
 const Styles = styled.div``;
@@ -24,6 +24,7 @@ const Toggle = styled.div`
 `;
 
 export default function HarmonyToggle({ showing, setShowing }) {
+  const { harmonyConstants } = config;
   const toggle = harmony => {
     if (showing === harmony) {
       setShowing(null);

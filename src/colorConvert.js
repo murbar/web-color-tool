@@ -1,7 +1,7 @@
 import { trueMod } from 'helpers';
-import { hslScaleFactor } from 'config';
+import config from 'config';
 
-const HSL_SCALE = hslScaleFactor;
+const HSL_SCALE = config.hslScaleFactor;
 
 // 'fff'/'FFFFFF' -> ['FF', 'FF', 'FF']
 const splitHex = hexValue => {

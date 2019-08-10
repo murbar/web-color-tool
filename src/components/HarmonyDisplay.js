@@ -4,12 +4,11 @@ import colorConvert from 'colorConvert';
 import breakpoints from 'styles/breakpoints';
 import { useSpring, animated } from 'react-spring';
 import { trueMod, recordGAEvent, isBright } from 'helpers';
-import { harmonyConstants } from 'config';
+import config from 'config';
 import IconButton from 'components/common/IconButton';
 import { ReactComponent as MaxIcon } from 'icons/maximize.svg';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { publicURL } from 'config';
 
 const Styles = styled.div``;
 
@@ -69,15 +68,16 @@ const Buttons = styled.div`
 const Swatch = ({ hex, setColor, addMessage }) => {
   const [r, g, b] = colorConvert.hex.toRgb(hex);
   const isBrightBg = isBright(r, g, b);
+  const duration = config.transitionDurationMs;
   const valuesSpring = useSpring({
-    config: { duration: 400 },
+    config: { duration },
     rgb: [r, g, b]
   });
   const backgroundSpring = useSpring({
-    config: { duration: 400 },
+    config: { duration },
     background: `#${hex}`
   });
-  const link = `${publicURL}/hex/${hex}`;
+  const link = `${config.publicURL}/hex/${hex}`;
 
   return (
     <AnimatedSwatch style={backgroundSpring} isBright={isBrightBg}>
@@ -162,6 +162,7 @@ const getTetradicValues = ([h, s, l]) => {
 
 export default function HarmonyDisplay({ colorValues, showing, setColor, addMessage }) {
   const { hsl } = colorValues;
+  const { harmonyConstants } = config;
 
   // key must be index for spring animations to work
   return (
