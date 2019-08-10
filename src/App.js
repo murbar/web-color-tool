@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
-import ReactGA from 'react-ga';
-import { GAPropertyId } from 'config';
 import colorConvert from 'colorConvert';
-import { randomRgbValues, trueMod } from 'helpers';
+import { randomRgbValues, trueMod, initializeGA } from 'helpers';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
 import Preview from 'components/Preview';
@@ -40,7 +38,7 @@ const deriveColorState = (rgbValues = [0, 0, 0]) => {
 
 const randomColor = () => deriveColorState(randomRgbValues());
 
-ReactGA.initialize(GAPropertyId);
+initializeGA();
 
 function App({ initialColor, location }) {
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState('theme-pref', true);

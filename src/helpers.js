@@ -1,5 +1,6 @@
 import { hectoMatch, degreeMatch, byteMatch, hexColorMatch } from './regexDefs';
 import ReactGA from 'react-ga';
+import { env, GAPropertyId } from 'config';
 
 export const validHsl = (h, s, l) =>
   degreeMatch.test(h) && hectoMatch.test(s) && hectoMatch.test(l);
@@ -25,10 +26,16 @@ export const fireHotKey = (e, callback) => {
   }
 };
 
+export const initializeGA = () => {
+  if (env === 'production') {
+    ReactGA.initialize(GAPropertyId);
+  }
+};
+
 export const recordGAEvent = (category, action, label) => {
   if (!category || !action) {
     console.warn('GA Event: Category and action are required - aborting');
-  } else {
+  } else if (env === 'production') {
     const payload = {
       category,
       action
