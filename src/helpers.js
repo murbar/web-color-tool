@@ -1,6 +1,6 @@
 import { hectoMatch, degreeMatch, byteMatch, hexColorMatch } from './regexDefs';
 import ReactGA from 'react-ga';
-import { env, GAPropertyId } from 'config';
+import config from 'config';
 
 export const validHsl = (h, s, l) =>
   degreeMatch.test(h) && hectoMatch.test(s) && hectoMatch.test(l);
@@ -27,15 +27,15 @@ export const fireHotKey = (e, callback) => {
 };
 
 export const initializeGA = () => {
-  if (env === 'production') {
-    ReactGA.initialize(GAPropertyId);
+  if (config.env === 'production') {
+    ReactGA.initialize(config.GAPropertyId);
   }
 };
 
 export const recordGAEvent = (category, action, label) => {
   if (!category || !action) {
     console.warn('GA Event: Category and action are required - aborting');
-  } else if (env === 'production') {
+  } else if (config.env === 'production') {
     const payload = {
       category,
       action
@@ -52,3 +52,5 @@ export const isBrighterThan = (r, g, b, x) => perceivedBrightness(r, g, b) > x;
 
 // 123 is arbitrary but works well
 export const isBright = (r, g, b) => isBrighterThan(r, g, b, 123);
+
+export const hslTo4x = hslValues => hslValues.map(v => v * 4);

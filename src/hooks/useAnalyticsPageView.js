@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { env } from 'config';
+import config from 'config';
 
 const useAnalyticsPageView = location => {
   React.useEffect(() => {
-    if (env === 'production') {
+    if (config.env === 'production') {
       ReactGA.pageview(location.pathname + location.search);
     }
   }, [location]);

@@ -4,6 +4,7 @@ import colorConvert from 'colorConvert';
 import { animated, useSpring } from 'react-spring';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { recordGAEvent, isBright } from 'helpers';
+import config from 'config';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ const CopyOnClick = ({ string, children, addMessage }) => {
 
 export default function ColorValues({ colorValues, addMessage }) {
   const values = useSpring({
-    config: { duration: 400 },
+    config: { duration: config.transitionDurationMs },
     rgb: colorValues.rgb,
     hsl: colorValues.hsl
   });

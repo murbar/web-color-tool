@@ -11,12 +11,11 @@ const HexForm = ({ setColor, colorValues }) => {
     setHexValue(colorValues.hex);
   }, [colorValues.hex]);
 
-  const handleChange = (e, value, name) => {
+  const handleChange = (e, value) => {
     setHexValue(() => {
       if (value.length === 6) {
         setInputError(false);
-        const rgbValues = colorConvert.hex.toRgb(value);
-        setColor(rgbValues);
+        setColor(colorConvert.hex.toHsl4x(value));
       } else {
         setInputError(true);
       }
