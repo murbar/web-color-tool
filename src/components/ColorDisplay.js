@@ -23,7 +23,7 @@ const Styles = styled(animated.div)`
     height: 40vh;
   `}
   ${breakpoints.tablet`
-    border-radius: 0.5em;
+    border-radius: 1rem;
     margin: 0;
   `}
 `;

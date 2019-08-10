@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import colorConvert from 'colorConvert';
+import ContiguousInputs from 'components/common/ContiguousInputs';
 import DegreeInput from 'components/common/DegreeInput';
 import HectoInput from 'components/common/HectoInput';
 import { recordGAEvent, hslTo4x } from 'helpers';
 
-const HslForm = ({ setColor, colorValues }) => {
+const HslFields = ({ setColor, colorValues }) => {
   const [hslValues, setHslValues] = useState({ h: 0, s: 0, l: 0 });
 
   useEffect(() => {
@@ -16,9 +16,6 @@ const HslForm = ({ setColor, colorValues }) => {
     setHslValues(prev => {
       const newValues = { ...prev, [name]: value };
       let { h, s, l } = newValues;
-      // next line needed??
-      // if (prev.h === 0 && h > 0 && prev.s === 0) s = 50;
-      // const rgbValues = colorConvert.hsl.toRgb([h, s, l]);
       setColor(hslTo4x([h, s, l]));
       return newValues;
     });
@@ -29,29 +26,31 @@ const HslForm = ({ setColor, colorValues }) => {
   return (
     <div onClick={() => recordGAEvent('User', 'Clicked', 'HSL inputs')}>
       <label>HSL</label>
-      <DegreeInput
-        name="h"
-        value={hslValues.h}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        aria-label="HSL hue"
-      />
-      <HectoInput
-        name="s"
-        value={hslValues.s}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        aria-label="HSL saturation"
-      />
-      <HectoInput
-        name="l"
-        value={hslValues.l}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        aria-label="HSL luminance"
-      />
+      <ContiguousInputs>
+        <DegreeInput
+          name="h"
+          value={hslValues.h}
+          onFocus={handleFocus}
+          onChange={handleChange}
+          aria-label="HSL hue"
+        />
+        <HectoInput
+          name="s"
+          value={hslValues.s}
+          onFocus={handleFocus}
+          onChange={handleChange}
+          aria-label="HSL saturation"
+        />
+        <HectoInput
+          name="l"
+          value={hslValues.l}
+          onFocus={handleFocus}
+          onChange={handleChange}
+          aria-label="HSL luminance"
+        />
+      </ContiguousInputs>
     </div>
   );
 };
 
-export default HslForm;
+export default HslFields;
