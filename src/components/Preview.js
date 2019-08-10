@@ -74,7 +74,7 @@ export default function Preview({ colorValues, setColor, userMessages }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
   const isBrightBg = isBright(...colorValues.rgb);
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
-  const color = useSpring({
+  const colorTransition = useSpring({
     config: { duration: 400 },
     background: rgbCSS
   });
@@ -86,7 +86,7 @@ export default function Preview({ colorValues, setColor, userMessages }) {
 
   return (
     <Container>
-      <ColorDisplay style={color}>
+      <ColorDisplay style={colorTransition}>
         <ColorValues colorValues={colorValues} addMessage={userMessages.add} />
         <UserNotify isBright={isBrightBg} messages={userMessages} />
         <HarmonyDisplay
