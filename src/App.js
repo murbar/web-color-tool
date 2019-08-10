@@ -7,7 +7,7 @@ import { randomRgbValues, trueMod, initializeGA, hslTo4x } from 'helpers';
 import config from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
-import Preview from 'components/Preview';
+import ColorDisplay from 'components/ColorDisplay';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import ColorAdjustControls from 'components/ColorAdjustControls';
@@ -94,14 +94,14 @@ function App({ initialColorHsl, location }) {
   const adjustSat = sat => {
     const [h, s, l] = colorValues.hsl4x;
     const adjustment = sat * 4;
-    const newSat = s + adjustment > 399 ? 399 : s + adjustment < 1 ? 1 : s + adjustment;
+    const newSat = s + adjustment > 399 ? 399 : s + adjustment < 0 ? 0 : s + adjustment;
     setColorHslPrecise([h, newSat, l]);
   };
 
   const adjustLum = lum => {
     const [h, s, l] = colorValues.hsl4x;
     const adjustment = lum * 4;
-    const newLum = l + adjustment > 399 ? 399 : l + adjustment < 1 ? 1 : l + adjustment;
+    const newLum = l + adjustment > 399 ? 399 : l + adjustment < 0 ? 0 : l + adjustment;
     setColorHslPrecise([h, s, newLum]);
   };
 
@@ -134,7 +134,7 @@ function App({ initialColorHsl, location }) {
         />
         <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
         <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
-        <Preview
+        <ColorDisplay
           colorValues={colorValues}
           setColor={setColorHslPrecise}
           userMessages={userMessages}

@@ -13,7 +13,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
 import { recordGAEvent, isBright } from 'helpers';
 
-const ColorDisplay = styled(animated.div)`
+const Styles = styled(animated.div)`
   height: 30vh;
   min-height: 25rem;
   margin: 0 -2rem 0;
@@ -70,7 +70,7 @@ const LinkTo = ({ hex, addMessage, isBright }) => {
   );
 };
 
-export default function Preview({ colorValues, setColor, userMessages }) {
+export default function ColorDisplay({ colorValues, setColor, userMessages }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
   const isBrightBg = isBright(...colorValues.rgb);
   const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
@@ -86,7 +86,7 @@ export default function Preview({ colorValues, setColor, userMessages }) {
 
   return (
     <Container>
-      <ColorDisplay style={colorTransition}>
+      <Styles style={colorTransition}>
         <ColorValues colorValues={colorValues} addMessage={userMessages.add} />
         <UserNotify isBright={isBrightBg} messages={userMessages} />
         <HarmonyDisplay
@@ -96,7 +96,7 @@ export default function Preview({ colorValues, setColor, userMessages }) {
           addMessage={userMessages.add}
         />
         <LinkTo hex={colorValues.hex} addMessage={userMessages.add} isBright={isBrightBg} />
-      </ColorDisplay>
+      </Styles>
       <HarmonyToggle showing={showingHarmony} setShowing={setShowingHarmony} />
     </Container>
   );
