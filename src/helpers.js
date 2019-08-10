@@ -52,3 +52,5 @@ export const isBrighterThan = (r, g, b, x) => perceivedBrightness(r, g, b) > x;
 
 // 123 is arbitrary but works well
 export const isBright = (r, g, b) => isBrighterThan(r, g, b, 123);
+
+export const hslTo4x = hslValues => hslValues.map(v => v * 4);
