@@ -53,6 +53,7 @@ const randomizeColorState = () => {
 
 function App({ initialColorHsl, location }) {
   const { localStorageStrings, pageTitle } = config;
+  const [preferences, setPreferences] = useLocalStorageState(localStorageStrings.preferences, true);
   const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(
     localStorageStrings.theme,
     true

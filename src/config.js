@@ -4,7 +4,8 @@ export default {
   version,
   localStorageStrings: {
     color: `color-joeb-dev-color-${version}`,
-    theme: `color-joeb-dev-theme-${version}`
+    theme: `color-joeb-dev-theme-${version}`,
+    preferences: `color-joeb-dev-prefs-${version}`
   },
   publicURL: 'https://color.joelb.dev',
   pageTitle: 'Web color tool for developers | Convert RGB/HSL/Hex & explore harmonies',
