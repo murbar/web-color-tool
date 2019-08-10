@@ -122,7 +122,7 @@ const ValuePicker = ({ setColor, colorValues }) => {
     <StyledDiv onClick={() => recordGAEvent('User', 'Clicked', 'Slider controls')}>
       <SliderContainer>
         <label>Hue</label>
-        <HueScale maxValue={360} value={values.h} onChange={handleSetHue} />
+        <HueScale maxValue={359} value={values.h} onChange={handleSetHue} />
       </SliderContainer>
       <SliderContainer>
         <label>Saturation</label>
