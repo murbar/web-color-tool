@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ByteInput from 'components/common/ByteInput';
 import { recordGAEvent } from 'helpers';
+import colorConvert from 'colorConvert';
 
 const RgbForm = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator
@@ -15,7 +16,7 @@ const RgbForm = ({ setColor, colorValues }) => {
     setRgbValues(prev => {
       const newValues = { ...prev, [name]: value };
       const { r, g, b } = newValues;
-      setColor([r, g, b]);
+      setColor(colorConvert.rgb.toHsl4x([r, g, b]));
       return newValues;
     });
   };
