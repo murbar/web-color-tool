@@ -1,7 +1,10 @@
+const version = '2019.8.10';
+
 export default {
+  version,
   localStorageStrings: {
-    color: 'color-joeb-dev-color-state',
-    theme: 'color-joeb-dev-theme-state'
+    color: `color-joeb-dev-color-${version}`,
+    theme: `color-joeb-dev-theme-${version}`
   },
   publicURL: 'https://color.joelb.dev',
   pageTitle: 'Web color tool for developers | Convert RGB/HSL/Hex & explore harmonies',

@@ -2,11 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Heart } from 'icons/heart.svg';
 import { recordGAEvent } from 'helpers';
+import config from 'config';
 
 const StyledContainer = styled.div`
   padding: 4rem 0 2rem;
   text-align: center;
   font-size: 0.9em;
+  .v {
+    font-family: ${p => p.theme.fontFixed};
+  }
   svg {
     height: 1em;
     color: crimson;
@@ -17,6 +21,8 @@ const StyledContainer = styled.div`
 const Footer = () => {
   return (
     <StyledContainer>
+      <span className="v">v{config.version}</span>
+      <br />
       Made with{' '}
       <span role="img" aria-label="love">
         <Heart />
