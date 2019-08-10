@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import colorConvert from 'colorConvert';
 import breakpoints from 'styles/breakpoints';
-import { recordGAEvent } from 'helpers';
+import { recordGAEvent, hslTo4x } from 'helpers';
 
 const Styles = styled.div`
   margin: 0 -2rem 0;
@@ -62,9 +62,8 @@ const Labels = styled.div`
 const ColorAdjustControls = ({ setColor, colorValues }) => {
   let [h, s, l] = colorValues.hsl;
 
-  const convertAndSet = hslValues => {
-    const rgbValues = colorConvert.hsl.toRgb(hslValues);
-    setColor(rgbValues);
+  const scaleUpAndSet = hslValues => {
+    setColor(hslTo4x(hslValues));
   };
 
   const lumValues = [12, 24, 36, 50, 62, 74, 86];
@@ -85,7 +84,7 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
                 h={h}
                 l={lum}
                 s={s}
-                onClick={() => convertAndSet([h, s, lum])}
+                onClick={() => scaleUpAndSet([h, s, lum])}
                 title={`Set lightness to %`}
                 style={{
                   background: `hsl(${h}, ${s}%, ${lum}%)`
@@ -108,7 +107,7 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
                 h={h}
                 l={l}
                 s={sat}
-                onClick={() => convertAndSet([h, sat, l])}
+                onClick={() => scaleUpAndSet([h, sat, l])}
                 title={`Set saturation to %`}
                 style={{
                   background: `hsl(${h}, ${sat}%, 50%)`
