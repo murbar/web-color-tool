@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Input from './Input';
 import { hexCharsMatch } from '../../regexDefs';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 
 const StyledInput = styled(Input)`
   width: calc(6ch + 1em);
@@ -24,7 +24,7 @@ const HexInput = props => {
     const { name } = e.target;
     const pasted = e.clipboardData.getData('Text/plain') || null;
     if (pasted.length === 3 && validHex(pasted)) {
-      const sixDigitHex = colorConvert.hex.normalize(pasted);
+      const sixDigitHex = colorConverter.hex.normalize(pasted);
       onChange(e, sixDigitHex, name);
     }
   };

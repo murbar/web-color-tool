@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 import { randomRgbValues, trueMod, hslTo4x } from 'helpers';
 import config from 'config';
 import { dark, light } from 'styles/themes';
@@ -34,8 +34,8 @@ const AppStyles = styled.div`
 const deriveColorState = (hslValues4x = [0, 0, 0]) => {
   const hslValues = hslValues4x.map(v => v / 4);
   const hslValuesRounded = hslValues.map(v => Math.round(v));
-  const rgb = colorConvert.hsl4x.toRgb(hslValues4x);
-  const hex = colorConvert.rgb.toHex(rgb);
+  const rgb = colorConverter.hsl4x.toRgb(hslValues4x);
+  const hex = colorConverter.rgb.toHex(rgb);
   return {
     hsl4x: hslValues4x,
     hslNormalized: hslValues,
@@ -47,7 +47,7 @@ const deriveColorState = (hslValues4x = [0, 0, 0]) => {
 
 const randomizeColorState = () => {
   const rgb = randomRgbValues();
-  const hsl = colorConvert.rgb.toHsl(rgb);
+  const hsl = colorConverter.rgb.toHsl(rgb);
   return deriveColorState(hslTo4x(hsl));
 };
 

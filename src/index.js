@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import * as Sentry from '@sentry/browser';
 import App from './App';
 import { validHsl, validRgb, validHex, initializeGA } from 'helpers';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 
 initializeGA();
 Sentry.init({ dsn: 'https://4ce61244b73c47a2806e2f9cefeaf925@sentry.io/1527263' });
@@ -27,7 +27,7 @@ const Root = () => {
           render={({ match }) => {
             const { r, g, b } = match.params;
             return validRgb(r, g, b) ? (
-              <App initialColorHsl={colorConvert.rgb.toHsl([r, g, b])} />
+              <App initialColorHsl={colorConverter.rgb.toHsl([r, g, b])} />
             ) : (
               <Redirect to="/" />
             );
@@ -38,7 +38,7 @@ const Root = () => {
           render={({ match }) => {
             const { hex } = match.params;
             return validHex(hex) ? (
-              <App initialColorHsl={colorConvert.hex.toHsl(hex)} />
+              <App initialColorHsl={colorConverter.hex.toHsl(hex)} />
             ) : (
               <Redirect to="/" />
             );

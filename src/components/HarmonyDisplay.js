@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 import breakpoints from 'styles/breakpoints';
 import { useSpring, animated } from 'react-spring';
 import { trueMod, recordGAEvent, isBright } from 'helpers';
@@ -66,7 +66,7 @@ const Buttons = styled.div`
 `;
 
 const Swatch = ({ hex, setColor, addMessage }) => {
-  const [r, g, b] = colorConvert.hex.toRgb(hex);
+  const [r, g, b] = colorConverter.hex.toRgb(hex);
   const isBrightBg = isBright(r, g, b);
   const duration = config.transitionDurationMs;
   const valuesSpring = useSpring({
@@ -91,7 +91,7 @@ const Swatch = ({ hex, setColor, addMessage }) => {
         <span title={`Copy CSS value "#${hex}"`}>
           #
           <animated.span>
-            {valuesSpring.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
+            {valuesSpring.rgb.interpolate((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
           </animated.span>
         </span>
       </CopyToClipboard>
@@ -99,7 +99,7 @@ const Swatch = ({ hex, setColor, addMessage }) => {
         <IconButton
           title="Set base color"
           onClick={() => {
-            setColor(colorConvert.rgb.toHsl4x([r, g, b]));
+            setColor(colorConverter.rgb.toHsl4x([r, g, b]));
             recordGAEvent('User', 'Clicked', 'Set base color');
           }}
         >
@@ -123,40 +123,40 @@ const Swatch = ({ hex, setColor, addMessage }) => {
 
 const getComplimentHex = ([h, s, l]) => {
   const complementHue = h - 180;
-  return colorConvert.hsl.toHex([trueMod(complementHue, 360), s, l]);
+  return colorConverter.hsl.toHex([trueMod(complementHue, 360), s, l]);
 };
 
 const getMonochromaticHexValues = ([h, s, l]) => {
   const lumAdjust = l > 50 ? (100 - l) * 0.5 : l * 0.5;
-  const hex1 = colorConvert.hsl.toHex([h, s, l + lumAdjust]);
-  const hex2 = colorConvert.hsl.toHex([h, s, l - lumAdjust]);
+  const hex1 = colorConverter.hsl.toHex([h, s, l + lumAdjust]);
+  const hex2 = colorConverter.hsl.toHex([h, s, l - lumAdjust]);
   return [hex1, hex2];
 };
 
 const getAnalogousValues = ([h, s, l]) => {
-  const hex1 = colorConvert.hsl.toHex([trueMod(h - 30, 360), s, l]);
-  const hex2 = colorConvert.hsl.toHex([trueMod(h + 30, 360), s, l]);
+  const hex1 = colorConverter.hsl.toHex([trueMod(h - 30, 360), s, l]);
+  const hex2 = colorConverter.hsl.toHex([trueMod(h + 30, 360), s, l]);
   return [hex1, hex2];
 };
 
 const getSplitComplementValues = ([h, s, l]) => {
   const complementHue = h - 180;
-  const hex1 = colorConvert.hsl.toHex([trueMod(complementHue - 30, 360), s, l]);
-  const hex2 = colorConvert.hsl.toHex([trueMod(complementHue + 30, 360), s, l]);
+  const hex1 = colorConverter.hsl.toHex([trueMod(complementHue - 30, 360), s, l]);
+  const hex2 = colorConverter.hsl.toHex([trueMod(complementHue + 30, 360), s, l]);
   return [hex1, hex2];
 };
 
 const getTriadicValues = ([h, s, l]) => {
   const complementHue = h - 180;
-  const hex1 = colorConvert.hsl.toHex([trueMod(complementHue - 60, 360), s, l]);
-  const hex2 = colorConvert.hsl.toHex([trueMod(complementHue + 60, 360), s, l]);
+  const hex1 = colorConverter.hsl.toHex([trueMod(complementHue - 60, 360), s, l]);
+  const hex2 = colorConverter.hsl.toHex([trueMod(complementHue + 60, 360), s, l]);
   return [hex1, hex2];
 };
 
 const getTetradicValues = ([h, s, l]) => {
-  const hex1 = colorConvert.hsl.toHex([trueMod(h - 180, 360), s, l]);
-  const hex2 = colorConvert.hsl.toHex([trueMod(h - 120, 360), s, l]);
-  const hex3 = colorConvert.hsl.toHex([trueMod(h - 300, 360), s, l]);
+  const hex1 = colorConverter.hsl.toHex([trueMod(h - 180, 360), s, l]);
+  const hex2 = colorConverter.hsl.toHex([trueMod(h - 120, 360), s, l]);
+  const hex3 = colorConverter.hsl.toHex([trueMod(h - 300, 360), s, l]);
   return [hex1, hex2, hex3];
 };
 

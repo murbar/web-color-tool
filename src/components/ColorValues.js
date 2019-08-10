@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 import { animated, useSpring } from 'react-spring';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { recordGAEvent, isBright } from 'helpers';
@@ -78,7 +78,7 @@ export default function ColorValues({ colorValues, addMessage }) {
       <CopyOnClick string={cssStrings.hex} addMessage={addMessage}>
         #
         <animated.span>
-          {values.rgb.interpolate((r, g, b) => colorConvert.rgb.toHex([r, g, b]))}
+          {values.rgb.interpolate((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
         </animated.span>
       </CopyOnClick>
     </StyledDiv>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 import HexInput from 'components/common/HexInput';
 import { recordGAEvent } from 'helpers';
 
@@ -15,7 +15,7 @@ const HexField = ({ setColor, colorValues }) => {
     setHexValue(() => {
       if (value.length === 6) {
         setInputError(false);
-        setColor(colorConvert.hex.toHsl4x(value));
+        setColor(colorConverter.hex.toHsl4x(value));
       } else {
         setInputError(true);
       }

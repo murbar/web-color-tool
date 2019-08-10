@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ByteInput from 'components/common/ByteInput';
 import ContiguousInputs from 'components/common/ContiguousInputs';
 import { recordGAEvent } from 'helpers';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 
 const RgbFields = ({ setColor, colorValues }) => {
   // TODO input valid state for invalid input indicator
@@ -17,7 +17,7 @@ const RgbFields = ({ setColor, colorValues }) => {
     setRgbValues(prev => {
       const newValues = { ...prev, [name]: value };
       const { r, g, b } = newValues;
-      setColor(colorConvert.rgb.toHsl4x([r, g, b]));
+      setColor(colorConverter.rgb.toHsl4x([r, g, b]));
       return newValues;
     });
   };

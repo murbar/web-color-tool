@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import breakpoints from 'styles/breakpoints';
-import colorConvert from 'colorConvert';
+import colorConverter from 'colorConverter';
 import ColorValues from 'components/ColorValues';
 import { useSpring, animated } from 'react-spring';
 import HarmonyDisplay from 'components/HarmonyDisplay';
@@ -73,7 +73,7 @@ const LinkTo = ({ hex, addMessage, isBright }) => {
 export default function ColorDisplay({ colorValues, setColor, userMessages }) {
   const [showingHarmony, setShowingHarmony] = useState(null);
   const isBrightBg = isBright(...colorValues.rgb);
-  const rgbCSS = colorConvert.rgb.toCSS(colorValues.rgb);
+  const rgbCSS = colorConverter.rgb.toCSS(colorValues.rgb);
   const colorTransition = useSpring({
     config: { duration: config.transitionDurationMs },
     background: rgbCSS
