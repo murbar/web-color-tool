@@ -15,7 +15,8 @@ export default styled.input`
   border-radius: 0.3em;
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0.2rem ${p => p.theme.textColor};
+    background: ${p => p.theme.textColor};
+    color: ${p => p.theme.backgroundColor};
   }
   ${p => p.error && errorState}
 `;
