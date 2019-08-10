@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ColorInputRange from 'components/common/ColorInputRange';
-import colorConvert from 'colorConvert';
+import { hslScaleFactor } from 'config';
 import { recordGAEvent } from 'helpers';
 
 const StyledDiv = styled.div`
@@ -24,7 +24,7 @@ const SatScale = styled(ColorInputRange)`
     );
   }
   .input-range__slider {
-    background: ${p => `hsl(${p.hue}, ${p.value}%, 50%)`};
+    background: ${p => `hsl(${p.hue}, ${p.value / hslScaleFactor}%, 50%)`};
   }
 `;
 
@@ -38,7 +38,7 @@ const LumScale = styled(ColorInputRange)`
     );
   }
   .input-range__slider {
-    background: ${p => `hsl(${p.hue}, 100%, ${p.value}%)`};
+    background: ${p => `hsl(${p.hue}, 100%, ${p.value / hslScaleFactor}%)`};
   }
 `;
 
@@ -74,28 +74,28 @@ const HueScale = styled(ColorInputRange)`
     );
   }
   .input-range__slider {
-    background: ${p => `hsl(${p.value}, 100%, 50%)`};
+    background: ${p => `hsl(${p.value / hslScaleFactor}, 100%, 50%)`};
   }
 `;
 
 const ValuePicker = ({ setColor, colorValues }) => {
-  const [h, s, l] = colorValues.hsl;
+  const [h, s, l] = colorValues.hsl4x;
   const [values, setValues] = useState({ h, s, l });
 
   React.useEffect(() => {
-    const [h, s, l] = colorValues.hsl;
+    const [h, s, l] = colorValues.hsl4x;
     setValues({ h, s, l });
   }, [colorValues]);
 
   const set = ({ h, s, l }) => {
-    setColor(colorConvert.hsl.toRgb([h, s, l]));
+    setColor([h, s, l]);
   };
 
   const handleSetHue = h => {
     setValues(prev => {
       const values = { ...prev, h };
-      if (s === 0) values.s = 50;
-      if (l === 0) values.l = 50;
+      // if (s === 0) values.s = 50;
+      // if (l === 0) values.l = 50;
       set(values);
       return values;
     });
@@ -104,7 +104,7 @@ const ValuePicker = ({ setColor, colorValues }) => {
   const handleSetSat = s => {
     setValues(prev => {
       const values = { ...prev, s };
-      if (l === 0) values.l = 50;
+      // if (l === 0) values.l = 50;
       set(values);
       return values;
     });
@@ -122,15 +122,15 @@ const ValuePicker = ({ setColor, colorValues }) => {
     <StyledDiv onClick={() => recordGAEvent('User', 'Clicked', 'Slider controls')}>
       <SliderContainer>
         <label>Hue</label>
-        <HueScale maxValue={359} value={values.h} onChange={handleSetHue} />
+        <HueScale maxValue={1439} value={values.h} onChange={handleSetHue} />
       </SliderContainer>
       <SliderContainer>
         <label>Saturation</label>
-        <SatScale hue={values.h} maxValue={100} value={values.s} onChange={handleSetSat} />
+        <SatScale hue={values.h} maxValue={399} value={values.s} onChange={handleSetSat} />
       </SliderContainer>
       <SliderContainer>
         <label>Luminance</label>
-        <LumScale hue={values.h} maxValue={100} value={values.l} onChange={handleSetLum} />
+        <LumScale hue={values.h} maxValue={399} value={values.l} onChange={handleSetLum} />
       </SliderContainer>
     </StyledDiv>
   );
