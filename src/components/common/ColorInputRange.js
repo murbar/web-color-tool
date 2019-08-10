@@ -25,12 +25,12 @@ const RangeStyles = styled.div`
     top: 0;
     position: absolute;
     width: 2.5rem;
-    height: 4.6rem;
+    height: 4rem;
     background: transparent;
-    border: 0.3rem solid ${p => p.theme.textColor};
     border-radius: 0.5rem;
-    transform: translateX(-50%) translateY(-4.3rem);
-    box-shadow: 0 0 1rem ${p => p.theme.backgroundColor};
+    margin: 0 1rem;
+    transform: translateX(calc(-50% - 1rem)) translateY(-4rem);
+    box-shadow: 0 0 0 0.2rem ${p => p.theme.textColor}, 0 0 0 0.4rem ${p => p.theme.backgroundColor};
     &:hover {
       cursor: pointer;
     }
