@@ -10,7 +10,7 @@ export default styled.input`
   font-family: ${p => p.theme.fontFixed};
   border: 0;
   font-size: 2rem;
-  padding: 0.25em 0.5em;
+  padding: 0.25em 0.5em 0.35em;
   text-align: right;
   border-radius: 0.3em;
   &:focus {
