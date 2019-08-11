@@ -5,21 +5,23 @@ import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
 import { usePreferences } from 'contexts/preferencesContext';
+import { useBaseColor } from 'contexts/baseColorContext';
 
 const Hidden = styled.div`
   display: none;
 `;
 
-export default function HotKeys({ callbacks, colorValues }) {
-  const { randomizeColor, adjustLum, adjustHue, adjustSat, addMessage } = callbacks;
-  const copierRef = useRef();
+export default function HotKeys({ callbacks }) {
   const { preferences, toggleTheme } = usePreferences();
+  const { baseColor, randomizeBase, adjustBaseHue, adjustBaseSat, adjustBaseLum } = useBaseColor();
+  const { addMessage } = callbacks;
+  const copierRef = useRef();
 
   useHotKeys({
     r: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Randomize color');
       fireHotKey(e, () => {
-        randomizeColor();
+        randomizeBase();
         addMessage('Randomized!');
       });
     },
@@ -39,42 +41,42 @@ export default function HotKeys({ callbacks, colorValues }) {
     ArrowUp: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
-        adjustLum(5);
+        adjustBaseLum(5);
         addMessage('Lum +5%');
       });
     },
     ArrowDown: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
-        adjustLum(-5);
+        adjustBaseLum(-5);
         addMessage('Lum -5%');
       });
     },
     ArrowRight: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
-        adjustHue(12);
+        adjustBaseHue(12);
         addMessage('Hue +12deg');
       });
     },
     ArrowLeft: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
-        adjustHue(-12);
+        adjustBaseHue(-12);
         addMessage('Hue -12deg');
       });
     },
     s: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
-        adjustSat(5);
+        adjustBaseSat(5);
         addMessage('Sat +5%');
       });
     },
     d: e => {
       recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
-        adjustSat(-5);
+        adjustBaseSat(-5);
         addMessage('Sat -5%');
       });
     },
@@ -82,13 +84,13 @@ export default function HotKeys({ callbacks, colorValues }) {
       if (config.env !== 'production')
         fireHotKey(e, () => {
           console.log('prefs', preferences);
-          console.log('color', colorValues);
+          console.log('base color', baseColor);
         });
     }
   });
   return (
     <Hidden>
-      <CopyToClipboard text={`#${colorValues.hex}`}>
+      <CopyToClipboard text={`#${baseColor.hex}`}>
         <div ref={copierRef} />
       </CopyToClipboard>
     </Hidden>
