@@ -3,13 +3,13 @@ import colorConverter from 'colorConverter';
 import HexInput from 'components/common/HexInput';
 import { recordGAEvent } from 'helpers';
 
-const HexField = ({ setColor, colorValues }) => {
+const HexField = ({ setColor, baseColor }) => {
   const [hexValue, setHexValue] = useState('');
   const [inputError, setInputError] = useState(false);
 
   useEffect(() => {
-    setHexValue(colorValues.hex);
-  }, [colorValues.hex]);
+    setHexValue(baseColor.hex);
+  }, [baseColor.hex]);
 
   const handleChange = (e, value) => {
     setHexValue(() => {
