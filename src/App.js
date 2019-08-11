@@ -8,6 +8,7 @@ import { randomRgbValues, hslTo4x } from 'colorUtils';
 import config from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
+import { usePreferences } from 'contexts/PreferencesContext';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ColorDisplay from 'components/ColorDisplay';
 import Header from 'components/Header';
@@ -54,12 +55,11 @@ const randomizeColorState = () => {
 
 function App({ initialColorHsl, location }) {
   const { localStorageKeys, pageTitle } = config;
-  const [preferences, setPreferences] = useLocalStorageState(localStorageKeys.preferences, true);
-  // const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(localStorageKeys.theme, true);
   const [colorValues, setColorValues] = useLocalStorageState(
     localStorageKeys.color,
     initialColorHsl ? deriveColorState(hslTo4x(initialColorHsl)) : randomizeColorState()
   );
+  const { preferences } = usePreferences();
   const userMessages = useExpiresArray([], 2000);
 
   const setColorHsl = React.useCallback(
@@ -103,11 +103,6 @@ function App({ initialColorHsl, location }) {
     setColorHslPrecise([h, s, newLum]);
   };
 
-  const toggleTheme = () =>
-    setPreferences(prev => {
-      return { ...prev, darkTheme: !prev.darkTheme };
-    });
-
   useDocumentTitle(`#${colorValues.hex} - ${pageTitle}`);
 
   useKeyboardQuery('using-keyboard');
@@ -126,7 +121,6 @@ function App({ initialColorHsl, location }) {
           <HotKeys
             callbacks={{
               randomizeColor,
-              toggleTheme,
               adjustLum,
               adjustHue,
               adjustSat,
@@ -134,7 +128,7 @@ function App({ initialColorHsl, location }) {
             }}
             colorValues={colorValues}
           />
-          <Header preferences={preferences} callbacks={{ toggleTheme, randomizeColor }} />
+          <Header callbacks={{ randomizeColor }} />
           <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
           <ColorDisplay
             colorValues={colorValues}

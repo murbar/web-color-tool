@@ -4,14 +4,16 @@ import { fireHotKey, recordGAEvent } from 'helpers';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
+import { usePreferences } from 'contexts/PreferencesContext';
 
 const Hidden = styled.div`
   display: none;
 `;
 
 export default function HotKeys({ callbacks, colorValues }) {
-  const { randomizeColor, toggleTheme, adjustLum, adjustHue, adjustSat, addMessage } = callbacks;
+  const { randomizeColor, adjustLum, adjustHue, adjustSat, addMessage } = callbacks;
   const copierRef = useRef();
+  const { preferences, toggleTheme } = usePreferences();
 
   useHotKeys({
     r: e => {
@@ -79,7 +81,8 @@ export default function HotKeys({ callbacks, colorValues }) {
     l: e => {
       if (config.env !== 'production')
         fireHotKey(e, () => {
-          console.log(colorValues);
+          console.log('prefs', preferences);
+          console.log('color', colorValues);
         });
     }
   });
