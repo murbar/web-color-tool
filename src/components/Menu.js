@@ -4,6 +4,7 @@ import ThemeControl from 'components/ThemeControl';
 import RandomizeControl from 'components/RandomizeControl';
 import AboutModal from 'components/AboutModal';
 import IconButton from 'components/common/IconButton';
+import useClickOutside from 'hooks/useClickOutside';
 import { ReactComponent as MenuIcon } from 'icons/menu.svg';
 import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import breakpoints from 'styles/breakpoints';
@@ -65,9 +66,12 @@ export default function Menu({ callbacks }) {
   const { randomizeColor } = callbacks;
   const { preferences, toggleTheme } = usePreferences();
   const [showing, setShowing] = useState(false);
+  const clickOutsideRef = useClickOutside(() => {
+    if (showing) setShowing(false);
+  });
 
   return (
-    <Styles showing={showing}>
+    <Styles showing={showing} ref={clickOutsideRef}>
       <Toggle onClick={() => recordGAEvent('User', 'Clicked', 'Menu - toggle')}>
         <IconButton
           onClick={() => setShowing(prev => !prev)}
