@@ -60,7 +60,7 @@ const Expanded = styled.div`
   `)}
 `;
 
-export default function Menu({ state, callbacks }) {
+export default function Menu({ preferences, callbacks }) {
   const { randomizeColor, toggleTheme } = callbacks;
   const [showing, setShowing] = useState(false);
 
@@ -76,7 +76,7 @@ export default function Menu({ state, callbacks }) {
       </Toggle>
       <Expanded showing={showing}>
         <RandomizeControl onClick={randomizeColor} />
-        <ThemeControl onToggle={toggleTheme} toggled={state.darkThemeToggle} />
+        <ThemeControl onToggle={toggleTheme} toggled={preferences.darkTheme} />
         <AboutModal />
       </Expanded>
     </Styles>

@@ -53,14 +53,11 @@ const randomizeColorState = () => {
 };
 
 function App({ initialColorHsl, location }) {
-  const { localStorageStrings, pageTitle } = config;
-  const [preferences, setPreferences] = useLocalStorageState(localStorageStrings.preferences, true);
-  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(
-    localStorageStrings.theme,
-    true
-  );
+  const { localStorageKeys, pageTitle } = config;
+  const [preferences, setPreferences] = useLocalStorageState(localStorageKeys.preferences, true);
+  // const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(localStorageKeys.theme, true);
   const [colorValues, setColorValues] = useLocalStorageState(
-    localStorageStrings.color,
+    localStorageKeys.color,
     initialColorHsl ? deriveColorState(hslTo4x(initialColorHsl)) : randomizeColorState()
   );
   const userMessages = useExpiresArray([], 2000);
@@ -106,7 +103,10 @@ function App({ initialColorHsl, location }) {
     setColorHslPrecise([h, s, newLum]);
   };
 
-  const toggleTheme = () => setDarkThemeToggle(prev => !prev);
+  const toggleTheme = () =>
+    setPreferences(prev => {
+      return { ...prev, darkTheme: !prev.darkTheme };
+    });
 
   useDocumentTitle(`#${colorValues.hex} - ${pageTitle}`);
 
@@ -120,7 +120,7 @@ function App({ initialColorHsl, location }) {
 
   return (
     <ErrorBoundary>
-      <ThemeProvider theme={darkThemeToggle ? dark : light}>
+      <ThemeProvider theme={preferences.darkTheme ? dark : light}>
         <AppStyles>
           <GlobalStyles />
           <HotKeys
@@ -134,7 +134,7 @@ function App({ initialColorHsl, location }) {
             }}
             colorValues={colorValues}
           />
-          <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
+          <Header preferences={preferences} callbacks={{ toggleTheme, randomizeColor }} />
           <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
           <ColorDisplay
             colorValues={colorValues}

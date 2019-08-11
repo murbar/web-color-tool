@@ -16,13 +16,13 @@ const Styles = styled.header`
   }
 `;
 
-const Header = ({ state, callbacks }) => {
+const Header = ({ preferences, callbacks }) => {
   return (
     <Styles>
       <h1>
         Web color tool <span>Convert RGB / HSL / Hex & explore harmonies</span>
       </h1>
-      <Menu state={state} callbacks={callbacks} />
+      <Menu preferences={preferences} callbacks={callbacks} />
     </Styles>
   );
 };
