@@ -8,7 +8,7 @@ import { randomRgbValues, hslTo4x } from 'colorUtils';
 import config from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
-import { usePreferences } from 'contexts/PreferencesContext';
+import { usePreferences } from 'contexts/preferencesContext';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ColorDisplay from 'components/ColorDisplay';
 import Header from 'components/Header';
@@ -56,7 +56,7 @@ const randomizeColorState = () => {
 function App({ initialColorHsl, location }) {
   const { localStorageKeys, pageTitle } = config;
   const [colorValues, setColorValues] = useLocalStorageState(
-    localStorageKeys.color,
+    localStorageKeys.colors,
     initialColorHsl ? deriveColorState(hslTo4x(initialColorHsl)) : randomizeColorState()
   );
   const { preferences } = usePreferences();

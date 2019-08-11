@@ -8,7 +8,7 @@ import { ReactComponent as MenuIcon } from 'icons/menu.svg';
 import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import breakpoints from 'styles/breakpoints';
 import { recordGAEvent } from 'helpers';
-import { usePreferences } from 'contexts/PreferencesContext';
+import { usePreferences } from 'contexts/preferencesContext';
 
 const expandedCss = css`
   ${breakpoints.below.tablet`

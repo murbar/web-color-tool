@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import App from './App';
-import { PreferencesProvider } from 'contexts/PreferencesContext';
+import { PreferencesProvider } from 'contexts/preferencesContext';
 import { validHsl, validRgb, validHex } from 'colorUtils';
 import { initializeGA, initializeSentry } from 'helpers';
 import colorConverter from 'colorConverter';

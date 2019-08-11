@@ -4,7 +4,7 @@ import { fireHotKey, recordGAEvent } from 'helpers';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
-import { usePreferences } from 'contexts/PreferencesContext';
+import { usePreferences } from 'contexts/preferencesContext';
 
 const Hidden = styled.div`
   display: none;
