@@ -9,7 +9,6 @@ const PreferencesProvider = ({ children }) => {
   const [preferences, setPreferences] = useLocalStorageState(localStorageKeys.preferences, true);
 
   const contextValue = useMemo(() => {
-    console.log('changing');
     const toggleTheme = () =>
       setPreferences(prev => {
         return { ...prev, darkTheme: !prev.darkTheme };
