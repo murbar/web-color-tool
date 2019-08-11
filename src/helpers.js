@@ -1,4 +1,5 @@
 import ReactGA from 'react-ga';
+import * as Sentry from '@sentry/browser';
 import config from 'config';
 
 export const random8Bit = () => Math.floor(Math.random() * 256);
@@ -13,6 +14,12 @@ export const fireHotKey = (e, callback) => {
   if (ensureIsNotInput(e)) {
     e.preventDefault();
     callback();
+  }
+};
+
+export const initializeSentry = () => {
+  if (config.env === 'production') {
+    Sentry.init({ dsn: config.sentryDsn });
   }
 };
 

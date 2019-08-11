@@ -23,6 +23,7 @@ export default {
     preferences: `color-joeb-dev-prefs-${version}`
   },
   GAPropertyId: 'UA-140727716-1',
+  sentryDsn: 'https://4ce61244b73c47a2806e2f9cefeaf925@sentry.io/1527263',
   initPreferences,
   env: process.env.NODE_ENV,
   transitionDurationMs: 400,
