@@ -9,7 +9,6 @@ import { ReactComponent as MenuIcon } from 'icons/menu.svg';
 import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import breakpoints from 'styles/breakpoints';
 import { recordGAEvent } from 'helpers';
-import { usePreferences } from 'contexts/preferencesContext';
 
 const expandedCss = css`
   ${breakpoints.below.tablet`
@@ -62,9 +61,7 @@ const Expanded = styled.div`
   `)}
 `;
 
-export default function Menu({ callbacks }) {
-  const { randomizeColor } = callbacks;
-  const { preferences, toggleTheme } = usePreferences();
+export default function Menu() {
   const [showing, setShowing] = useState(false);
   const clickOutsideRef = useClickOutside(() => {
     if (showing) setShowing(false);
@@ -81,8 +78,8 @@ export default function Menu({ callbacks }) {
         </IconButton>
       </Toggle>
       <Expanded showing={showing}>
-        <RandomizeControl onClick={randomizeColor} />
-        <ThemeControl onToggle={toggleTheme} toggled={preferences.darkTheme} />
+        <RandomizeControl />
+        <ThemeControl />
         <AboutModal />
       </Expanded>
     </Styles>

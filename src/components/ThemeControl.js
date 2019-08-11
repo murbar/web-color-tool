@@ -3,18 +3,24 @@ import IconButton from 'components/common/IconButton';
 import { ReactComponent as Dark } from 'icons/moon.svg';
 import { ReactComponent as Light } from 'icons/sun.svg';
 import { recordGAEvent } from 'helpers';
+import { usePreferences } from 'contexts/preferencesContext';
 
-const ThemeControl = ({ onToggle, toggled }) => {
-  const title = `Toggle ${toggled ? 'light' : 'dark'} mode`;
+const ThemeControl = () => {
+  const {
+    preferences: { darkTheme },
+    toggleTheme
+  } = usePreferences();
+  const title = `Toggle ${darkTheme ? 'light' : 'dark'} mode`;
+
   return (
     <IconButton
       onClick={() => {
-        onToggle();
+        toggleTheme();
         recordGAEvent('User', 'Clicked', 'Menu - toggle theme');
       }}
       title={title}
     >
-      {toggled ? <Light /> : <Dark />}
+      {darkTheme ? <Light /> : <Dark />}
     </IconButton>
   );
 };
