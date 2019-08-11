@@ -161,8 +161,8 @@ const getTetradicValues = ([h, s, l]) => {
   return [hex1, hex2, hex3];
 };
 
-export default function HarmonyDisplay({ colorValues, showing, setColor, addMessage }) {
-  const { hsl } = colorValues;
+export default function HarmonyDisplay({ baseColor, showing, setColor, addMessage }) {
+  const { hsl } = baseColor;
   const { harmonyConstants } = config;
 
   // key must be index for spring animations to work

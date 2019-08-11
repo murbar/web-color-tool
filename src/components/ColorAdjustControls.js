@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import breakpoints from 'styles/breakpoints';
 import { recordGAEvent } from 'helpers';
 import { hslTo4x } from 'colorUtils';
+import { useBaseColor } from 'contexts/baseColorContext';
 
 const Styles = styled.div`
   margin: 0 -2rem 0;
@@ -59,15 +60,15 @@ const Labels = styled.div`
   `)};
 `;
 
-const ColorAdjustControls = ({ setColor, colorValues }) => {
-  let [h, s, l] = colorValues.hslNormalized;
+const ColorAdjustControls = () => {
+  const { baseColor, setBaseHslPrecise } = useBaseColor();
+  let [h, s, l] = baseColor.hslNormalized;
+  const lumAdjusts = [12, 24, 36, 50, 62, 74, 86];
+  const satAdjusts = [10, 25, 50, 75, 90];
 
   const scaleUpAndSet = hslValues => {
-    setColor(hslTo4x(hslValues));
+    setBaseHslPrecise(hslTo4x(hslValues));
   };
-
-  const lumValues = [12, 24, 36, 50, 62, 74, 86];
-  const satValues = [10, 25, 50, 75, 90];
 
   return (
     <Styles>
@@ -77,7 +78,7 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
           <div>Tint</div>
         </Labels>
         <Display onClick={() => recordGAEvent('User', 'Clicked', 'Shade/tint controls')}>
-          {lumValues.map(lum => {
+          {lumAdjusts.map(lum => {
             return (
               <DisplayButton
                 key={lum}
@@ -100,7 +101,7 @@ const ColorAdjustControls = ({ setColor, colorValues }) => {
           <div>Saturate</div>
         </Labels>
         <Display onClick={() => recordGAEvent('User', 'Clicked', 'Sat/desat controls')}>
-          {satValues.map(sat => {
+          {satAdjusts.map(sat => {
             return (
               <DisplayButton
                 key={sat}

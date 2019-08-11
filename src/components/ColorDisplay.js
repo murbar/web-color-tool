@@ -8,6 +8,7 @@ import HarmonyDisplay from 'components/HarmonyDisplay';
 import UserNotify from 'components/UserNotify';
 import HarmonyToggle from 'components/HarmonyToggle';
 import IconButton from 'components/common/IconButton';
+import { useBaseColor } from 'contexts/baseColorContext';
 import { ReactComponent as LinkIcon } from 'icons/link.svg';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
@@ -71,10 +72,11 @@ const LinkTo = ({ hex, addMessage, isBright }) => {
   );
 };
 
-export default function ColorDisplay({ colorValues, setColor, userMessages }) {
+export default function ColorDisplay({ userMessages }) {
+  const { baseColor, setBaseHslPrecise } = useBaseColor();
   const [showingHarmony, setShowingHarmony] = useState(null);
-  const isBrightBg = isBright(...colorValues.rgb);
-  const rgbCSS = colorConverter.rgb.toCSS(colorValues.rgb);
+  const isBrightBg = isBright(...baseColor.rgb);
+  const rgbCSS = colorConverter.rgb.toCSS(baseColor.rgb);
   const colorTransition = useSpring({
     config: { duration: config.transitionDurationMs },
     background: rgbCSS
@@ -88,15 +90,15 @@ export default function ColorDisplay({ colorValues, setColor, userMessages }) {
   return (
     <Container>
       <Styles style={colorTransition}>
-        <ColorValues colorValues={colorValues} addMessage={userMessages.add} />
+        <ColorValues baseColor={baseColor} addMessage={userMessages.add} />
         <UserNotify isBright={isBrightBg} messages={userMessages} />
         <HarmonyDisplay
-          colorValues={colorValues}
+          baseColor={baseColor}
           showing={showingHarmony}
-          setColor={setColor}
+          setColor={setBaseHslPrecise}
           addMessage={userMessages.add}
         />
-        <LinkTo hex={colorValues.hex} addMessage={userMessages.add} isBright={isBrightBg} />
+        <LinkTo hex={baseColor.hex} addMessage={userMessages.add} isBright={isBrightBg} />
       </Styles>
       <HarmonyToggle showing={showingHarmony} setShowing={setShowingHarmony} />
     </Container>

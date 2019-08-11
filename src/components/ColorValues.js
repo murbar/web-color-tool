@@ -43,21 +43,21 @@ const CopyOnClick = ({ string, children, addMessage }) => {
   );
 };
 
-export default function ColorValues({ colorValues, addMessage }) {
+export default function ColorValues({ baseColor, addMessage }) {
   const values = useSpring({
     config: { duration: config.transitionDurationMs },
-    rgb: colorValues.rgb,
-    hsl: colorValues.hsl
+    rgb: baseColor.rgb,
+    hsl: baseColor.hsl
   });
 
   const cssStrings = {
-    rgb: `rgb(${colorValues.rgb[0]}, ${colorValues.rgb[1]}, ${colorValues.rgb[2]})`,
-    hsl: `hsl(${colorValues.hsl[0]}, ${colorValues.hsl[1]}%, ${colorValues.hsl[2]}%)`,
-    hex: `#${colorValues.hex}`
+    rgb: `rgb(${baseColor.rgb[0]}, ${baseColor.rgb[1]}, ${baseColor.rgb[2]})`,
+    hsl: `hsl(${baseColor.hsl[0]}, ${baseColor.hsl[1]}%, ${baseColor.hsl[2]}%)`,
+    hex: `#${baseColor.hex}`
   };
 
   return (
-    <StyledDiv isBright={isBright(...colorValues.rgb)}>
+    <StyledDiv isBright={isBright(...baseColor.rgb)}>
       <CopyOnClick string={cssStrings.rgb} addMessage={addMessage}>
         RGB
         <animated.span>
