@@ -43,7 +43,7 @@ const CopyOnClick = ({ string, children, addMessage }) => {
   );
 };
 
-export default function ColorValues({ baseColor, addMessage }) {
+export default function ValuesDisplay({ baseColor, addMessage }) {
   const values = useSpring({
     config: { duration: config.transitionDurationMs },
     rgb: baseColor.rgb,

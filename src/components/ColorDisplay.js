@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import breakpoints from 'styles/breakpoints';
 import colorConverter from 'colorConverter';
-import ColorValues from 'components/ColorValues';
+import ValuesDisplay from 'components/ValuesDisplay';
 import { useSpring, animated } from 'react-spring';
 import HarmonyDisplay from 'components/HarmonyDisplay';
 import UserNotify from 'components/UserNotify';
@@ -90,7 +90,7 @@ export default function ColorDisplay({ userMessages }) {
   return (
     <Container>
       <Styles style={colorTransition}>
-        <ColorValues baseColor={baseColor} addMessage={userMessages.add} />
+        <ValuesDisplay baseColor={baseColor} addMessage={userMessages.add} />
         <UserNotify isBright={isBrightBg} messages={userMessages} />
         <HarmonyDisplay
           baseColor={baseColor}
