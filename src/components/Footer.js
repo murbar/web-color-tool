@@ -7,7 +7,7 @@ import config from 'config';
 const StyledContainer = styled.div`
   padding: 4rem 0 2rem;
   text-align: center;
-  font-size: 0.9em;
+  font-size: 0.8em;
   .v {
     font-family: ${p => p.theme.fontFixed};
   }
