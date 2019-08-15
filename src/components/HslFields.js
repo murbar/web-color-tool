@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import ContiguousInputs from 'components/common/ContiguousInputs';
 import DegreeInput from 'components/common/DegreeInput';
 import HectoInput from 'components/common/HectoInput';
-import { recordGAEvent, hslTo4x } from 'helpers';
+import { recordGAEvent } from 'helpers';
+import { hslTo4x } from 'colorUtils';
 
-const HslFields = ({ setColor, colorValues }) => {
+const HslFields = ({ setColor, baseColor }) => {
   const [hslValues, setHslValues] = useState({ h: 0, s: 0, l: 0 });
 
   useEffect(() => {
-    const [h, s, l] = colorValues.hsl;
+    const [h, s, l] = baseColor.hsl;
     setHslValues({ h, s, l });
-  }, [colorValues.hsl]);
+  }, [baseColor.hsl]);
 
   const handleChange = (e, value, name) => {
     setHslValues(prev => {

@@ -4,6 +4,7 @@ import ThemeControl from 'components/ThemeControl';
 import RandomizeControl from 'components/RandomizeControl';
 import AboutModal from 'components/AboutModal';
 import IconButton from 'components/common/IconButton';
+import useClickOutside from 'hooks/useClickOutside';
 import { ReactComponent as MenuIcon } from 'icons/menu.svg';
 import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import breakpoints from 'styles/breakpoints';
@@ -15,12 +16,12 @@ const expandedCss = css`
     z-index: 100;
     background: ${p => p.theme.menu.bgColor};
     ${IconButton} {
-    color: ${p => p.theme.menu.textColor};
-    &:hover {
-      background: ${p => p.theme.menu.buttonHoverColor};
+      color: ${p => p.theme.menu.textColor};
+      &:hover {
+        background: ${p => p.theme.menu.buttonHoverColor};
+      }
     }
-  }
-  `}
+    `}
 `;
 
 const Styles = styled.div`
@@ -43,7 +44,7 @@ const Styles = styled.div`
         margin: 0;
       }
     }
-  `}
+    `}
 `;
 
 const Toggle = styled.div`
@@ -60,12 +61,14 @@ const Expanded = styled.div`
   `)}
 `;
 
-export default function Menu({ state, callbacks }) {
-  const { randomizeColor, toggleTheme } = callbacks;
+export default function Menu() {
   const [showing, setShowing] = useState(false);
+  const clickOutsideRef = useClickOutside(() => {
+    if (showing) setShowing(false);
+  });
 
   return (
-    <Styles showing={showing}>
+    <Styles showing={showing} ref={clickOutsideRef}>
       <Toggle onClick={() => recordGAEvent('User', 'Clicked', 'Menu - toggle')}>
         <IconButton
           onClick={() => setShowing(prev => !prev)}
@@ -75,8 +78,8 @@ export default function Menu({ state, callbacks }) {
         </IconButton>
       </Toggle>
       <Expanded showing={showing}>
-        <RandomizeControl onClick={randomizeColor} />
-        <ThemeControl onToggle={toggleTheme} toggled={state.darkThemeToggle} />
+        <RandomizeControl />
+        <ThemeControl />
         <AboutModal />
       </Expanded>
     </Styles>

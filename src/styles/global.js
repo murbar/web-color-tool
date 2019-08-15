@@ -26,6 +26,9 @@ export default createGlobalStyle`
     text-decoration: none;
     box-shadow: inset 0 -0.1em 0 0 ${p => p.theme.textColor};
   }
+  h1 {
+    font-size: 1.8em;
+  }
   input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
       -webkit-appearance: none;

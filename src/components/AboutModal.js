@@ -4,7 +4,6 @@ import IconButton from 'components/common/IconButton';
 import Button from 'components/common/Button';
 import ButtonRow from 'components/common/ButtonRow';
 import FullScreenModal from 'components/common/FullScreenModal';
-// import ButtonRow from './common/ButtonRow';
 import { ReactComponent as InfoIcon } from 'icons/info.svg';
 import { recordGAEvent } from 'helpers';
 import { ReactComponent as CompIcon } from 'icons/harm-comp.svg';

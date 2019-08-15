@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ColorInputRange from 'components/common/ColorInputRange';
 import { recordGAEvent } from 'helpers';
+import { useBaseColor } from 'contexts/baseColorContext';
 
 const StyledDiv = styled.div`
   margin-top: 3.5rem;
@@ -77,19 +78,20 @@ const HueScale = styled(ColorInputRange)`
   }
 `;
 
-const ValueSlider = ({ setColor, colorValues }) => {
-  const [h4x, s4x, l4x] = colorValues.hsl4x;
-  const [normalH, normalS, normalL] = colorValues.hslNormalized;
+const ValueSlider = () => {
+  const { baseColor, setBaseHslPrecise } = useBaseColor();
+  const [h4x, s4x, l4x] = baseColor.hsl4x;
+  const [normalH, normalS, normalL] = baseColor.hslNormalized;
   const normalHsl = { h: normalH, s: normalS, l: normalL };
   const [values, setValues] = useState({ h: h4x, s: s4x, l: l4x });
 
   React.useEffect(() => {
-    const [h, s, l] = colorValues.hsl4x;
+    const [h, s, l] = baseColor.hsl4x;
     setValues({ h, s, l });
-  }, [colorValues]);
+  }, [baseColor]);
 
   const set = ({ h, s, l }) => {
-    setColor([h, s, l]);
+    setBaseHslPrecise([h, s, l]);
   };
 
   const handleSetHue = h => {
@@ -120,13 +122,13 @@ const ValueSlider = ({ setColor, colorValues }) => {
     <StyledDiv onClick={() => recordGAEvent('User', 'Clicked', 'Slider controls')}>
       <SliderContainer>
         <label>Hue</label>
-        <HueScale maxValue={1439} value={values.h} hsl={normalHsl} onChange={handleSetHue} />
+        <HueScale maxValue={1440} value={values.h} hsl={normalHsl} onChange={handleSetHue} />
       </SliderContainer>
       <SliderContainer>
         <label>Saturation</label>
         <SatScale
           hue={values.h}
-          maxValue={399}
+          maxValue={400}
           value={values.s}
           hsl={normalHsl}
           onChange={handleSetSat}
@@ -136,7 +138,7 @@ const ValueSlider = ({ setColor, colorValues }) => {
         <label>Luminance</label>
         <LumScale
           hue={values.h}
-          maxValue={399}
+          maxValue={400}
           value={values.l}
           hsl={normalHsl}
           onChange={handleSetLum}

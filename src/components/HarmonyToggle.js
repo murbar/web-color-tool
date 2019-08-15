@@ -48,6 +48,13 @@ export default function HarmonyToggle({ showing, setShowing }) {
           <CompIcon />
         </IconButton>
         <IconButton
+          onClick={() => toggle(harmonyConstants.SP)}
+          title={getTitle(harmonyConstants.SP)}
+          className={showing === harmonyConstants.SP ? 'active' : null}
+        >
+          <SplitIcon />
+        </IconButton>
+        <IconButton
           onClick={() => toggle(harmonyConstants.MO)}
           title={getTitle(harmonyConstants.MO)}
           className={showing === harmonyConstants.MO ? 'active' : null}
@@ -60,13 +67,6 @@ export default function HarmonyToggle({ showing, setShowing }) {
           className={showing === harmonyConstants.AN ? 'active' : null}
         >
           <AnaloIcon />
-        </IconButton>
-        <IconButton
-          onClick={() => toggle(harmonyConstants.SP)}
-          title={getTitle(harmonyConstants.SP)}
-          className={showing === harmonyConstants.SP ? 'active' : null}
-        >
-          <SplitIcon />
         </IconButton>
         <IconButton
           onClick={() => toggle(harmonyConstants.TR)}

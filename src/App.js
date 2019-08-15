@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
-import colorConvert from 'colorConvert';
-import { randomRgbValues, trueMod, hslTo4x } from 'helpers';
 import config from 'config';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
+import { usePreferences } from 'contexts/preferencesContext';
+import { useBaseColor } from 'contexts/baseColorContext';
 import ErrorBoundary from 'components/ErrorBoundary';
 import ColorDisplay from 'components/ColorDisplay';
 import Header from 'components/Header';
@@ -19,7 +19,6 @@ import useExpiresArray from 'hooks/useExpiresArray';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
-import useLocalStorageState from 'hooks/useLocalStorageState';
 
 const AppStyles = styled.div`
   padding: 0 2rem 3rem;
@@ -30,117 +29,37 @@ const AppStyles = styled.div`
     `}
 `;
 
-// store hsl values at 4x precision - H 360x4, S 100x4, L 100x4
-const deriveColorState = (hslValues4x = [0, 0, 0]) => {
-  const hslValues = hslValues4x.map(v => v / 4);
-  const hslValuesRounded = hslValues.map(v => Math.round(v));
-  const rgb = colorConvert.hsl4x.toRgb(hslValues4x);
-  const hex = colorConvert.rgb.toHex(rgb);
-  return {
-    hsl4x: hslValues4x,
-    hslNormalized: hslValues,
-    hsl: hslValuesRounded,
-    rgb,
-    hex
-  };
-};
-
-const randomizeColorState = () => {
-  const rgb = randomRgbValues();
-  const hsl = colorConvert.rgb.toHsl(rgb);
-  return deriveColorState(hslTo4x(hsl));
-};
-
-function App({ initialColorHsl, location }) {
-  const { localStorageStrings, pageTitle } = config;
-  const [darkThemeToggle, setDarkThemeToggle] = useLocalStorageState(
-    localStorageStrings.theme,
-    true
-  );
-  const [colorValues, setColorValues] = useLocalStorageState(
-    localStorageStrings.color,
-    initialColorHsl ? deriveColorState(hslTo4x(initialColorHsl)) : randomizeColorState()
-  );
+function App({ initialHsl4x, location }) {
+  const { preferences } = usePreferences();
+  const { baseColor, setBaseHslPrecise } = useBaseColor();
+  const { pageTitle } = config;
   const userMessages = useExpiresArray([], 2000);
 
-  const setColorHsl = React.useCallback(
-    hslValues => {
-      const [h, s, l] = hslTo4x(hslValues);
-      setColorValues(deriveColorState([h || 0, s || 0, l || 0]));
-    },
-    [setColorValues]
-  );
-
-  const setColorHslPrecise = React.useCallback(
-    hslValues4x => {
-      const [h, s, l] = hslValues4x;
-      setColorValues(deriveColorState([h || 0, s || 0, l || 0]));
-    },
-    [setColorValues]
-  );
-
-  const randomizeColor = () => {
-    setColorValues(randomizeColorState());
-  };
-
-  const adjustHue = hue => {
-    const [h, s, l] = colorValues.hsl4x;
-    const adjustment = hue * 4;
-    const newHue = trueMod(h + adjustment, 360 * 4);
-    setColorHslPrecise([newHue, s, l]);
-  };
-
-  const adjustSat = sat => {
-    const [h, s, l] = colorValues.hsl4x;
-    const adjustment = sat * 4;
-    const newSat = s + adjustment > 399 ? 399 : s + adjustment < 0 ? 0 : s + adjustment;
-    setColorHslPrecise([h, newSat, l]);
-  };
-
-  const adjustLum = lum => {
-    const [h, s, l] = colorValues.hsl4x;
-    const adjustment = lum * 4;
-    const newLum = l + adjustment > 399 ? 399 : l + adjustment < 0 ? 0 : l + adjustment;
-    setColorHslPrecise([h, s, newLum]);
-  };
-
-  const toggleTheme = () => setDarkThemeToggle(prev => !prev);
-
-  useDocumentTitle(`#${colorValues.hex} - ${pageTitle}`);
+  useDocumentTitle(`#${baseColor.hex} - ${pageTitle}`);
 
   useKeyboardQuery('using-keyboard');
 
   useAnalyticsPageView(location);
 
   useEffect(() => {
-    if (initialColorHsl) setColorHsl(initialColorHsl);
-  }, [initialColorHsl, setColorHsl]);
+    if (initialHsl4x) setBaseHslPrecise(initialHsl4x);
+  }, [initialHsl4x, setBaseHslPrecise]);
 
   return (
     <ErrorBoundary>
-      <ThemeProvider theme={darkThemeToggle ? dark : light}>
+      <ThemeProvider theme={preferences.darkTheme ? dark : light}>
         <AppStyles>
           <GlobalStyles />
           <HotKeys
             callbacks={{
-              randomizeColor,
-              toggleTheme,
-              adjustLum,
-              adjustHue,
-              adjustSat,
               addMessage: userMessages.add
             }}
-            colorValues={colorValues}
           />
-          <Header state={{ darkThemeToggle }} callbacks={{ toggleTheme, randomizeColor }} />
-          <ValueInputs setColor={setColorHslPrecise} colorValues={colorValues} />
-          <ColorDisplay
-            colorValues={colorValues}
-            setColor={setColorHslPrecise}
-            userMessages={userMessages}
-          />
-          <ColorAdjustControls setColor={setColorHslPrecise} colorValues={colorValues} />
-          <ValueSliders setColor={setColorHslPrecise} colorValues={colorValues} />
+          <Header />
+          <ValueInputs />
+          <ColorDisplay userMessages={userMessages} />
+          <ColorAdjustControls />
+          <ValueSliders />
           <Footer />
         </AppStyles>
       </ThemeProvider>

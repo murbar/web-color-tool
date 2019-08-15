@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import HslFields from 'components/HslFields';
 import RgbFields from 'components/RgbFields';
 import HexField from 'components/HexField';
+import { useBaseColor } from 'contexts/baseColorContext';
 import breakpoints from 'styles/breakpoints';
 
 const StyledDiv = styled.div`
@@ -27,12 +28,14 @@ const StyledDiv = styled.div`
   `)}
 `;
 
-const ValueInputs = ({ setColor, colorValues }) => {
+const ValueInputs = () => {
+  const { baseColor, setBaseHslPrecise } = useBaseColor();
+
   return (
     <StyledDiv>
-      <HslFields setColor={setColor} colorValues={colorValues} />
-      <RgbFields setColor={setColor} colorValues={colorValues} />
-      <HexField setColor={setColor} colorValues={colorValues} />
+      <HslFields setColor={setBaseHslPrecise} baseColor={baseColor} />
+      <RgbFields setColor={setBaseHslPrecise} baseColor={baseColor} />
+      <HexField setColor={setBaseHslPrecise} baseColor={baseColor} />
     </StyledDiv>
   );
 };

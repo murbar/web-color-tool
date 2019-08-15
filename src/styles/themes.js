@@ -9,8 +9,8 @@ const common = {
   font: `'Source Sans Pro', sans-serif;`,
   fontFixed: `'Source Code Pro', monospace;`,
   preview: {
-    darkOverlayBg: 'rgba(0, 0, 0, 0.2)',
-    brightOverlayBg: 'rgba(255, 255, 255, 0.2)'
+    darkOverlayBg: 'hsla(0, 0%, 0%, 0.2)',
+    brightOverlayBg: 'hsla(0, 0%, 100%, 0.2)'
   }
 };
 
