@@ -34,7 +34,7 @@ export default function HarmonyToggle({ showing, setShowing }) {
   };
 
   const getTitle = harmony => {
-    return `${showing ? 'Hide' : 'Show'} ${harmony} harmony`;
+    return `${showing === harmony ? 'Hide' : 'Show'} ${harmony} harmony`;
   };
 
   return (
