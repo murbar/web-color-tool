@@ -6,7 +6,10 @@ const PreferencesContext = React.createContext();
 
 const PreferencesProvider = ({ children }) => {
   const { localStorageKeys } = config;
-  const [preferences, setPreferences] = useLocalStorageState(localStorageKeys.preferences, true);
+  const [preferences, setPreferences] = useLocalStorageState(
+    localStorageKeys.preferences,
+    true
+  );
 
   const contextValue = useMemo(() => {
     const toggleTheme = () =>
@@ -17,7 +20,11 @@ const PreferencesProvider = ({ children }) => {
     return { preferences, toggleTheme };
   }, [preferences, setPreferences]);
 
-  return <PreferencesContext.Provider value={contextValue}>{children}</PreferencesContext.Provider>;
+  return (
+    <PreferencesContext.Provider value={contextValue}>
+      {children}
+    </PreferencesContext.Provider>
+  );
 };
 
 const usePreferences = () => useContext(PreferencesContext);
