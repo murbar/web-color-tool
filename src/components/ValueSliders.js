@@ -44,34 +44,7 @@ const LumScale = styled(ColorInputRange)`
 
 const HueScale = styled(ColorInputRange)`
   .input-range__track--background {
-    background: linear-gradient(
-      to right,
-      hsl(0, 100%, 50%),
-      hsl(15, 100%, 50%),
-      hsl(30, 100%, 50%),
-      hsl(45, 100%, 50%),
-      hsl(60, 100%, 50%),
-      hsl(75, 100%, 50%),
-      hsl(90, 100%, 50%),
-      hsl(105, 100%, 50%),
-      hsl(120, 100%, 50%),
-      hsl(135, 100%, 50%),
-      hsl(150, 100%, 50%),
-      hsl(165, 100%, 50%),
-      hsl(180, 100%, 50%),
-      hsl(195, 100%, 50%),
-      hsl(210, 100%, 50%),
-      hsl(225, 100%, 50%),
-      hsl(240, 100%, 50%),
-      hsl(255, 100%, 50%),
-      hsl(270, 100%, 50%),
-      hsl(285, 100%, 50%),
-      hsl(300, 100%, 50%),
-      hsl(315, 100%, 50%),
-      hsl(330, 100%, 50%),
-      hsl(345, 100%, 50%),
-      hsl(360, 100%, 50%)
-    );
+    background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
   }
   .input-range__slider {
     background: ${p => `hsl(${p.hsl.h}, 100%, 50%)`};
@@ -122,7 +95,12 @@ const ValueSlider = () => {
     <StyledDiv onClick={() => recordGAEvent('User', 'Clicked', 'Slider controls')}>
       <SliderContainer>
         <label>Hue</label>
-        <HueScale maxValue={1440} value={values.h} hsl={normalHsl} onChange={handleSetHue} />
+        <HueScale
+          maxValue={1440}
+          value={values.h}
+          hsl={normalHsl}
+          onChange={handleSetHue}
+        />
       </SliderContainer>
       <SliderContainer>
         <label>Saturation</label>
