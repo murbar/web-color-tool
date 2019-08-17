@@ -86,7 +86,7 @@ const ColorAdjustControls = () => {
                 l={lum}
                 s={s}
                 onClick={() => scaleUpAndSet([h, s, lum])}
-                title={`Set lightness to %`}
+                title={`Set lightness to ${lum}%`}
                 style={{
                   background: `hsl(${h}, ${s}%, ${lum}%)`
                 }}
@@ -109,7 +109,7 @@ const ColorAdjustControls = () => {
                 l={l}
                 s={sat}
                 onClick={() => scaleUpAndSet([h, sat, l])}
-                title={`Set saturation to %`}
+                title={`Set saturation to ${sat}%`}
                 style={{
                   background: `hsl(${h}, ${sat}%, 50%)`
                 }}
