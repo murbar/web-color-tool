@@ -13,7 +13,13 @@ const Hidden = styled.div`
 
 export default function HotKeys({ callbacks }) {
   const { preferences, toggleTheme } = usePreferences();
-  const { baseColor, randomizeBase, adjustBaseHue, adjustBaseSat, adjustBaseLum } = useBaseColor();
+  const {
+    baseColor,
+    randomizeBase,
+    adjustBaseHue,
+    adjustBaseSat,
+    adjustBaseLum
+  } = useBaseColor();
   const { addMessage } = callbacks;
   const copierRef = useRef();
 
@@ -88,6 +94,7 @@ export default function HotKeys({ callbacks }) {
         });
     }
   });
+
   return (
     <Hidden>
       <CopyToClipboard text={`#${baseColor.hex}`}>

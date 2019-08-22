@@ -88,7 +88,9 @@ const BaseColorProvider = ({ children }) => {
     };
   }, [baseColor, randomize, setHsl, setHslPrecise]);
 
-  return <BaseColorContext.Provider value={contextValue}>{children}</BaseColorContext.Provider>;
+  return (
+    <BaseColorContext.Provider value={contextValue}>{children}</BaseColorContext.Provider>
+  );
 };
 
 const useBaseColor = () => useContext(BaseColorContext);

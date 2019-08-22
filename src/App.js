@@ -36,11 +36,8 @@ function App({ initialHsl4x, location }) {
   const userMessages = useExpiresArray([], 2000);
 
   useDocumentTitle(`#${baseColor.hex} - ${pageTitle}`);
-
   useKeyboardQuery('using-keyboard');
-
   useAnalyticsPageView(location);
-
   useEffect(() => {
     if (initialHsl4x) setBaseHslPrecise(initialHsl4x);
   }, [initialHsl4x, setBaseHslPrecise]);
