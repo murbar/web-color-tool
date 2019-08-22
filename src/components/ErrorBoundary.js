@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from 'components/common/Button';
 
 const ErrorDisplay = styled.div`
   width: 80%;
@@ -10,10 +11,7 @@ const ErrorDisplay = styled.div`
 `;
 
 export default class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: null, errorInfo: null };
-  }
+  state = { error: null, errorInfo: null };
 
   componentDidCatch(error, errorInfo) {
     this.setState({
@@ -27,7 +25,10 @@ export default class ErrorBoundary extends React.Component {
       return (
         <ErrorDisplay>
           <h1>Dang! Something went wrong. :(</h1>
-          <p>The nerds have been notified. Check back soon.</p>
+          <p>The nerds have been notified.</p>
+          <p>
+            <Button onClick={() => window.location.reload()}>Reload</Button>
+          </p>
         </ErrorDisplay>
       );
     }
