@@ -92,7 +92,7 @@ const Swatch = ({ hex, setColor, addMessage }) => {
         <span title={`Copy CSS value "#${hex}"`}>
           #
           <animated.span>
-            {valuesSpring.rgb.interpolate((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
+            {valuesSpring.rgb.to((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
           </animated.span>
         </span>
       </CopyToClipboard>
@@ -171,7 +171,11 @@ export default function HarmonyDisplay({ baseColor, showing, setColor, addMessag
       {showing !== null && (
         <Display>
           {showing === harmonyConstants.CO && (
-            <Swatch setColor={setColor} hex={getComplimentHex(hsl)} addMessage={addMessage} />
+            <Swatch
+              setColor={setColor}
+              hex={getComplimentHex(hsl)}
+              addMessage={addMessage}
+            />
           )}
 
           {showing === harmonyConstants.MO &&

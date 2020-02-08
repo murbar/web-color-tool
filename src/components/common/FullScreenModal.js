@@ -16,7 +16,6 @@ const Styles = styled(animated.div)`
   justify-content: center;
   padding: 2rem;
   background: ${p => p.theme.fullScreenModalBgColor};
-  pointer-events: auto;
   overflow: scroll;
   transform: scale(1);
   will-change: transform, opacity;
@@ -25,16 +24,16 @@ const Styles = styled(animated.div)`
 export default function FullScreenModal({ children, onClickOff, isShowing }) {
   const overlayTransition = useTransition(isShowing, null, {
     from: {
-      opacity: 0
-      // transform: 'scale(1.15)'
+      opacity: 0,
+      transform: 'scale(1.15)'
     },
     enter: {
-      opacity: 1
-      // transform: 'scale(1)'
+      opacity: 1,
+      transform: 'scale(1)'
     },
     leave: {
-      opacity: 0
-      // transform: 'scale(1.15)'
+      opacity: 0,
+      transform: 'scale(1.15)'
     }
   });
 
@@ -43,15 +42,13 @@ export default function FullScreenModal({ children, onClickOff, isShowing }) {
       item &&
       ReactDOM.createPortal(
         <Styles
-          style={props}
           key={key}
+          style={{ ...props, pointerEvents: isShowing ? 'auto' : 'none' }}
           onClick={e => {
             if (e.target.parentNode.id === 'modal') onClickOff(e);
           }}
         >
-          <OverlayBox style={props} key={key}>
-            {children}
-          </OverlayBox>
+          <OverlayBox key={key}>{children}</OverlayBox>
         </Styles>,
         document.querySelector('#modal')
       )
