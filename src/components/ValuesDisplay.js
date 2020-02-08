@@ -61,7 +61,7 @@ export default function ValuesDisplay({ baseColor, addMessage }) {
       <CopyOnClick string={cssStrings.rgb} addMessage={addMessage}>
         RGB
         <animated.span>
-          {values.rgb.to((...rgb) => {
+          {values.rgb.interpolate((...rgb) => {
             const [r, g, b] = rgb.map(v => Math.round(v));
             return ` ${r}, ${g}, ${b}`;
           })}
@@ -70,7 +70,7 @@ export default function ValuesDisplay({ baseColor, addMessage }) {
       <CopyOnClick string={cssStrings.hsl} addMessage={addMessage}>
         HSL
         <animated.span>
-          {values.hsl.to((...hsl) => {
+          {values.hsl.interpolate((...hsl) => {
             const [h, s, l] = hsl.map(v => Math.round(v));
             return ` ${h}, ${s}%, ${l}%`;
           })}
@@ -79,7 +79,7 @@ export default function ValuesDisplay({ baseColor, addMessage }) {
       <CopyOnClick string={cssStrings.hex} addMessage={addMessage}>
         #
         <animated.span>
-          {values.rgb.to((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
+          {values.rgb.interpolate((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
         </animated.span>
       </CopyOnClick>
     </StyledDiv>
