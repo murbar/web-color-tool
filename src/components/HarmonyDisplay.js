@@ -92,7 +92,9 @@ const Swatch = ({ hex, setColor, addMessage }) => {
         <span title={`Copy CSS value "#${hex}"`}>
           #
           <animated.span>
-            {valuesSpring.rgb.to((r, g, b) => colorConverter.rgb.toHex([r, g, b]))}
+            {valuesSpring.rgb.interpolate((r, g, b) =>
+              colorConverter.rgb.toHex([r, g, b])
+            )}
           </animated.span>
         </span>
       </CopyToClipboard>
