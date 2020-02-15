@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
@@ -15,10 +14,12 @@ import ColorDisplay from 'components/ColorDisplay';
 import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueSliders from 'components/ValueSliders';
 import Footer from 'components/Footer';
+import useRouter from 'hooks/useRouter';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useExpiresArray from 'hooks/useExpiresArray';
+import useColorRouteOnMount from 'hooks/useColorRouteOnMount';
 
 const AppStyles = styled.div`
   padding: 0 2rem 3rem;
@@ -29,18 +30,17 @@ const AppStyles = styled.div`
     `}
 `;
 
-function App({ initialHsl4x, location }) {
+export default function App() {
   const { preferences } = usePreferences();
-  const { baseColor, setBaseHslPrecise } = useBaseColor();
+  const { baseColor } = useBaseColor();
   const { pageTitle } = config;
   const userMessages = useExpiresArray([], 2000);
+  const { location } = useRouter();
 
+  useColorRouteOnMount();
   useDocumentTitle(`#${baseColor.hex} - ${pageTitle}`);
   useKeyboardQuery('using-keyboard');
   useAnalyticsPageView(location);
-  useEffect(() => {
-    if (initialHsl4x) setBaseHslPrecise(initialHsl4x);
-  }, [initialHsl4x, setBaseHslPrecise]);
 
   return (
     <ErrorBoundary>
@@ -63,5 +63,3 @@ function App({ initialHsl4x, location }) {
     </ErrorBoundary>
   );
 }
-
-export default withRouter(App);

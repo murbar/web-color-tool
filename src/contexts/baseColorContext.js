@@ -4,6 +4,7 @@ import colorConverter from 'colorConverter';
 import { randomRgbValues, hslTo4x } from 'colorUtils';
 import { trueMod } from 'helpers';
 import config from 'config';
+import useRouter from 'hooks/useRouter';
 
 // store hsl values at 4x precision - H 360x4, S 100x4, L 100x4
 const calcColorState = (hslValues4x = [0, 0, 0]) => {
@@ -34,6 +35,7 @@ const BaseColorProvider = ({ children }) => {
     localStorageKeys.baseColor,
     randomizeColorState()
   );
+  const router = useRouter();
 
   const setHsl = useCallback(
     hslValues => {
@@ -46,9 +48,13 @@ const BaseColorProvider = ({ children }) => {
   const setHslPrecise = useCallback(
     hslValues4x => {
       const [h, s, l] = hslValues4x;
-      setBaseColor(calcColorState([h || 0, s || 0, l || 0]));
+      const newColor = calcColorState([h || 0, s || 0, l || 0]);
+      const { hsl } = newColor;
+
+      router.replace(`/hsl/${hsl[0]}/${hsl[1]}/${hsl[2]}`);
+      setBaseColor(newColor);
     },
-    [setBaseColor]
+    [router, setBaseColor]
   );
 
   const randomize = useCallback(() => {
