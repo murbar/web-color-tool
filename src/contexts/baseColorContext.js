@@ -35,7 +35,12 @@ const BaseColorProvider = ({ children }) => {
     localStorageKeys.baseColor,
     randomizeColorState()
   );
-  const router = useRouter();
+  const { replace } = useRouter();
+
+  React.useEffect(() => {
+    const { hsl } = baseColor;
+    replace(`/hsl/${hsl[0]}/${hsl[1]}/${hsl[2]}`);
+  }, [baseColor, replace]);
 
   const setHsl = useCallback(
     hslValues => {
@@ -48,13 +53,9 @@ const BaseColorProvider = ({ children }) => {
   const setHslPrecise = useCallback(
     hslValues4x => {
       const [h, s, l] = hslValues4x;
-      const newColor = calcColorState([h || 0, s || 0, l || 0]);
-      const { hsl } = newColor;
-
-      router.replace(`/hsl/${hsl[0]}/${hsl[1]}/${hsl[2]}`);
-      setBaseColor(newColor);
+      setBaseColor(calcColorState([h || 0, s || 0, l || 0]));
     },
-    [router, setBaseColor]
+    [setBaseColor]
   );
 
   const randomize = useCallback(() => {
