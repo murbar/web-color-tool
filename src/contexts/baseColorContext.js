@@ -37,9 +37,17 @@ const BaseColorProvider = ({ children }) => {
   );
   const { replace } = useRouter();
 
+  const timeout = React.useRef(null);
   React.useEffect(() => {
     const { hsl } = baseColor;
-    replace(`/hsl/${hsl[0]}/${hsl[1]}/${hsl[2]}`);
+
+    // setting history more than 100x in 30secs is a browser security violation, crashes app
+    // can happen while scrubbing through the value sliders
+    timeout.current = setTimeout(
+      () => replace(`/hsl/${hsl[0]}/${hsl[1]}/${hsl[2]}`),
+      150
+    );
+    return () => clearTimeout(timeout.current);
   }, [baseColor, replace]);
 
   const setHsl = useCallback(
