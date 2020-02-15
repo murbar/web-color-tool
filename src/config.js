@@ -1,4 +1,4 @@
-const version = '2019.8.10';
+const version = '2020.2.15';
 
 const localStorageKeys = {
   colors: `color-joeb-dev-colors-${version}`,
