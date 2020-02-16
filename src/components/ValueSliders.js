@@ -5,7 +5,7 @@ import { recordGAEvent } from 'helpers';
 import { useBaseColor } from 'contexts/baseColorContext';
 
 const StyledDiv = styled.div`
-  margin-top: 3.5rem;
+  margin-top: 1.5rem;
 `;
 
 const SliderContainer = styled.div`

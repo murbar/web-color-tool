@@ -16,13 +16,13 @@ import { recordGAEvent } from 'helpers';
 import { isBright } from 'colorUtils';
 
 const Styles = styled(animated.div)`
-  height: 30vh;
+  height: 28vh;
   min-height: 25rem;
   margin: 0 -2rem 0;
   position: relative;
   overflow: hidden;
   ${breakpoints.tall`
-    height: 40vh;
+    height: 33vh;
   `}
   ${breakpoints.tablet`
     border-radius: 1rem;

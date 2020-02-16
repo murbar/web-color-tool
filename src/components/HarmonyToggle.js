@@ -14,7 +14,7 @@ const Styles = styled.div``;
 
 const Toggle = styled.div`
   display: flex;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   left: 0;
   justify-content: space-between;
   transform-origin: center right;
