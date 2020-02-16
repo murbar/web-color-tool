@@ -31,7 +31,7 @@ export default function useColorRouteOnMount() {
   const clearRoute = () => replace('/');
 
   useOnceOnMount(() => {
-    if (colorRoute && colorRoute.isExact) {
+    if (colorRoute?.isExact) {
       const type = colorRoute.url.slice(1, 4);
 
       if (type in convertMap) {
