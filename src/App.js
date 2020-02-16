@@ -20,6 +20,7 @@ import useKeyboardQuery from 'hooks/useKeyboardQuery';
 import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useExpiresArray from 'hooks/useExpiresArray';
 import useColorRouteOnMount from 'hooks/useColorRouteOnMount';
+import About from 'components/About';
 
 const AppStyles = styled.div`
   padding: 0 2rem 3rem;
@@ -57,6 +58,7 @@ export default function App() {
           <ColorDisplay userMessages={userMessages} />
           <ColorAdjustControls />
           <ValueSliders />
+          <About />
           <Footer />
         </AppStyles>
       </ThemeProvider>

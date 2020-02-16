@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import ThemeControl from 'components/ThemeControl';
 import RandomizeControl from 'components/RandomizeControl';
-import AboutModal from 'components/AboutModal';
 import IconButton from 'components/common/IconButton';
 import useClickOutside from 'hooks/useClickOutside';
 import { ReactComponent as MenuIcon } from 'icons/menu.svg';
@@ -32,7 +31,7 @@ const Styles = styled.div`
   transition: all 100ms;
   ${IconButton} {
     margin: 0 0 0.5rem 0;
-    &:last-child {
+    &:last-of-type {
       margin: 0;
     }
   }
@@ -40,7 +39,7 @@ const Styles = styled.div`
   ${breakpoints.tablet`
     ${IconButton} {
       margin: 0 1rem 0 0;
-      &:last-child {
+      &:last-of-type {
         margin: 0;
       }
     }
@@ -80,7 +79,6 @@ export default function Menu() {
       <Expanded showing={showing}>
         <RandomizeControl />
         <ThemeControl />
-        <AboutModal />
       </Expanded>
     </Styles>
   );
