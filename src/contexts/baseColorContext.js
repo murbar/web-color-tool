@@ -1,5 +1,6 @@
 import React, { createContext, useMemo, useCallback, useContext } from 'react';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import { useDebounce } from 'hooks/useDebounce';
 import colorConverter from 'colorConverter';
 import { randomRgbValues, hslTo4x } from 'colorUtils';
 import { trueMod } from 'helpers';
@@ -37,18 +38,12 @@ const BaseColorProvider = ({ children }) => {
   );
   const { replace } = useRouter();
 
-  const timeout = React.useRef(null);
+  // don't want to update route too frequently and cause a browser security violation
+  // more than ~100x in 30s
+  const routeValue = useDebounce(baseColor.hsl, 150);
   React.useEffect(() => {
-    const { hsl } = baseColor;
-
-    // setting history more than 100x in 30secs is a browser security violation, crashes app
-    // can happen while scrubbing through the value sliders
-    timeout.current = setTimeout(
-      () => replace(`/hsl/${hsl[0]}/${hsl[1]}/${hsl[2]}`),
-      150
-    );
-    return () => clearTimeout(timeout.current);
-  }, [baseColor, replace]);
+    replace(`/hsl/${routeValue[0]}/${routeValue[1]}/${routeValue[2]}`);
+  }, [routeValue, replace]);
 
   const setHsl = useCallback(
     hslValues => {
