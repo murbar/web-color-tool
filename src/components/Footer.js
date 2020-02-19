@@ -1,47 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Heart } from 'icons/heart.svg';
+import { ReactComponent as UserIcon } from 'icons/user.svg';
+import { ReactComponent as GitHubIcon } from 'icons/github.svg';
 import { recordGAEvent } from 'helpers';
 import config from 'config';
+
+const Version = styled.div`
+  font-family: ${p => p.theme.fontFixed};
+  margin-bottom: 0.5rem;
+`;
 
 const StyledContainer = styled.div`
   padding: 4rem 0 2rem;
   text-align: center;
   font-size: 0.8em;
-  .v {
-    font-family: ${p => p.theme.fontFixed};
+  a {
+    box-shadow: none;
+    margin: 0 0.25rem 0;
+    padding: 0.5rem;
   }
   svg {
-    height: 1em;
-    color: crimson;
-    margin: 0 0 -0.25rem 0;
+    height: 1.5em;
   }
 `;
 
 const Footer = () => {
   return (
     <StyledContainer>
-      <span className="v">v{config.version}</span>
-      <br />
-      Made with{' '}
-      <span role="img" aria-label="love">
-        <Heart />
-      </span>{' '}
-      by{' '}
+      <Version className="v">v{config.version}</Version>
       <a
         href="https://joelb.dev"
         title="Joel Bartlett's portfolio"
         onClick={() => recordGAEvent('User', 'Clicked', 'Portfolio link')}
       >
-        Joel Bartlett
+        <UserIcon />
       </a>
-      <br />{' '}
       <a
         href="https://github.com/murbar/color-converter"
         title="See the code on GitHub"
         onClick={() => recordGAEvent('User', 'Clicked', 'GitHub link')}
       >
-        Have a look at the code
+        <GitHubIcon />
       </a>
     </StyledContainer>
   );
