@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as UserIcon } from 'icons/user.svg';
 import { ReactComponent as GitHubIcon } from 'icons/github.svg';
-import { recordGAEvent } from 'helpers';
 import config from 'config';
 
 const Version = styled.div`
@@ -28,18 +27,10 @@ const Footer = () => {
   return (
     <StyledContainer>
       <Version className="v">v{config.version}</Version>
-      <a
-        href="https://joelb.dev"
-        title="Joel Bartlett's portfolio"
-        onClick={() => recordGAEvent('User', 'Clicked', 'Portfolio link')}
-      >
+      <a href="https://joelb.dev" title="Joel Bartlett's portfolio">
         <UserIcon />
       </a>
-      <a
-        href="https://github.com/murbar/color-converter"
-        title="See the code on GitHub"
-        onClick={() => recordGAEvent('User', 'Clicked', 'GitHub link')}
-      >
+      <a href="https://github.com/murbar/color-converter" title="See the code on GitHub">
         <GitHubIcon />
       </a>
     </StyledContainer>

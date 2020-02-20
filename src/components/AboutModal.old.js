@@ -5,7 +5,6 @@ import Button from 'components/common/Button';
 import ButtonRow from 'components/common/ButtonRow';
 import FullScreenModal from 'components/common/FullScreenModal';
 import { ReactComponent as InfoIcon } from 'icons/info.svg';
-import { recordGAEvent } from 'helpers';
 import { ReactComponent as CompIcon } from 'icons/harm-comp.svg';
 import { ReactComponent as MonoIcon } from 'icons/harm-mono.svg';
 import { ReactComponent as AnaloIcon } from 'icons/harm-anl.svg';
@@ -90,7 +89,6 @@ export default function AboutModal({ isShowing = false }) {
       <IconButton
         onClick={() => {
           setShowModal(true);
-          recordGAEvent('User', 'Clicked', 'Menu - about');
         }}
         title="About this app"
         className="control"
@@ -101,31 +99,39 @@ export default function AboutModal({ isShowing = false }) {
         <AboutModalStyles>
           <h2>A color tool for developers</h2>
           <p>
-            Pick a base color, tweak it until just right, explore harmonies, and copy the CSS values
-            for use in your projects.{' '}
+            Pick a base color, tweak it until just right, explore harmonies, and copy the
+            CSS values for use in your projects.{' '}
           </p>
           <p>
             Please{' '}
-            <a href="https://twitter.com/murbar" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://twitter.com/murbar"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               share your feedback
             </a>{' '}
-            &mdash; let me know if this tool is useful for you, or if you find any bugs. I'd like to
-            add additional functionality in the future. What features would you like to see?
+            &mdash; let me know if this tool is useful for you, or if you find any bugs.
+            I'd like to add additional functionality in the future. What features would
+            you like to see?
           </p>
           <h3>How to</h3>
           <ul>
             <li>Set a base color using the HSL sliders or input your values directly</li>
             <li>
-              Tweak your color until it's just right - try adjusting the shade/tint & saturation
+              Tweak your color until it's just right - try adjusting the shade/tint &
+              saturation
             </li>
             <li>Explore harmonies to discover new color combinations</li>
-            <li>Click the values in the color display to copy the CSS to your clipboard</li>
+            <li>
+              Click the values in the color display to copy the CSS to your clipboard
+            </li>
           </ul>
           <h3>Harmonies</h3>
           <p>
-            Explore color combinations by toggling one of the six harmonies via these symbols. Each
-            harmony has its own mood. Use harmonies to brainstorm color combos that work well
-            together.
+            Explore color combinations by toggling one of the six harmonies via these
+            symbols. Each harmony has its own mood. Use harmonies to brainstorm color
+            combos that work well together.
           </p>
           <Harmony>
             <div className="icon">
@@ -134,7 +140,8 @@ export default function AboutModal({ isShowing = false }) {
             <div className="desc">
               <h4>Complementary</h4>
               <p>
-                A color and its opposite on the color wheel, +180 degrees of hue. High contrast.
+                A color and its opposite on the color wheel, +180 degrees of hue. High
+                contrast.
               </p>
             </div>
           </Harmony>
@@ -144,7 +151,10 @@ export default function AboutModal({ isShowing = false }) {
             </div>
             <div className="desc">
               <h4>Monochromatic</h4>
-              <p>Three colors of the same hue with luminance values +/-50%. Subtle and refined.</p>
+              <p>
+                Three colors of the same hue with luminance values +/-50%. Subtle and
+                refined.
+              </p>
             </div>
           </Harmony>
           <Harmony>
@@ -154,8 +164,8 @@ export default function AboutModal({ isShowing = false }) {
             <div className="desc">
               <h4>Analogous</h4>
               <p>
-                Three colors of the same luminance and saturation with hues that are adjacent on the
-                color wheel, 30 degrees apart. Smooth transitions.
+                Three colors of the same luminance and saturation with hues that are
+                adjacent on the color wheel, 30 degrees apart. Smooth transitions.
               </p>
             </div>
           </Harmony>
@@ -166,8 +176,9 @@ export default function AboutModal({ isShowing = false }) {
             <div className="desc">
               <h4>Split-complementary</h4>
               <p>
-                A color and two adjacent to its complement, +/-30 degrees of hue from the value
-                opposite the main color. Bold like a straight complement, but more versatile.
+                A color and two adjacent to its complement, +/-30 degrees of hue from the
+                value opposite the main color. Bold like a straight complement, but more
+                versatile.
               </p>
             </div>
           </Harmony>
@@ -178,8 +189,8 @@ export default function AboutModal({ isShowing = false }) {
             <div className="desc">
               <h4>Triadic</h4>
               <p>
-                Three colors spaced evenly along the color wheel, each 120 degrees of hue apart.
-                Best to allow one color to dominate and use the others as accents.
+                Three colors spaced evenly along the color wheel, each 120 degrees of hue
+                apart. Best to allow one color to dominate and use the others as accents.
               </p>
             </div>
           </Harmony>

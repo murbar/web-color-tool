@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import useHotKeys from 'hooks/useHotKeys';
-import { fireHotKey, recordGAEvent } from 'helpers';
+import { fireHotKey } from 'helpers';
 import styled from 'styled-components';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import config from 'config';
@@ -25,62 +25,53 @@ export default function HotKeys({ callbacks }) {
 
   useHotKeys({
     r: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Randomize color');
       fireHotKey(e, () => {
         randomizeBase();
         addMessage('Randomized!');
       });
     },
     t: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Toggle theme');
       fireHotKey(e, () => {
         toggleTheme();
       });
     },
     c: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Copy base color');
       fireHotKey(e, () => {
         copierRef.current.click();
         addMessage('Copied CSS hex value!');
       });
     },
     ArrowUp: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
         adjustBaseLum(5);
         addMessage('Lum +5%');
       });
     },
     ArrowDown: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust luminance');
       fireHotKey(e, () => {
         adjustBaseLum(-5);
         addMessage('Lum -5%');
       });
     },
     ArrowRight: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
         adjustBaseHue(12);
         addMessage('Hue +12deg');
       });
     },
     ArrowLeft: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust hue');
       fireHotKey(e, () => {
         adjustBaseHue(-12);
         addMessage('Hue -12deg');
       });
     },
     s: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
         adjustBaseSat(5);
         addMessage('Sat +5%');
       });
     },
     d: e => {
-      recordGAEvent('User', 'Triggered hotkey', 'Adjust saturation');
       fireHotKey(e, () => {
         adjustBaseSat(-5);
         addMessage('Sat -5%');

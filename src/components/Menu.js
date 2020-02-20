@@ -7,7 +7,6 @@ import useClickOutside from 'hooks/useClickOutside';
 import { ReactComponent as MenuIcon } from 'icons/menu.svg';
 import { ReactComponent as CloseIcon } from 'icons/x.svg';
 import breakpoints from 'styles/breakpoints';
-import { recordGAEvent } from 'helpers';
 
 const expandedCss = css`
   ${breakpoints.below.tablet`
@@ -68,7 +67,7 @@ export default function Menu() {
 
   return (
     <Styles showing={showing} ref={clickOutsideRef}>
-      <Toggle onClick={() => recordGAEvent('User', 'Clicked', 'Menu - toggle')}>
+      <Toggle>
         <IconButton
           onClick={() => setShowing(prev => !prev)}
           title={`${showing ? 'Close' : 'Expand'} menu`}
