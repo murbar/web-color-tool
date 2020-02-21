@@ -29,6 +29,12 @@ export const initializeGA = () => {
   }
 };
 
+export const recordGAPageView = path => {
+  if (config.env === 'production') {
+    ReactGA.pageview(path);
+  }
+};
+
 export const recordGAEvent = (category, action, label) => {
   if (!category || !action) {
     console.warn('GA Event: Category and action are required - aborting');

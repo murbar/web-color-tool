@@ -4,6 +4,7 @@ import GlobalStyles from 'styles/global';
 import { dark, light } from 'styles/themes';
 import breakpoints from 'styles/breakpoints';
 import config from 'config';
+import { recordGAPageView } from 'helpers';
 import { usePreferences } from 'contexts/preferencesContext';
 import { useBaseColor } from 'contexts/baseColorContext';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -14,13 +15,13 @@ import ColorDisplay from 'components/ColorDisplay';
 import ColorAdjustControls from 'components/ColorAdjustControls';
 import ValueSliders from 'components/ValueSliders';
 import Footer from 'components/Footer';
-import useRouter from 'hooks/useRouter';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import useKeyboardQuery from 'hooks/useKeyboardQuery';
-import useAnalyticsPageView from 'hooks/useAnalyticsPageView';
 import useExpiresArray from 'hooks/useExpiresArray';
 import useColorRouteOnMount from 'hooks/useColorRouteOnMount';
 import About from 'components/About';
+
+recordGAPageView('/');
 
 const AppStyles = styled.div`
   padding: 0 2rem 3rem;
@@ -36,12 +37,10 @@ export default function App() {
   const { baseColor } = useBaseColor();
   const { pageTitle } = config;
   const userMessages = useExpiresArray([], 2000);
-  const { location } = useRouter();
 
   useColorRouteOnMount();
   useDocumentTitle(`#${baseColor.hex} - ${pageTitle}`);
   useKeyboardQuery('using-keyboard');
-  useAnalyticsPageView(location);
 
   return (
     <ErrorBoundary>
